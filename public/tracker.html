@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArcGIS API for JavaScript Tutorials: Display a map</title>
-    <link href="/styles/track.css" rel="stylesheet" />
+    <link href="/styles/tracker.css" rel="stylesheet" />
     <script src="https://js.arcgis.com/4.23/"></script>
     <script src="/components/header.js" type="text/javascript" defer></script>
     <script src="/components/footer.js" type="text/javascript" defer></script>
-    <script type="text/javascript" src="/src/track.js" defer></script>
+    <script type="text/javascript" src="/src/tracker.js" defer></script>
 </head>
 <body>
     <header-component></header-component>
     <main>
-        <div id="viewDiv"></div>
+        <div id="about">
+            <h1>追蹤花東臺灣鯨豚</h1><br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elit enim, fringilla ac laoreet vitae, placerat quis arcu. Suspendisse sit amet purus volutpat urna venenatis convallis. Sed luctus eu purus eu iaculis. Maecenas pharetra, magna sed luctus tincidunt, magna elit interdum quam, at efficitur mauris tellus eget lorem. Nunc at fermentum velit. Vivamus pharetra dolor eu lectus condimentum consectetur. Proin a tincidunt urna. Vivamus ultrices tortor et turpis convallis aliquam. Phasellus fermentum faucibus metus, nec mattis magna vulputate eu. Phasellus iaculis justo eget eros malesuada pharetra. Praesent tempor faucibus diam, sit amet condimentum tortor commodo rhoncus.</p>
+        </div>
+        <div id="content">
+            <div class="selection"></div>
+                
+            <!-- <div id="intro">
+                <div id="intro-1" class="intro-box"></div>
+                <div id="intro-2" class="intro-box"></div>
+                <div id="intro-3" class="intro-box"></div>
+                <div id="intro-4" class="intro-box"></div>
+            </div> -->
+            <div id="viewDiv"></div>
+        </div>
     </main>
     <footer-component></footer-component>
     <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/dark/main.css">

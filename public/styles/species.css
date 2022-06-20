@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a:hover {
+    /* background-color: yellow; */
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+#about {
+  height: 25vh;
+  width: 100vw;
+  font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 100%;
+  font-weight: 100;
+  letter-spacing: 0.25em;
+  color: #fff;
+  text-align: center;
+  background-color: #6C8DA8;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    background-image: url("../assets/sea.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #6C8DA8;
+    /* padding: 0 20px; */
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+#intro {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.intro-box {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 500px;
+    margin-top: 50px;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.intro-image {
+    width: 300px;
+    height: 300px;
+    background-color: grey;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.intro-date {
+    width: 300px;
+    height: 60px;
+    margin-top: 10px;
+    background-color: lightgray;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.intro-type {
+    width: 300px;
+    height: 60px;
+    margin-top: 10px;
+    background-color: lightgray;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.intro-behaviour {
+    width: 300px;
+    height: 60px;
+    margin-top: 10px;
+    background-color: lightgray;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+/* #intro-1 {
+    padding: 0;
+    margin: 0;
+    height: 20vh;
+    width: 25vh;
+    border: 2px solid black;
+  }
+
+#intro-2 {
+  padding: 0;
+  margin: 0;
+  height: 20vh;
+  width: 25vh;
+  border: 2px solid black;
+}
+
+#intro-3 {
+  padding: 0;
+  margin: 0;
+  height: 20vh;
+  width: 25vh;
+  border: 2px solid black;
+}
+
+#intro-4 {
+  padding: 0;
+  margin: 0;
+  height: 20vh;
+  width: 25vh;
+  border: 2px solid black;
+} */

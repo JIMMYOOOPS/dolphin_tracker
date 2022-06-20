@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
 html {
   height: 100%;
 }
@@ -19,8 +19,9 @@ h1 {
 
 body {
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
   font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 100%;
   font-weight: 100;
@@ -43,8 +44,23 @@ body {
   background-color: #6C8DA8;
   /* padding: 0 20px; */
   margin: 0 auto;
-  height: 100%;
+  min-height: 100vh;
 }
+
+#videowrapper {
+  border: none;
+  padding: 0;
+  margin: 50px;
+  background: none transparent;
+  height: 350px;
+}
+
+iframe{
+  width: 100%;
+  position: absolute;
+  right: 0;
+  /* padding-bottom: calc(var(--aspect-ratio, .5625) * 100%); */
+ }
 
 #slogan {
   height: 0;
@@ -62,7 +78,7 @@ body {
   /* border: 2px solid #000; */
   margin-top:  200px;
   width: 25%;
-  height: 50%;
+  min-height: 50vh;
 }
 
 #species-logo {
@@ -89,7 +105,7 @@ body {
 
 .species-btn {
   margin-top: 280px; 
-  margin-left: 300px;
+  margin-left: 250px;
 }
 
 .tracker-btn {
@@ -99,7 +115,7 @@ body {
 
 .content-btn {
   display: inline-block;
-  font-weight: 400;
+  font-weight: 800;
   text-align: center;
   letter-spacing: 0.25em;
   white-space: nowrap;
@@ -114,11 +130,11 @@ body {
   line-height: 1.5;
   border-radius: 0.25rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  color: #fff;  
-  background-color: #39708F;
+  color: #102F4A;  
+  background-color: #fff;
   border-color: grey;
   padding: 0.5rem 1rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   border-radius: 0.3rem;
   cursor: pointer;
