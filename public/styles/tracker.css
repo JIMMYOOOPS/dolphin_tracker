@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+#about {
+  height: 25vh;
+  width: 100vw;
+  font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 100%;
+  font-weight: 100;
+  letter-spacing: 0.25em;
+  color: #fff;
+  text-align: center;
+  background-color: #6C8DA8;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  background-image: url("../assets/sea.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #6C8DA8;
+  /* padding: 0 0px;  */
+  margin: 0 auto;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+/* #intro {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 30vw;
+}
+
+#intro-1 {
+  padding: 0;
+  margin: 0;
+  height: 25%;
+  width: 100%;
+  border: 2px solid black;
+}
+
+#intro-2 {
+  padding: 0;
+  margin: 0;
+  height: 25%;
+  width: 100%;
+  border: 2px solid black;
+}
+
+#intro-3 {
+  padding: 0;
+  margin: 0;
+  height: 25%;
+  width: 100%;
+  border: 2px solid black;
+}
+
+#intro-4 {
+  padding: 0;
+  margin: 0;
+  height: 25%;
+  width: 100%;
+  border: 2px solid black;
+} */
+
+
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}

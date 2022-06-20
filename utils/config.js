@@ -1,7 +1,10 @@
-require('dotenv').config();
-const mysql = require('mysql2/promise');
-const {DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, 
-    CACHE_HOST, CACHE_PORT, CACHE_USER, CACHE_PASSWORD} = process.env;
+const path = require('path')
+require('dotenv').config({path:__dirname+'/../.env'});
+
+const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, 
+    CACHE_HOST, CACHE_PORT, CACHE_USER, CACHE_PASSWORD,
+    ESRI_API_KEY
+} = process.env;
 
 // Configure for MySQL
 const mysqlConfig = {
@@ -22,9 +25,14 @@ const redisConfig = {
     }
 }
 
+// Configure for ArcGIS
+const esriConfig = {
+    apiKey: ESRI_API_KEY
+}
 
 module.exports = {
     mysqlConfig,
-    redisConfig
+    redisConfig,
+    esriConfig
 };
 

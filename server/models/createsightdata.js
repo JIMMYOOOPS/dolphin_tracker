@@ -1,6 +1,6 @@
 var xlsx2json = require('node-xlsx');
-const filePath = '../data/sighting_2016_2020.csv' // file intended to insert to database
-const { queryPromise } = require('../utils/mysql')
+const filePath = '../../data/sighting_2016_2020.csv' // file intended to insert to database
+const { queryPromise } = require('../../utils/mysql')
 
 let list = xlsx2json.parse(filePath);
 let data = [...(list[0].data)];
@@ -49,19 +49,14 @@ async function getSightingData(data, datakeys) {
         results = await getSightingData(data, datakeys);
         await results.forEach(async result => {
             try {
-            let createBasicInfo = [result.sailing_id, result.year, result.month, result.day, result.period, result.departure, result.arrival, result.boat_size, result.gps_no]
-            let sqlCreateBasicInfo = 'INSERT INTO basic_info (sailing_id, year, month, day, period, departure, arrival, boat_size, gps_no) VALUES (?)'
-            let createObservation = [result.sailing_id, result.guide, result.recorder, result.sighting, result.observations, result.weather, result.wind_direction, result.wave_condition, result.current]
-            let sqlCreateObservation = 'INSERT INTO observation (basic_info_sailing_id, guide, recorder, sighting, observations, weather, wind_direction, wave_condition, current) VALUES (?)'
-            let createSighting = [result.sailing_id, result.sighting_id];
-            let sqlCreateSighting = 'INSERT INTO sighting (obv_id, sighting_id) VALUES (?)';
+            let createBasicInfo = [result.sailing_id, result.year, result.month, result.day, result.period, result.departure, result.arrival, result.boat_size, result.gps_no, result.guide, result.recorder, result.sighting, result.observations, result.weather, result.wind_direction, result.wave_condition, result.current]
+            let sqlCreateBasicInfo = 'INSERT INTO basic_info (sailing_id, year, month, day, period, departure, arrival, boat_size, gps_no, guide, recorder, sighting, observations, weather, wind_direction, wave_condition, current) VALUES (?)'
             // Create table basic_info
-            await queryPromise(sqlCreateBasicInfo, createBasicInfo);
-            // Create table observation
-            await queryPromise(sqlCreateObservation, createObservation);
+            let basic_info = await queryPromise(sqlCreateBasicInfo, createBasicInfo); // set id for sailing_id
+            let createSighting = [basic_info.insertId, result.sighting_id];
+            let sqlCreateSighting = 'INSERT INTO sighting (basicinfo_id, sighting_id) VALUES (?)';
             // Create table sighting
             let sighting = await queryPromise(sqlCreateSighting, createSighting); //set id for sighting_id
-
             let createObvDetail = [sighting.insertId, result.sighting_method, result.dolphin_type, result.type_confirmation, result.dolphin_group_no, result.dolphin_type_no, result.dorsal_fin, result.exhalation, result.splash, result.exhibition, result.mother_child, result.mother_child_no, result.group_size_lowest, result.group_size_probable, result.group_size_highest, result.mix_group, result.mix_type]
             let sqlCreateObvDetail = 'INSERT INTO obv_detail (sighting_id, sighting_method, dolphin_type, type_confirmation, dolphin_group_no, dolphin_type_no, dorsal_fin, exhalation, splash, exhibition, mother_child, mother_child_no, group_size_lowest, group_size_probable, group_size_highest, mix_group, mix_type) VALUES (?)'    
             let createObvApproach = [sighting.insertId, result.approach_time, result.approach_gps_no, result.leaving_time, result.leaving_gps_no, result.leaving_method];
