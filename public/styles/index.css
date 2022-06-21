@@ -52,13 +52,13 @@ body {
   padding: 0;
   margin: 50px;
   background: none transparent;
-  height: 350px;
 }
 
 iframe{
   width: 100%;
-  position: absolute;
+  /* position: relative; */
   right: 0;
+  height: 40vh;
   /* padding-bottom: calc(var(--aspect-ratio, .5625) * 100%); */
  }
 

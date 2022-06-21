@@ -58,7 +58,8 @@ async function getSightingData(data, datakeys) {
             // Create table sighting
             let sighting = await queryPromise(sqlCreateSighting, createSighting); //set id for sighting_id
             let createObvDetail = [sighting.insertId, result.sighting_method, result.dolphin_type, result.type_confirmation, result.dolphin_group_no, result.dolphin_type_no, result.dorsal_fin, result.exhalation, result.splash, result.exhibition, result.mother_child, result.mother_child_no, result.group_size_lowest, result.group_size_probable, result.group_size_highest, result.mix_group, result.mix_type]
-            let sqlCreateObvDetail = 'INSERT INTO obv_detail (sighting_id, sighting_method, dolphin_type, type_confirmation, dolphin_group_no, dolphin_type_no, dorsal_fin, exhalation, splash, exhibition, mother_child, mother_child_no, group_size_lowest, group_size_probable, group_size_highest, mix_group, mix_type) VALUES (?)'    
+            let sqlCreateObvDetail = 'INSERT INTO obv_detail (sighting_id, sighting_method, dolphin_type, type_confirmation, dolphin_group_no, dolphin_type_no, dorsal_fin, exhalation, splash, exhibition, mother_child, mother_child_no, group_size_lowest, group_size_probable, group_size_highest, mix_group, mix_type) VALUES (?)'  
+            // Confirm issue with approach time  
             let createObvApproach = [sighting.insertId, result.approach_time, result.approach_gps_no, result.leaving_time, result.leaving_gps_no, result.leaving_method];
             let sqlCreateObvApproach = 'INSERT INTO obv_approach (sighting_id, approach_time, approach_gps_no, leaving_time, leaving_gps_no,leaving_method) VALUES (?)'
             let createObvGPS = [sighting.insertId, result.latitude, result.latitude_min, result.latitude_sec, result.longtitude, result.longtitude_min, result.longtitude_sec, result.boat_number] ;

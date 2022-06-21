@@ -14,6 +14,8 @@ const getDataAll = async (req, res) => {
 const getDataGPS = async (req, res) => {
     try {
         const result = await data.getDataGPS()
+        console.log
+
         res.status(200).json(result)
     } catch (err) {
         console.log(err)

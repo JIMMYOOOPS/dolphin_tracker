@@ -3,6 +3,7 @@ const footerTemplate = document.createElement('template');
 footerTemplate.innerHTML = `
   <style>
     footer {
+      
       height: 60px;
       padding: 0 10px;
       display: flex;
@@ -21,7 +22,6 @@ footerTemplate.innerHTML = `
       display: inline;
     }
     
-
     a {
       font-weight: 700;
       margin: 0 40px;
@@ -40,9 +40,9 @@ footerTemplate.innerHTML = `
   </style>
   <footer>
     <ul>
-      <li><a href="about.html">Facebook</a></li>
-      <li><a href="work.html">Insagram</a></li>
-      <li><a href="contact.html">Youtube</a></li>
+      <li><a href="Facebook.html">Facebook</a></li>
+      <li><a href="Insagram.html">Insagram</a></li>
+      <li><a href="Youtube.html">Youtube</a></li>
       <li id = "contribute"><a href="http://www.freepik.com">Designed by rawpixel.com/Freepik</a><li>
     </ul>
   </footer>
@@ -54,13 +54,8 @@ class Footer extends HTMLElement {
   }
 
   connectedCallback() {
-    // const fontAwesome = document.querySelector('link[href*="font-awesome"]'); //for cutomizing fonts
     const shadowRoot = this.attachShadow({ mode: 'closed' });
-    // if (fontAwesome) {
-    //   shadowRoot.appendChild(fontAwesome.cloneNode());
-    // } else {
-        shadowRoot.appendChild(footerTemplate.content);
-    // }
+    shadowRoot.appendChild(footerTemplate.content);
   }
 }
 

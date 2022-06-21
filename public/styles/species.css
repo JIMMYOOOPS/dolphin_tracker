@@ -5,10 +5,10 @@
 }
 
 a:hover {
-    /* background-color: yellow; */
-    cursor: pointer;
-    text-decoration: none;
-  }
+  /* background-color: yellow; */
+  cursor: pointer;
+  text-decoration: none;
+}
 
 html,
 body {
