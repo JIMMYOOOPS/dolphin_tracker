@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+  height: 100%;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    line-height: 1.5em !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    /* padding: 0 20px; */
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    background-color: #9CBED9;
+    margin: 0 auto;
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* label {
+  display: inline-block !important;
+  line-height: 1.5em !important;
+} */
+
+form {
+    margin: 40px 0 0 20px;
+    width: 50vw
+}
+
+h1 {
+    text-align: center;
+}
+
+.ui-widget-header {
+    background: none !important;
+    border: none !important; 
+    background-color: #103855 !important;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  max-width: 100%;
+  font: inherit;
+  color: #000;
+}
+
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"],
+input[type="button"] {
+  width: auto;
+}
+
+fieldset {
+  display: block;
+  margin: 0 2px 0 2px !important;
+  padding: 0.35em  0.75em 0.625em 0.75em !important;
+  border: 2px solid #fff !important;
+}
+
+/* legend */
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+}
+
+@supports (appearance: none) or (-moz-appearance: none) or (-webkit-appearance: none)  {
+    input[type="checkbox"],
+    input[type="radio"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      position: relative;
+      display: inline-block;
+      top: -0.1em;
+      width: 1em;
+      height: 1em;
+      border: 1px solid;
+      vertical-align: middle;
+      transition: box-shadow 0.1s ease;
+    }
+  
+    input[type="checkbox"]:checked,
+    input[type="radio"]:checked {
+      box-shadow: inset 0 0 0 .25em rebeccapurple;
+    }
+  
+    input[type='radio'] {
+      border-radius: 50%;
+    }
+  }
+
+  input:focus + .card {
+    box-shadow: 0 0 0 .25rem mediumpurple;
+  }
+  
+  input:checked + .card {
+    color: #fff;
+    background: indigo;
+  }
+
+  .dropzone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed currentColor;
+    border-radius: .25rem;
+    height: 3rem;
+  }
+  
+  .dropzone--droppable {
+    background: lightblue;
+  }
+  
+  input:focus + .dropzone {
+    outline-width: 1px;
+    outline-style: auto;
+    outline-color: Highlight;
+    outline-color: -webkit-focus-ring-color;
+  }

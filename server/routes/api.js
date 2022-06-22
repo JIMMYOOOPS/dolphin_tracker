@@ -15,11 +15,15 @@ const {
     getDataAllRouter,
     getDataGPSRouter
 } = require('./sightdata_router')
+const {
+    consoleRouter,
+    consoleLoginRouter
+} = require('./console_router')
 
+api.use(`/api/${API_VERSION}/data`, getDataAllRouter, getDataGPSRouter)
+api.use(`/api/${API_VERSION}/tracker`, trackerRouter)
+api.use(`/api/${API_VERSION}/species`, speciesRouter)
 
-api.use(`/${API_VERSION}/tracker`, trackerRouter)
-api.use(`/${API_VERSION}/species`, speciesRouter)
-api.use(`/${API_VERSION}/data`, getDataAllRouter, getDataGPSRouter)
-
+api.use(`/admin`, consoleRouter, consoleLoginRouter);
 
 module.exports = api;

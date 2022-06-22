@@ -1,4 +1,7 @@
-const url = `http://localhost/api/1.0/track/all`
+const url = {
+  all: `http://localhost:3000/api/1.0/data/all`,
+  gps: `http://localhost:3000/api/1.0/data/gps`
+}
 const options = {
     method: 'GET',
     headers: {
@@ -7,14 +10,15 @@ const options = {
     }
 };
 
-async () => {
+(async () => {
   try {
-// let rawData = await fetch(url, options);
-// let data = await rawData.json();
+  let rawData = await fetch(url.gps, options);
+  let data = await rawData.json();
+  console.log(data)
 } catch(err) {
   console.log(err.message)
 };
-}
+})()
 
 require([     
     "esri/config",
@@ -40,7 +44,7 @@ require([
 
     const view = new MapView({
         map: map,
-        center: [121, 23.5], // Longitude, latitude
+        center: [121.5, 23], // Longitude, latitude
         zoom: 8, // Zoom level
         container: "viewDiv" // Div element
       });
