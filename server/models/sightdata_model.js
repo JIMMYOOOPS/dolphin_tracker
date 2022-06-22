@@ -27,13 +27,13 @@ const getDataGPS = async (pageSize, paging = 0, requirement = {}) => {
     //     binding: [pageSize * paging, pageSize]
     // };
 
-    const dataQuery = 'SELECT obv_id, sailing_id, year, month, day, , period, sighting_id, mix weather, wind_direction, current, latitude, latitude_min, latitude_sec, longitude, longitude_min, longitude_sec FROM sailing_info ' + 
-    `INNER JOIN obv_gps ON
-    sailing_info.id = obv_gps.obv_id 
-    ` + 'ORDER BY obv_gps.obv_id ASC';
-
+    const dataQuery = 'SELECT sailing_info.id, sailing_id, year, month, day, period, sighting_id, sailing_info.mix, weather, wind_direction, current, latitude, latitude_min, latitude_sec, longitude, longitude_min, longitude_sec, dolphin_type, dorsal_fin, exhalation, splash, exhibition FROM sailing_info ' + 
+    `INNER JOIN obv_gps 
+    ON sailing_info.id = obv_gps.obv_id 
+    INNER JOIN obv_detail 
+    ON sailing_info.id = obv_detail.obv_id 
+    ` + 'ORDER BY sailing_info.id ASC';
     const data = await queryPromise(dataQuery);
-    data
     return data
 };
 
