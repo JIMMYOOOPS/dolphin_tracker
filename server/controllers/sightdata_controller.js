@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const data = require('../models/sightdata_model');
-const pageSize = 6;
+const pageSize = 4;
 
 const getDataAll = async (req, res) => {
     try {
@@ -47,8 +47,28 @@ const getDataGPS = async (req, res) => {
     }
 };
 
+const getDataDolphin = async (req, res) => {
+    const paging = parseInt(req.query.paging) || 0;
+    try {
+        let result = {}
+        let getDataDolphin = await data.getDataDolphin(pageSize, paging)
+
+        result = (getDataDolphin.dataCount > (paging + 1) * pageSize) ? {
+            data: getDataDolphin.data,
+            next_paging: paging + 1
+        } : {
+            data: getDataDolphin.data,
+        };
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json(err.message)
+    }
+};
+
 module.exports = {
     getDataAll,
-    getDataGPS
+    getDataGPS,
+    getDataDolphin
 }
 

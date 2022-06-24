@@ -26,13 +26,6 @@ $('.datepicker').datepicker({
   dateFormat: "yy/mm/dd",
 });
 
-// $(function () {
-//   $('#datetimepicker12').datetimepicker({
-//       inline: true,
-//       sideBySide: true
-//   });
-// });
-
 const input = document.querySelector('input[type="file"]')
 const dropzone = document.querySelector('.dropzone')
 

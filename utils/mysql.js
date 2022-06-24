@@ -6,7 +6,7 @@ console.log('Mysql is connected');
 
 async function queryPromise(sql, params) {
     try {
-        const result = await pool.query(sql, [params])
+        const result = await pool.query(sql, params)
         return result[0];
     } catch (error) {
         throw error;
