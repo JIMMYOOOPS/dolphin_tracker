@@ -28,78 +28,107 @@ body {
 
 main {
   flex: 1 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  background-image: url("../assets/sea.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #6C8DA8;
+  margin: 0;
+  min-height: 100%;
 }
-
-#content {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    background-image: url("../assets/sea.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-color: #6C8DA8;
-    margin: 0 auto;
-    min-height: 100vh;
-  }
  
 #intro {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: flex-start;
+  justify-content: center;
   padding: 0;
-  margin: 0;
-  width: 100vw;
-}
-
-.intro-image {
-  height: 50vh;
-  width: 100vw;
-  background-color: aliceblue;
+  margin-bottom: 10px;
+  min-height: 100%;
+  width: 1300px;
 }
 
 .intro-box {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-content: space-between;
-  padding: 0;
-  margin: 0;
-  height: 50vh;
-  width: 70vw;
-  background-color: white;
+  width: 100%;
+  min-height: 100vh;
+  margin-top: 10px !important;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+  line-height: 2;
+  margin: 0.2em;
+  padding: 0.5em;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+}
+
+.intro-image {
+  height: 80vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+  flex: 1 0 auto;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 1em;
 }
 
 .intro-name {
-  height: 2rem;
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 1em;
 }
 
 .intro-alias {
-  height: 2rem;
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 1em;
+}
+
+.intro-nameEng {
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 1em;
 }
 
 .intro-scientificname {
-  height: 2rem;
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 1em;
 }
 
-.intro-specification {
-  height: 2rem;
+.intro-text {
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  white-space: pre-line;
+  margin: 0.2em;
+  padding: 0.5em 1em;
+  border-radius: 1em;
 }
-
-.intro-behaviour {
-  height: 2rem;
-}
-
-.intro-habitat {
-  height: 2rem;
-}
-
-.intro-endanger {
-  height: 2rem;
-}
-

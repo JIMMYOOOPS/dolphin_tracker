@@ -41,15 +41,23 @@ const getDataGPS = async (pageSize, paging = 0, requirement = {}) => {
 };
 
 const getDataDolphin = async (pageSize, paging = 0, requirement = {}) => {
+    console.log(requirement)
     const condition = {sql: '', binding: []};
+    if (requirement.id != null)  {
+        condition.sql = 'WHERE id = ?';
+        condition.binding = [requirement.id];
+    }
     const limit = {
         sql: 'LIMIT ?, ?',
         binding: [pageSize * paging, pageSize]
     };
     const dataQuery = 
-    'SELECT img, name, alias, name_eng FROM dolphin_info ' +
-    'ORDER BY dolphin_info.id ASC ' + limit.sql
-    const data = await queryPromise(dataQuery, limit.binding);
+    'SELECT * FROM dolphin_info ' + 
+    condition.sql +
+    ' ORDER BY dolphin_info.id ASC ' + limit.sql
+    const dataBindings = condition.binding.concat(limit.binding);
+    const data = await queryPromise(dataQuery, dataBindings);
+
     const dataCountQuery = 'SELECT COUNT(*) as count FROM dolphin_info';
     const dataCounts = await queryPromise(dataCountQuery);
     return {

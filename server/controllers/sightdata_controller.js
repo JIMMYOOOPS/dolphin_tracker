@@ -13,7 +13,6 @@ const getDataAll = async (req, res) => {
 
 const getDataGPS = async (req, res) => {
     try {
-        
         let result = {}
         result = {
             data: await data.getDataGPS()
@@ -48,17 +47,30 @@ const getDataGPS = async (req, res) => {
 };
 
 const getDataDolphin = async (req, res) => {
+    const category = req.params.category;
     const paging = parseInt(req.query.paging) || 0;
     try {
         let result = {}
-        let getDataDolphin = await data.getDataDolphin(pageSize, paging)
+        switch (category) {
+            case 'all': 
+                let getDataDolphin = await data.getDataDolphin(pageSize, paging)
+                result = (getDataDolphin.dataCount > (paging + 1) * pageSize) ? {
+                    data: getDataDolphin.data,
+                    next_paging: paging + 1
+                } : {
+                    data: getDataDolphin.data,
+                };
+            case 'details': {
+                const id = parseInt(req.query.id);
+                if (Number.isInteger(id)) {
+                    let getDataDolphin = await data.getDataDolphin(pageSize, paging, {id});
+                    result = {
+                        data: getDataDolphin.data,
+                    };
+                }
+            }
+        }
 
-        result = (getDataDolphin.dataCount > (paging + 1) * pageSize) ? {
-            data: getDataDolphin.data,
-            next_paging: paging + 1
-        } : {
-            data: getDataDolphin.data,
-        };
         res.status(200).json(result)
     } catch (err) {
         console.log(err)

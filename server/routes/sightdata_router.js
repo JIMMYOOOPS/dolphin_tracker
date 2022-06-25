@@ -12,7 +12,7 @@ const getDataDolphinRouter = express.Router();
 
 getDataAllRouter.get('/all', getDataAll);
 getDataGPSRouter.get('/gps', getDataGPS);
-getDataDolphinRouter.get('/dolphins', getDataDolphin);
+getDataDolphinRouter.get('/dolphins/:category', getDataDolphin);
 
 module.exports = {
   getDataAllRouter,
