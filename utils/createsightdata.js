@@ -1,6 +1,6 @@
 var xlsx2json = require('node-xlsx');
-const filePath = '../../data/sighting_2016_2020.csv' // file intended to insert to database
-const { queryPromise } = require('../../utils/mysql')
+const filePath = '../data/sighting_2016_2020.csv' // file intended to insert to database
+const { queryPromise } = require('./mysql')
 
 let list = xlsx2json.parse(filePath);
 let data = [...(list[0].data)];

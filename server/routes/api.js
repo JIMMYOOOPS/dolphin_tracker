@@ -13,14 +13,15 @@ const {
 } = require('./species_router')
 const {
     getDataAllRouter,
-    getDataGPSRouter
+    getDataGPSRouter,
+    getDataDolphinRouter
 } = require('./sightdata_router')
 const {
     consoleRouter,
     consoleLoginRouter
 } = require('./console_router')
 
-api.use(`/api/${API_VERSION}/data`, getDataAllRouter, getDataGPSRouter)
+api.use(`/api/${API_VERSION}/data`, getDataAllRouter, getDataGPSRouter, getDataDolphinRouter)
 api.use(`/api/${API_VERSION}/tracker`, trackerRouter)
 api.use(`/api/${API_VERSION}/species`, speciesRouter)
 

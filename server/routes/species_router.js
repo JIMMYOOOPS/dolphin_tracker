@@ -6,7 +6,7 @@ const {
 
 const speciesRouter = express.Router();
 
-speciesRouter.get('/details', species);
+speciesRouter.get('/:category', species);
 
 module.exports = {
     speciesRouter

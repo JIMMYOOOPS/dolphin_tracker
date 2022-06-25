@@ -3,7 +3,6 @@ const footerTemplate = document.createElement('template');
 footerTemplate.innerHTML = `
   <style>
     footer {
-      
       height: 60px;
       padding: 0 10px;
       display: flex;
@@ -33,6 +32,10 @@ footerTemplate.innerHTML = `
       font-size: 0.25rem;
     }
 
+    #contribute2 {
+      font-size: 0.25rem;
+    }
+
     a:hover {
       padding-bottom: 5px;
       box-shadow: inset 0 -2px 0 0 #fff;
@@ -44,6 +47,7 @@ footerTemplate.innerHTML = `
       <li><a href="Insagram.html">Insagram</a></li>
       <li><a href="Youtube.html">Youtube</a></li>
       <li id = "contribute"><a href="http://www.freepik.com">Designed by rawpixel.com/Freepik</a><li>
+      <li id = "contribute2"><a href="https://www.oca.gov.tw/ch/home.jsp?id=289&parentpath=0,5">Designed by oca.gov.tw/海洋保育署</a><li>
     </ul>
   </footer>
 `;
