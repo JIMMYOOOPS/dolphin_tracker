@@ -9,7 +9,6 @@ if (!id) { id = 1 };
 (async () => {
     try {
         let url =`http://localhost:3000/api/${api}/data/dolphins/details?id=${id}`;
-        console.log(url)
         let options = {
             method: 'GET',
             headers: {
@@ -37,7 +36,6 @@ if (!id) { id = 1 };
         $('.intro-nameEng').text(`${dolphinData[0].name_eng}`)
         $('.intro-scientificname').text(`學名：${dolphinData[0].name_scientific}`)
         $('.intro-text').text(`${dolphinData[0].text}`)
-        console.log(dolphinData[0].text)
         } catch (err) {
             console.log(err);
         };

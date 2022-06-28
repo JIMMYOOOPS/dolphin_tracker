@@ -1,17 +1,25 @@
-const express = require('express')
+const express = require('express');
 
 const {
-    console,
-    consoleLogin
+    webConsole,
+    webConsolePage,
+    userSignup,
+    userLogin
 } = require('../controllers/console_controller');
 
-const consoleRouter = express.Router();
-const consoleLoginRouter = express.Router();
+const webConsoleRouter = express.Router();
+const webConsolePageRouter = express.Router();
+const userSignupRouter = express.Router();
+const userLoginRouter = express.Router();
 
-consoleRouter.get('/console', console);
-consoleLoginRouter.get('/console/login', consoleLogin);
+webConsoleRouter.get('/', webConsole);
+webConsolePageRouter.get('/login', webConsolePage);
+userSignupRouter.post('/signup', userSignup);
+userLoginRouter.post('/login', userLogin);
 
 module.exports = {
-    consoleRouter,
-    consoleLoginRouter
+    webConsoleRouter,
+    webConsolePageRouter,
+    userSignupRouter,
+    userLoginRouter
 }

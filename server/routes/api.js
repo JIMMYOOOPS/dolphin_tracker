@@ -12,19 +12,22 @@ const {
     speciesRouter
 } = require('./species_router')
 const {
+    createDataRouter,
     getDataAllRouter,
-    getDataGPSRouter,
+    getDataMapRouter,
     getDataDolphinRouter
 } = require('./sightdata_router')
 const {
-    consoleRouter,
-    consoleLoginRouter
+    webConsoleRouter,
+    webConsolePageRouter,
+    userSignupRouter,
+    userLoginRouter
 } = require('./console_router')
 
-api.use(`/api/${API_VERSION}/data`, getDataAllRouter, getDataGPSRouter, getDataDolphinRouter)
+api.use(`/api/${API_VERSION}/data`, createDataRouter, getDataAllRouter, getDataMapRouter, getDataDolphinRouter)
 api.use(`/api/${API_VERSION}/tracker`, trackerRouter)
 api.use(`/api/${API_VERSION}/species`, speciesRouter)
 
-api.use(`/admin`, consoleRouter, consoleLoginRouter);
+api.use('/admin/console', webConsoleRouter, webConsolePageRouter, userSignupRouter, userLoginRouter);
 
 module.exports = api;

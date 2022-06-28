@@ -22,26 +22,53 @@ const getDataAll = async (pageSize, paging = 0, requirement = {}) => {
     return data
 };
 
-const getDataGPS = async (pageSize, paging = 0, requirement = {}) => {
-    // const condition = {sql: '', binding: []};
+const getDataMap = async (pageSize, paging = 0, requirement = {}) => {
+    const condition = {sql: '', binding: []};
+    console.log(requirement)
+    if (requirement.startDate && requirement.endDate && requirement.type) {
+        console.log('query1')
+        condition.sql = "WHERE (SUBSTRING(sailing_id, 1, 8) BETWEEN ? AND ?) AND sailing_info.dolphin_type = ?"  
+        condition.binding = [requirement.startDate, requirement.endDate, requirement.type]
+    }
+    else if (requirement.startDate && requirement.endDate) {
+        console.log('query2')
+        condition.sql = "WHERE (SUBSTRING(sailing_id, 1, 8) BETWEEN ? AND ?)"  
+        condition.binding = [requirement.startDate, requirement.endDate]
+    } else if (requirement.type) {
+        console.log('query3')
+        condition.sql = "WHERE sailing_info.dolphin_type = ?"
+        condition.binding = [requirement.type]
+    }
+    // } else if (requirement.month !=null) {
+    //     condition.sql = 'WHERE year = ? AND month = ?'
+    //     condition.binding = [requirement.year, requirement.month]
+    // } else if (requirement.year != null) {
+    //     condition.sql = 'WHERE year = ?'
+    //     condition.binding = [requirement.year]
+    // }
     // const limit = {
     //     sql: 'LIMIT ?, ?',
     //     binding: [pageSize * paging, pageSize]
     // };
     const dataQuery = 
-    'SELECT sailing_info.id, sailing_id, year, month, day, period, sighting_id, sailing_info.mix, weather, wind_direction, current, latitude, latitude_min, latitude_sec, longitude, longitude_min, longitude_sec, dolphin_type, dorsal_fin, exhalation, splash, exhibition FROM sailing_info ' + 
+    'SELECT sailing_info.id, SUBSTRING(sailing_id, 1, 8) AS date, year, month, day, period, dolphin_info.name, dolphin_img.img, weather, wind_direction, current, latitude, latitude_min, latitude_sec, longitude, longitude_min, longitude_sec, sailing_info.dolphin_type, dorsal_fin, exhalation, splash, exhibition FROM sailing_info ' + 
     `INNER JOIN obv_gps 
     ON sailing_info.id = obv_gps.obv_id 
     INNER JOIN obv_detail 
-    ON sailing_info.id = obv_detail.obv_id 
+    ON sailing_info.id = obv_detail.obv_id
+    INNER JOIN dolphin_info 
+    ON sailing_info.dolphin_type = dolphin_info.name_scientific_abr
+    INNER JOIN dolphin_img
+    ON sailing_info.dolphin_type = dolphin_img.obv_dolphin_type 
     ` + 
-    'ORDER BY sailing_info.id ASC';
-    const data = await queryPromise(dataQuery);
+    ` ${condition.sql} ` +
+    'ORDER BY date ASC';
+
+    const data = await queryPromise(dataQuery, condition.binding);
     return data
 };
 
 const getDataDolphin = async (pageSize, paging = 0, requirement = {}) => {
-    console.log(requirement)
     const condition = {sql: '', binding: []};
     if (requirement.id != null)  {
         condition.sql = 'WHERE id = ?';
@@ -68,6 +95,6 @@ const getDataDolphin = async (pageSize, paging = 0, requirement = {}) => {
 
 module.exports = {
     getDataAll,
-    getDataGPS,
+    getDataMap,
     getDataDolphin
 }

@@ -1,21 +1,26 @@
 const express = require('express');
 
 const {
+  createData,
   getDataAll,
-  getDataGPS,
+  getDataMap,
   getDataDolphin
 } = require('../controllers/sightdata_controller');
 
+const createDataRouter = express.Router();
 const getDataAllRouter = express.Router();
-const getDataGPSRouter = express.Router();
+const getDataMapRouter = express.Router();
 const getDataDolphinRouter = express.Router();
 
 getDataAllRouter.get('/all', getDataAll);
-getDataGPSRouter.get('/gps', getDataGPS);
+createDataRouter.post('/all', createData);
+getDataMapRouter.get('/map/:category', getDataMap);
+getDataMapRouter.post('/map/:category', getDataMap);
 getDataDolphinRouter.get('/dolphins/:category', getDataDolphin);
 
 module.exports = {
+  createDataRouter,
   getDataAllRouter,
-  getDataGPSRouter,
+  getDataMapRouter,
   getDataDolphinRouter
 };

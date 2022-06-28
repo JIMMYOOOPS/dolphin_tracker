@@ -64,7 +64,6 @@
                 history: false,
             });
             $('.intro').on( 'load.infiniteScroll', function( event, data ) {
-                console.log(data)
                 dolphinData = data.data
                 pageNum = data.next_paging -1
                 pageSize = 4

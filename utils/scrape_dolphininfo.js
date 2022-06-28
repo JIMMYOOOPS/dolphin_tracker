@@ -84,7 +84,7 @@ function timeout(ms) {
             // Insert to table dolphin_info
             let createDolphinInfo = [data.title, data.img, data.name, data.alias, data.nameEng, data.nameScientific, data.text];
             let sqlCreateDolphinInfo = 'INSERT INTO dolphin_info (title, img, name, alias, name_eng, name_scientific, text) VALUES (?)'
-            await queryPromise(sqlCreateDolphinInfo, createDolphinInfo);
+            await queryPromise(sqlCreateDolphinInfo, [createDolphinInfo]);
         }    
     } catch(err) {
         console.log(err.message)
