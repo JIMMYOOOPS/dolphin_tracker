@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/styles/console_login.css" rel="stylesheet" />
+    <title>Dolphin Tracker</title>
+</head>
+<body>
+    <sidebar>
+        <div class="util">
+        <div class="user">
+            <div class="user-logo"></div>
+            <div class="user-info">
+                <div class="user-name" >尚未登入 </div> 
+            </div>
+        </div>
+        <div class ="signin">
+            <div class = 'signin_title'>
+                <h1>登入</h1>
+            </div>
+            <div class = 'signin-form'>
+                <div class = 'email-box'>
+                    <label for="email">使用者帳號：</label><br>
+                    <input type="email" value="test@email.com" class="email" name="email" required>
+                </div>
+                <div class = 'password-box'>
+                    <label for="password">使用者密碼：</label><br>
+                    <input type="password" value="test" class="password" name="password"  required>
+                </div>
+                <button type="button" class="signin-submit" onclick="signin()">登入</button>
+            </div>
+            <button type="button" class="createaccount-btn" onclick="createSignup()">建立帳號</button>
+        </div>
+        </div>
+        </div>
+    </sidebar>
+    <main>
+        <div class = "content">
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/src/console_login.js" type="text/javascript" defer></script>
+</body>
+</html>
