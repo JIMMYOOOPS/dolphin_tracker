@@ -1,4 +1,33 @@
-const { queryPromise } = require('../../utils/mysql');
+const {  pool, queryPromise } = require('../../utils/mysql');
+
+const createSailingInfo = async (sailingInfoData) => {
+    let sqlcreateSailingInfo = 'INSERT INTO sailing_info SET ?'
+    const data = await queryPromise(sqlcreateSailingInfo, sailingInfoData)  
+    return data
+};
+
+const createObv = async (obvGPS, obvApproach, obvDetail, obvInteraction, image) => {
+    const conn = await pool.getConnection();
+    try {
+        await conn.query('START TRANSACTION');
+        const result = await conn.query('INSERT INTO obv_gps SET ?', obvGPS);
+        await conn.query('INSERT INTO obv_approach SET ?', obvApproach);
+        await conn.query('INSERT INTO obv_detail SET ?', obvDetail);
+        await conn.query('INSERT INTO obv_interaction SET ?', obvInteraction[0]);
+        await conn.query('INSERT INTO obv_interaction SET ?', obvInteraction[1]);
+        await conn.query('INSERT INTO obv_interaction SET ?', obvInteraction[2]);
+        await conn.query('INSERT INTO obv_image SET ?', image);
+        await conn.query('COMMIT');
+        console.log('Done')
+        return 'Success';
+    } catch (error) {
+        await conn.query('ROLLBACK');
+        console.log(error)
+        return -1;
+    } finally {
+        await conn.release();
+    }
+};
 
 const getDataAll = async (pageSize, paging = 0, requirement = {}) => {
     // const condition = {sql: '', binding: []};
@@ -94,6 +123,8 @@ const getDataDolphin = async (pageSize, paging = 0, requirement = {}) => {
 };
 
 module.exports = {
+    createSailingInfo,
+    createObv,
     getDataAll,
     getDataMap,
     getDataDolphin

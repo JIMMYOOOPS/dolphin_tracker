@@ -92,12 +92,13 @@ ul {
         <div class="user-info">
             <div class="user-name" >劉寯碩 </div> 
             <br>
-            <div class="user-admin" >管理員類別： </div>
+            <div class="user-admin" >權限： </div>
         </div>
     </div>
     <ul>
         <li><a href="http://localhost:3000/console_sighting.html">鯨豚目擊紀錄</a></li>
         <li><a href="http://localhost:3000/console_db.html">鯨豚目擊資料庫</a></li>
+        <li><a href="http://localhost:3000/console_statistic.html">統計資料</a></li>
         <li><a href="http://localhost:3000/console_users.html">使用者管理</a></li>
     </ul>   
     </div>

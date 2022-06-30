@@ -20,7 +20,8 @@ async function signin() {
         if (signinResponse.error) {
             alert('User account does not exist!')
         } else {
-            location.href = "/console.html";
+            window.location.href = "/console.html";
+            alert('You have successfully loggedin.')
         }
     } catch(err) {
         console.log('Error', err )
