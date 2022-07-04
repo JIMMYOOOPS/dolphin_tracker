@@ -18,7 +18,7 @@ function dataBasePage (req, res) {
     res.sendFile(path.join(__dirname, '../../', 'public', 'console_db.html'))
 }
 
-function usersPage (req, res) {
+function getUsersPage (req, res) {
     res.sendFile(path.join(__dirname, '../../', 'public', 'console_users.html'))
 }
 
@@ -83,6 +83,6 @@ module.exports = {
     webConsolePage,
     userSignup,
     userLogin,
-    usersPage
+    getUsersPage
 }
 

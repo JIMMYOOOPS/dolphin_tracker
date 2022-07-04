@@ -123,7 +123,6 @@ const deleteData = async ()=> {
     }
 }
 
-
 const getDataMap = async (pageSize, paging = 0, requirement = {}) => {
     const condition = {sql: '', binding: []};
     console.log(requirement)

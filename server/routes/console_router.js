@@ -13,12 +13,12 @@ const {
     webConsole,
     webConsolePage,
     userSignup,
-    userLogin
+    userLogin,
+    getUsersPage
 } = require('../controllers/console_controller');
 
 const {
     createData,
-    getData,
     updateData,
     deleteData
   } = require('../controllers/sightdata_controller');
@@ -34,11 +34,10 @@ const usersPageRouter = express.Router();
 
 createDataRouter.post('/sighting', cdUpload, createData);
 createDataRouter.get('/sighting', authentication(USER_ROLE.RECORDERS), sightingPage);
-dataBasePageRouter.get('/database', authentication(), dataBasePage);
-// USER_ROLE.KUROSHIO
+dataBasePageRouter.get('/database', authentication(USER_ROLE.KUROSHIO), dataBasePage);
 dataBasePageRouter.put('/database', updateData);
 // dataBasePageRouter.delete('/database', deleteData);
-usersPageRouter.get('/users', authentication(USER_ROLE.ADMIN), dataBasePage);
+usersPageRouter.get('/users', authentication(USER_ROLE.ADMIN), getUsersPage);
 webConsoleRouter.get('/', webConsole);
 webConsolePageRouter.get('/login', webConsolePage);
 userSignupRouter.post('/signup', userSignup);

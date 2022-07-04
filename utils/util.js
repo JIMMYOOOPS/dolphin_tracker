@@ -90,6 +90,7 @@ const authentication = (roleId) => {
                 let userData; 
                 if (roleId == User.USER_ROLE.ADMIN) {
                     userData = await User.getUserDetail(user.email, roleId, user.role_id);
+                    console.log(user.role_id);
                 } else if (roleId == User.USER_ROLE.KUROSHIO) {
                     userData = await User.getUserDetail(user.email, roleId, user.role_id);
                 } else if (roleId == User.USER_ROLE.RECORDERS) {

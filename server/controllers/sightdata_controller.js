@@ -169,15 +169,6 @@ const getDataAll = async (req, res) => {
     }
 };
 
-const getData = async (req, res) => {
-    try {
-        const result = await Data.getDataPaging()
-        res.status(200).json(result)
-    } catch (error) {
-        console.log(error)
-    }
-};
-
 const updateData = async (req, res) => {
         const data = req.body;
         console.log(data);
@@ -414,7 +405,6 @@ const getDataDolphin = async (req, res) => {
 module.exports = {
     createData,
     getDataAll,
-    getData,
     updateData,
     deleteData,
     getDataMap,
