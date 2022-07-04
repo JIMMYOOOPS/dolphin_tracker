@@ -32,6 +32,8 @@ a {
     text-decoration: none;
 }
 
+
+
 a:hover {
     padding-bottom: 5px;
     box-shadow: inset 0 -2px 0 0 #fff;
@@ -163,7 +165,7 @@ h1 {
 
 .signup-btn, .createaccount-btn, .signup-submit {
     margin: 10px 0 0 30px;
-    color: #000;
+    color: #fff;
     font-size: 1rem;
     color: #fff;
     background-color: #102F4A;

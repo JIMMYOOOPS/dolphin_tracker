@@ -10,6 +10,17 @@ function webConsolePage (req, res) {
     res.sendFile(path.join(__dirname, '../../', 'public', 'console.html'));
 };
 
+function sightingPage (req, res) {
+    res.sendFile(path.join(__dirname, '../../', 'public', 'console_sighting.html'))
+}
+
+function dataBasePage (req, res) {
+    res.sendFile(path.join(__dirname, '../../', 'public', 'console_db.html'))
+}
+
+function usersPage (req, res) {
+    res.sendFile(path.join(__dirname, '../../', 'public', 'console_users.html'))
+}
 
 async function userSignup (req, res) {
     try {
@@ -55,7 +66,8 @@ async function userLogin (req, res) {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                picture: user.picture
+                picture: user.picture,
+                role_id: user.role_id
             }
         }
         res.status(200).json(data);
@@ -65,9 +77,12 @@ async function userLogin (req, res) {
 }
 
 module.exports = {
+    sightingPage,
+    dataBasePage,
     webConsole,
     webConsolePage,
     userSignup,
-    userLogin
+    userLogin,
+    usersPage
 }
 

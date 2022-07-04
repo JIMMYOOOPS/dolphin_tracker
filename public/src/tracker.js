@@ -6,8 +6,6 @@ async function searchSelection() {
     let url;
       const range = $("#amount").val();
       const type = $(".type-select").val();
-      console.log(range);
-      console.log(type);
       const body = {
           range,
           type
