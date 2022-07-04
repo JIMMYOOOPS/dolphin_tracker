@@ -11,11 +11,11 @@ async function searchSelection() {
           type
       };
       if(body.range == !null && body.type == !null) {
-        url = `${window.location.origin}/api/${api}/data/map/date`
+        url = `/api/${api}/data/map/date`
       } else if (body.range) {
-        url = `${window.location.origin}/api/${api}/data/map/date`
+        url = `/api/${api}/data/map/date`
       } else if (body.type) {
-        url = `${window.location.origin}/api/${api}/data/map/type`
+        url = `/api/${api}/data/map/type`
       }
 
       let options = {
@@ -109,7 +109,7 @@ async function searchSelection() {
   try {
     result = await (async function getData() {
       let data;
-      let url = `'${window.location.origin}/api/1.0/data/map/all'`
+      let url = `/api/${api}/data/map/all`
       try {
         const options = {
           method: 'GET',
