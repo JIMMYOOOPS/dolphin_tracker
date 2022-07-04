@@ -11,7 +11,140 @@
     <sidebar-component></sidebar-component>
     <main>
         <div class = "content">
+            <h1 class="title">鯨豚目擊資料庫</h1>
+            <table class="table">
+                <thead>
+                    <th class="sailing_id">航次編號</th>
+                    <th class="sighting_id">目擊記錄編號</th>
+                    <th class="mix">混群</th>
+                    <th class="dolphin_type">鯨豚種類</th>
+                    <th class="year">年</th>
+                    <th class="month">月</th>
+                    <th class="day">日</th>
+                    <th class="period">上午/下午</th>
+                    <th class="departure">出港時間</th>
+                    <th class="arrival">進港時間</th>
+                    <th class="boat_size">船隻大小</th>
+                    <th class="sighting">看到鯨豚</th>
+                    <th class="gps_no">GPS編號</th>
+                    <th class="guide">解說員</th>
+                    <th class="recorder">攝影者</th>
+                    <th class="observations">特殊觀察與記錄</th>
+                    <th class="weather">天氣</th>
+                    <th class="wind_direction">風向</th>
+                    <th class="wave_condition">浪況</th>
+                    <th class="current">海流</th>
+                    <th class="latitude">鯨豚緯度</th>
+                    <th class="latitude_min">鯨豚緯分</th>
+                    <th class="latitude_sec">鯨豚緯秒</th>
+                    <th class="longitude">鯨豚經度</th>
+                    <th class="longitude_min">鯨豚經分</th>
+                    <th class="longitude_sec">鯨豚經秒</th>
+                    <th class="approach_time">靠近時間</th>
+                    <th class="approach_gps_no">靠近時GPS編號</th>
+                    <th class="leaving_time">離開時間</th>
+                    <th class="leaving_gps_no">離開時GPS編號</th>
+                    <th class="leaving_method">離開方式</th>
+                    <th class="sighting_method">發現方式</th>
+                    <th class="type_confirmation">鯨豚確認</th>
+                    <th class="dolphin_group_no">鯨豚群次</th>
+                    <th class="dolphin_type_no">鯨豚種數</th>
+                    <th class="dorsal_fin">線索背鰭</th>
+                    <th class="exhalation">線索噴氣</th>
+                    <th class="splash">線索水花</th>
+                    <th class="exhibition">線索展示</th>
+                    <th class="mother_child">母子對</th>
+                    <th class="mother_child_no">母子對數</th>
+                    <th class="group_size_lowest">群量至少</th>
+                    <th class="group_size_probable">群量可能</th>
+                    <th class="group_size_highest">群量最多</th>
+                    <th class="mix_type">混群種類</th>
+                        <!-- <tr>
+                            <td data-label="sailing_id"></td>
+                            <td data-label="sighting_id"></td>
+                            <td data-label="mix"></td>
+                            <td data-label="year"></td>
+                            <td data-label="month"></td>
+                            <td data-label="day"></td>
+                            <td data-label="period"></td>
+                            <td data-label="sighting_id"></td>
+                            <td data-label="departure"></td>
+                            <td data-label="arrival"></td>
+                            <td data-label="boat_size"></td>
+                            <td data-label="sighting"></td>
+                            <td data-label="gps_no"></td>
+                            <td data-label="guide"></td>
+                            <td data-label="recorder"></td>
+                            <td data-label="observations"></td>
+                            <td data-label="weather"></td>
+                            <td data-label="wind_direction"></td>
+                            <td data-label="wave_condition"></td>
+                            <td data-label="current"></td>
+                            <td data-label="latitude"></td>
+                            <td data-label="latitude_min"></td>
+                            <td data-label="latitude_sec"></td>
+                            <td data-label="longitude"></td>
+                            <td data-label="longitude_min"></td>
+                            <td data-label="longitude_sec"></td>
+                            <td data-label="approach_time"></td>
+                            <td data-label="approach_gps_no"></td>
+                            <td data-label="leaving_time"></td>
+                            <td data-label="leaving_gps_no"></td>
+                            <td data-label="leaving_metdod"></td>
+                            <td data-label="sighting_metdod"></td>
+                            <td data-label="type_confirmation"></td>
+                            <td data-label="dolphin_group_no"></td>
+                            <td data-label="dolphin_type_no"></td>
+                            <td data-label="dorsal_fin"></td>
+                            <td data-label="exhalation"></td>
+                            <td data-label="splash"></td>
+                            <td data-label="exhibition"></td>
+                            <td data-label="motder_child"></td>
+                            <td data-label="motder_child_no"></td>
+                            <td data-label="group_size_lowest"></td>
+                            <td data-label="group_size_probable"></td>
+                            <td data-label="group_size_highest"></td>
+                            <td data-label="mix_type"></td>
+                        </tr> -->
+                </thead>
+            </table>
+            <button type="button" class="dataUpdate-submit" onclick="updateSubmit()">修改</button>
+            <!-- 
+            let obvInteraction = {}
+            // For table obv_interaction
+            for(i = 0; i<data.time.length; i++) {
+                obvInteraction[i] = {
+                    obv_id: sailingInfo.insertId,
+                    time: data.time[i],
+                    boat_interaction: data.boat_interaction[i],
+                    boat_distance: data.boat_distance[i],
+                    group_closeness_normal: data.group_closeness_normal[i],
+                    group_closeness_spreaded: data.group_closeness_spreaded[i],
+                    group_closeness_close: data.group_closeness_close[i],
+                    speed_slow: data.speed_slow[i],
+                    speed_moderate: data.speed_moderate[i],
+                    speed_fast: data.speed_fast[i],
+                    speed_resting: data.speed_resting[i],
+                    speed_circling: data.speed_circling[i],
+                    foraging_maybe: data.foraging_maybe[i],
+                    foraging_sure: data.foraging_sure[i],
+                    mating: data.mating[i],
+                    splash_interaction: data.splash[i],
+                    snorkel: data.snorkel[i],
+                    racing: data.racing[i],
+                    jump: data.jump[i],
+                    surfing_artificial: data.surfing_artificial[i],
+                    surfing: data.surfing[i],
+                    tail_lift: data.tail_lift[i],
+                    contact: data.contact[i],
+                    backstroke: data.backstroke[i],
+                    boat_no: data.boat_no[i],
+                    other: data.other[i]
+                }
+            } -->
         </div>
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/src/console_db.js" type="text/javascript" defer></script>
 </body>
 </html>

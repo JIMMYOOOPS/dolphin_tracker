@@ -13,11 +13,11 @@
             try {
                 let rawData = await fetch(url, options);
                 data = await rawData.json();
+                return data;
             } catch (err) {
                 console.log(err.message);
             }
-            return data;
-            };
+        };
         result = await getData(url, options)
         console.log(result);
             let dolphinData = result['data']

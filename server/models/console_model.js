@@ -6,7 +6,7 @@ const {TOKEN_EXPIRE, TOKEN_SECRET} = process.env; // 30 days by seconds
 const jwt = require('jsonwebtoken');
 
 const USER_ROLE = {
-    ALL: -1,
+    ADMIN: -1,
     KUROSHIO: 1,
     RECORDERS: 2 //Default Role
 };
@@ -24,6 +24,7 @@ const userSignup = async (name, roleId, email, password) => {
             signup_at: signupDate
         };
         const accessToken = jwt.sign({
+            role_id: user.role_id,
             name: user.name,
             email: user.email,
             picture: user.picture
@@ -57,6 +58,7 @@ const userLogin = async (email, password) => {
         //Track user previous login time
         const loginAt = new Date();
         const accessToken = jwt.sign({
+            role_id: user.role_id,
             name: user.name,
             email: user.email,
             picture: user.picture
@@ -73,7 +75,41 @@ const userLogin = async (email, password) => {
     }
 }
 
+const getUserDetail = async (email, roleId, userRoleId) => {
+    try {
+        if (roleId == USER_ROLE.ADMIN) {
+            if(userRoleId == USER_ROLE.ADMIN) {
+                    let user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+                    return user;
+                }         
+        } else if (roleId == USER_ROLE.KUROSHIO) {
+            if(userRoleId == USER_ROLE.ADMIN) {
+                let user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, userRoleId]);
+                return user;
+            } else {
+                    let user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+                    return user;
+                }         
+        } else if(roleId == USER_ROLE.RECORDERS) {
+            if(userRoleId == USER_ROLE.ADMIN) {
+                let user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, userRoleId]);
+                return user;
+            } else if (userRoleId == USER_ROLE.KUROSHIO){
+                    let user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, userRoleId]);
+                    return user;
+                } else {
+                    let user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+                    return user;
+                }
+        }
+    } catch (error) {
+        return error;
+    }
+};
+
 module.exports = {
+    USER_ROLE,
     userSignup,
-    userLogin
+    userLogin,
+    getUserDetail
 }

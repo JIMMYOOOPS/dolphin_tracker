@@ -15,6 +15,7 @@
     "@arcgis/core": "^4.23.7",
     "@esri/arcgis-rest-auth": "^4.0.2",
     "@esri/arcgis-rest-request": "^4.0.3",
+    "aws-sdk": "^2.1166.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -23,9 +24,11 @@
     "isomorphic-form-data": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
     "node-fetch": "^2.6.7",
     "redis": "^4.1.0",
+    "s3": "^4.4.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
