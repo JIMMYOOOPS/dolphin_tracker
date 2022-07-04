@@ -1,6 +1,6 @@
 (async () => {
     try {
-        let url ='http://localhost:3000/api/1.0/data/database'
+        let url =`${window.location.origin}/api/1.0/data/database`
         let options = {
             method: 'GET',
             headers: {
@@ -228,7 +228,7 @@ async function updateSubmit() {
             group_size_highest,
             mix_type,
         };
-        let url = `/admin/console/database`
+        let url = `${window.location.origin}/admin/console/database`
         let options = {
             method: 'PUT',
             body: JSON.stringify(body),
