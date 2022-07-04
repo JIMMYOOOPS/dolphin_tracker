@@ -1,6 +1,6 @@
 (async () => {
     try {
-        let url ='http://localhost:3000/api/1.0/data/dolphins/all'
+        let url =`${window.location.origin}/api/1.0/data/dolphins/all`
         let options = {
             method: 'GET',
             headers: {
@@ -26,7 +26,7 @@
                         const dolphinInfo = $('<a></a>', {
                             id: `intro-${i}`,
                             class: "intro-box",
-                            href: `http://localhost:3000/species_detail.html?id=${i}`,
+                            href: `${window.location.origin}/species_detail.html?id=${i}`,
                         }).appendTo('.intro');
                         const dolphinImage = $('<div></div>', {
                             id: `intro${i}-image`,
