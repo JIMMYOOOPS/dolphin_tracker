@@ -34,10 +34,9 @@ headerTemplate.innerHTML = `
   <header>
     <nav>
       <ul>
-        <li><a href="http://localhost:3000/index.html">Logo</a></li>
-        <li><a href="http://localhost:3000/tracker.html">追蹤鯨豚</a></li>
-        <li><a href="http://localhost:3000/species.html">認識鯨豚</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/index.html">Logo</a></li>
+        <li><a href="/tracker.html">追蹤鯨豚</a></li>
+        <li><a href="/species.html">認識鯨豚</a></li>
       </ul>
     </nav>
   </header>
