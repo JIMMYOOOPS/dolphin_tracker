@@ -48,7 +48,7 @@ const getDataAll = async (pageSize, paging) => {
 	INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id `
 	// INNER JOIN obv_interaction ON sailing_info.id = obv_interaction.obv_id 
      +
-     ' ORDER BY sailing_info.id ASC '
+     ' ORDER BY sailing_info.id DESC '
      +
      `${limit.sql}`
      ;
