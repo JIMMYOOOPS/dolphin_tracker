@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+.pagination {
+  visibility: hidden;
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  font-family: sans-serif;
+}
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  background-image: url("../assets/sea.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #6C8DA8;
+  margin: 0 auto;
+  min-height: 100%;
+}
+
+#about {
+  height: 25vh;
+  width: 100vw;
+  font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 100%;
+  font-weight: 100;
+  letter-spacing: 0.25em;
+  color: #fff;
+  text-align: center;
+  background-color: #6C8DA8;
+}
+
+.intro {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0;
+  margin-bottom: 10px;
+  min-height: 100vh;
+  width: 1400px;
+}
+
+.intro-box {
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+    height: 400px;
+    margin-top: 50px !important;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    line-height: 2;
+}
+
+.intro-image {
+  width: 100%;
+  height: 335px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+}
+
+.intro-name {
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+}
+
+.intro-alias {
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+}
+
+.intro-nameEng {
+  background-color: #F8F9FA;
+  border: 1px solid #CED4DA;
+}
+

@@ -1,0 +1,284 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+  height: 100%;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    line-height: 1.5em !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    background-color: #9CBED9;
+    margin: 0 auto;
+    min-height: 100vh;
+    color: #fff;
+    z-index: -2 !important;
+}
+
+label {
+  display: inline-block !important;
+  line-height: 1.5em !important;
+  margin-top: 10px;
+  font-weight: normal;
+}
+
+h2 {
+  color: #103855 !important;
+  font-weight: bold !important;
+  text-align: center;
+}
+
+h3 {
+  font-size: 25px;
+  margin-bottom: 15px;
+  font-weight: normal;
+  text-align: left;
+}
+
+h5 {
+  margin-top: 20px !important;
+}
+
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+#form-sighting {
+  margin: 40px 0 0 20px;
+  width: 50vw
+}
+
+#form-sighting fieldset {
+  background-color: #103855;
+  border: 0 none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+span {
+  color: #fff;
+  font-size: 0.75rem;
+  /* margin: 0 0 10px 1px !important;  */
+}
+
+.ui-widget-header {
+    background: none !important;
+    border: none !important; 
+    background-color: #103855 !important;
+}
+
+.ui-datepicker-calendar span {
+  color:#000
+}
+
+#form-sighting input,
+#form-sighting select,
+#form-sighting textarea {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    background-color: #ECEFF1;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+#form-sighting input .checkbox {
+  margin: 0 !important;
+  width: 100%;
+}
+
+#form-sighting input:focus, #form-sighting select:focus,#form-sighting textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 2px solid #9cbed9;
+  outline-width: 0;
+}
+
+input[type="submit"],
+input[type="button"] {
+  width: auto;
+}
+
+input[type="checkbox"] {
+  width: 10px !important;
+  margin: 0 !important;
+}
+
+fieldset {
+  display: block;
+  min-height: auto;
+  margin: 0 2px 0 2px !important;
+  padding: 0.35em  0.75em 0.625em 0.75em !important;
+  border: 2px solid #fff !important;
+}
+
+fieldset:not(:first-of-type) {
+  display: none;
+}
+
+.checkbox label {
+  display: flex !important;
+  align-items: center;
+  margin: 0 0 0 20px;
+  width: 50px;
+}
+
+.sighting-lead label {
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 0 0 20px !important;
+}
+
+.sighting-lead {
+  display: flex;
+}
+
+.group_closeness label {
+  display: flex !important;
+  align-items: center;
+  margin: 0 0 0 20px;
+}
+
+.group_closeness {
+  display: flex;
+}
+
+.bahaviour label {
+  display: flex !important;
+  align-items: center;
+  margin: 0 0 0 20px;
+}
+
+.bahaviour {
+  display: flex;
+  flex-wrap: wrap;
+  height: 10vh
+}
+
+
+.visually-hidden {
+position: absolute;
+overflow: hidden;
+clip: rect(0 0 0 0);
+width: 1px;
+height: 1px;
+margin: -1px;
+border: 0;
+padding: 0;
+}
+
+.image {
+  width: 100% !important;
+  height: 25vh;
+}
+
+.dropzone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed currentColor;
+  border-radius: .25rem;
+  height: 100%;
+  width: 100%;
+}
+
+.dropzone--droppable {
+  background: lightblue;
+}
+
+input:focus + .dropzone {
+  outline-width: 1px;
+  outline-style: auto;
+  outline-color: Highlight;
+  outline-color: -webkit-focus-ring-color;
+}
+
+#form-sighting .action-button, .submit {
+  width: 100px !important;
+  height: 50px;
+  background: #ECEFF1;
+  font-weight: bold;
+  color: #102f4a;
+  transition: 150ms;
+  border: 0 none !important;
+  border-radius: 1px !important;
+  cursor: pointer;
+  padding: 10px 5px !important;
+  margin: 10px 0px 10px 5px !important;
+}
+#form-sighting .action-button:hover, .submit:hover,
+#form-sighting .action-button:focus, .submit:focus
+ {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #fff;
+  background-color: #9cbed9;
+  color: #000;
+}
+
+#progressbar {
+  margin-bottom: 15x;
+  overflow: hidden;
+  color: lightgrey;
+  padding: 0 !important;
+}
+
+#progressbar .active {
+  color: #102f4a;
+}
+
+#progressbar li {
+  list-style-type: none;
+  font-size: 15px;
+  width: 12.5%;
+  float: left;
+  position: relative;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/*Color number of the step and the connector before it*/
+#progressbar li.active:before, #progressbar li.active:after {
+  background: #102f4a !important;
+}
+
+/*Animated Progress Bar*/
+.progress {
+height: 20px;
+}
+
+.progress-bar {
+background-color: #102f4a !important;
+}

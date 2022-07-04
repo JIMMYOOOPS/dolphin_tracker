@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolphin Tracker</title>
+    <script src="https://js.arcgis.com/4.23/"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link href="/styles/tracker.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <header-component></header-component>
+    <main>
+        <div id="about">
+            <h1>追蹤花東臺灣鯨豚</h1><br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elit enim, fringilla ac laoreet vitae, placerat quis arcu. Suspendisse sit amet purus volutpat urna venenatis convallis. Sed luctus eu purus eu iaculis. Maecenas pharetra, magna sed luctus tincidunt, magna elit interdum quam, at efficitur mauris tellus eget lorem. Nunc at fermentum velit. Vivamus pharetra dolor eu lectus condimentum consectetur. Proin a tincidunt urna. Vivamus ultrices tortor et turpis convallis aliquam. Phasellus fermentum faucibus metus, nec mattis magna vulputate eu. Phasellus iaculis justo eget eros malesuada pharetra. Praesent tempor faucibus diam, sit amet condimentum tortor commodo rhoncus.</p>
+        </div>
+        <div id="content">
+            <div class="selection">
+                <div class="title">篩選條件</div>
+                <div class="date-box">
+                    <label for="amount">選擇日期:</label>
+                    <div class="line"></div>
+                    <input type="text" id="amount" name="amount"/>
+                    <div id="slider-range"></div>
+                </div>
+                <div class="type-box">
+                <label for="type-select">種類:</label>
+                    <div class="line"></div>
+                    <select name="type-select" class="type-select">
+                        <option value="">select</option>
+                        <option value="Be">布氏鯨</option>
+                        <option value="Bo">大村鯨</option>
+                        <option value="Dc">長吻真海豚</option>
+                        <option value="Fa">小虎鯨</option>
+                        <option value="Gg">偽虎鯨</option>
+                        <option value="Gm">短肢領航鯨</option>
+                        <option value="Lh">弗氏海豚</option>
+                        <option value="Mn">大翅鯨</option>
+                        <option value="Oo">虎鯨</option>
+                        <option value="Pc">偽虎鯨</option>
+                        <option value="Pe">瓜頭鯨</option>
+                        <option value="Pm">抹香鯨</option>
+                        <option value="Sa">熱帶斑海豚</option>
+                        <option value="Sb">糙齒海豚</option>
+                        <option value="Sl">長吻飛旋海豚</option>
+                        <option value="Tt">真瓶鼻海豚</option>
+                        <option value="Zc">柯氏喙鯨</option>
+                    </select>
+                </div>
+                <button type="button" class="search-submit" onclick=" searchSelection()">搜尋</button>
+            </div>
+            <div id="viewDiv"></div>
+        </div>
+    </main>
+    <footer-component></footer-component>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/dark/main.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script type="text/javascript" src="/src/tracker.js" defer></script>
+</body>
+</html>

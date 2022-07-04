@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+#about {
+  height: 25vh;
+  width: 100vw;
+  font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 100%;
+  font-weight: 200;
+  letter-spacing: 0.25em;
+  color: #fff;
+  text-align: center;
+  background-color: #6C8DA8;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: space-between;
+  background-image: url("../assets/sea.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #6C8DA8;
+  /* padding: 0 0px;  */
+  margin: 0 auto;
+  min-height: 100vh;
+  min-width: 100vw;
+
+}
+
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+#slider-range {
+  display: block !important;
+}
+
+.selection {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  min-width: 30vh;
+  line-height: 2em;
+  margin: 0.2em;
+  padding: 0.5em;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+  font-weight: 400;
+}
+
+.title {
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  height: 3rem;
+  font-size: 1.5rem;
+}
+
+.date-box, .type-box {
+  text-align: center;
+  margin-top: 10px;
+  padding: 0.5em;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.5rem;
+}
+
+.line {
+  border: 1px solid lightgrey;
+  width: 50%;
+  margin: 0 auto;
+}
+
+#amount {
+  border: 0;
+  height: 2rem;
+  font-size: 0.75rem;
+  border-radius: 1em;
+  border-radius: 0.25rem;
+  margin: 0.5rem;
+  text-align: center;
+}
+.type-select {
+  width: auto;
+  /* width: 100%;
+  max-width: 100%;
+  font: inherit;
+  color: #000; */
+}
+.search-submit {
+  align-self: center;
+  color: #000;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #102F4A;
+  width: 20vh;
+  height: 40px;
+  margin: 10px;
+  padding: 0.5em;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.5rem;
+  font-weight: 400;
+}

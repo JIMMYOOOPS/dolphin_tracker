@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/styles/species.css" rel="stylesheet" />
+    <title>Dolphin Tracker</title>
+</head>
+<body>
+    <header-component></header-component>
+    <main id = "content">
+            <div id="about">
+                <h1>認識常見臺灣鯨豚</h1><br>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elit enim, fringilla ac laoreet vitae, placerat quis arcu. Suspendisse sit amet purus volutpat urna venenatis convallis. Sed luctus eu purus eu iaculis. Maecenas pharetra, magna sed luctus tincidunt, magna elit interdum quam, at efficitur mauris tellus eget lorem. Nunc at fermentum velit. Vivamus pharetra dolor eu lectus condimentum consectetur. Proin a tincidunt urna. Vivamus ultrices tortor et turpis convallis aliquam. Phasellus fermentum faucibus metus, nec mattis magna vulputate eu.</p>
+            </div>
+            <div class="intro">
+                <a id="intro-0" class="intro-box" href="http://localhost:3000/species_detail.html?id=0">
+                    <div id = "intro0-image" class="intro-image"></div>
+                    <div id = "intro0-name" class="intro-name">name</div>
+                    <div id = "intro0-alias" class="intro-alias">alias</div>
+                    <div id = "intro0-nameEng" class="intro-nameEng">nameEng</div>
+                </a>
+                <a id="intro-1" class="intro-box" href="http://localhost:3000/species_detail.html?id=1">
+                    <div id = "intro1-image" class="intro-image"></div>
+                    <div id = "intro1-name" class="intro-name">name</div>
+                    <div id = "intro1-alias" class="intro-alias">alias</div>
+                    <div id = "intro1-nameEng" class="intro-nameEng">nameEng</div>
+                </a>
+                <a id="intro-2" class="intro-box" href="http://localhost:3000/species_detail.html?id=2">
+                    <div id = "intro2-image" class="intro-image"></div>
+                    <div id = "intro2-name" class="intro-name">name</div>
+                    <div id = "intro2-alias" class="intro-alias">alias</div>
+                    <div id = "intro2-nameEng" class="intro-nameEng">nameEng</div>
+                </a>
+                <a id="intro-3" class="intro-box" href="http://localhost:3000/species_detail.html?id=3">
+                    <div id = "intro3-image" class="intro-image"></div>
+                    <div id = "intro3-name" class="intro-name">name</div>
+                    <div id = "intro3-alias" class="intro-alias">alias</div>
+                    <div id = "intro3-nameEng" class="intro-nameEng">nameEng</div>
+                </a>
+            </div>
+
+            <!-- status elements -->
+            <div class="scroller-status">
+                <div class="infinite-scroll-request loader-ellips"></div>
+                <p class="infinite-scroll-last"></p>
+                <p class="infinite-scroll-error"></p>
+            </div>
+            <!-- pagination has path -->
+            <p class="pagination">
+                <a class="pagination__next" href="http://localhost:3000/api/1.0/data/dolphins/all?paging=1"></a>
+            </p>
+    </main>
+    <footer-component></footer-component>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/src/species.js" type="text/javascript" defer></script>
+    <script src="/src/infinite-scroll/dist/infinite-scroll.pkgd.min.js"></script>
+</body>
+</html>
