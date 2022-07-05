@@ -17,6 +17,7 @@ headerTemplate.innerHTML = `
     ul li {
       list-style: none;
       display: inline;
+      vertical-align: middle;
     }
     
     a {
@@ -24,17 +25,38 @@ headerTemplate.innerHTML = `
       margin: 0 40px;
       color: #fff;
       text-decoration: none;
+      width: 80px;
     }
     
     a:hover {
       padding-bottom: 5px;
       box-shadow: inset 0 -2px 0 0 #fff;
     }
+
+    .logo {
+      margin: 0 40px;
+      display: inline-block;
+      background-color: #fff;
+      border-radius: 60%;
+      width: 80px;
+    }
+
+    img {
+      display: block;
+      margin: auto;
+      width: 50%;
+    }
   </style>
   <header>
     <nav>
       <ul>
-        <li><a href="/index.html">Logo</a></li>
+        <li>
+          <span class="logo">
+            <a href="/index.html">
+              <img src="/assets/icon.png" height="45px" alt="Logo">
+            </a>
+          </span>
+        </li>
         <li><a href="/tracker.html">追蹤鯨豚</a></li>
         <li><a href="/species.html">認識鯨豚</a></li>
       </ul>
