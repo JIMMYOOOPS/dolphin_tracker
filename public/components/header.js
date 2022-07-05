@@ -26,6 +26,7 @@ headerTemplate.innerHTML = `
       color: #fff;
       text-decoration: none;
       width: 80px;
+      display: inline-block;
     }
     
     a:hover {
@@ -34,28 +35,29 @@ headerTemplate.innerHTML = `
     }
 
     .logo {
-      margin: 0 40px;
-      display: inline-block;
       background-color: #fff;
-      border-radius: 60%;
-      width: 80px;
+      border-radius: 100%;
+      display:inline-block;
+      width: 50px;
+      height:50px;
     }
 
     img {
-      display: block;
-      margin: auto;
-      width: 50%;
+      display: inline-block;
+      width: 44%;
+      background-color: white;
+      border-radius: 100%;
+      border: 3px solid #fff;
     }
+
   </style>
   <header>
     <nav>
       <ul>
         <li>
-          <span class="logo">
-            <a href="/index.html">
-              <img src="/assets/icon.png" height="45px" alt="Logo">
-            </a>
-          </span>
+          <a href="/index.html">
+            <img src="/assets/icon.png" height="35px" alt="Logo">
+          </a>
         </li>
         <li><a href="/tracker.html">追蹤鯨豚</a></li>
         <li><a href="/species.html">認識鯨豚</a></li>
