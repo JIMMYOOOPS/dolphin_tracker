@@ -8,7 +8,7 @@ if (!id) { id = 1 };
 
 (async () => {
     try {
-        let url =`${window.location.origin}/api/${api}/data/dolphins/details?id=${id}`;
+        let url =`/api/${api}/data/dolphins/details?id=${id}`;
         let options = {
             method: 'GET',
             headers: {
