@@ -17,8 +17,8 @@ const createData = async (req, res) => {
         const sailingInfoData = {
             sailing_id: sailing_id,
             sighting_id: data.sighting_id,
-            mix: data.mix,
-            dolphin_type: data.dolphin_type,
+            // mix: data.mix,
+            // dolphin_type: data.dolphin_type,
             year: year,
             month: month,
             day: day,
@@ -117,13 +117,13 @@ const createData = async (req, res) => {
         ) : null
         let location = sailingInfo.insertId
         let file = JSON.parse(JSON.stringify(req.files));
-        let uploadResponse = await Util.uploadS3(file, location)
+        let uploadResponse = await Util.uploadS3(file, location);
+        console.log('here', uploadResponse);
         const image = {
             obv_id: sailingInfo.insertId,
             main_image: main_image,
             images: images
         }
-
         await Data.createObv(obvGPS, obvApproach, obvDetail, obvInteraction, image);
 
         //Recieved POST from body next step insert to DB
