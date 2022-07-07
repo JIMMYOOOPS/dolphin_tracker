@@ -1,3 +1,10 @@
+// Toggle sidebar
+$('.toggle-button').on('click', () => {
+  document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
+  .classList.remove("hide")
+  .classList.toggle("show");
+})
+
 // Set controllers for fieldset
 let current_fs, next_fs, previous_fs;
 let left, opacity, scale;

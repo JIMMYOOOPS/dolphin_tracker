@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/styles/console_db.css" rel="stylesheet" />
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <script src="/components/sidebar.js" type="text/javascript" defer></script>
     <title>Dolphin Tracker</title>
 </head>
 <body>
+    <button class="toggle-button">☰</button>
     <sidebar-component></sidebar-component>
     <main>
         <div class = "content">
             <h1 class="title">鯨豚目擊資料庫</h1>
             <table class="table">
                 <thead>
+                    <th class="id">ID</th>
                     <th class="sailing_id">航次編號</th>
                     <th class="sighting_id">目擊記錄編號</th>
                     <th class="mix">混群</th>
@@ -59,53 +62,6 @@
                     <th class="group_size_probable">群量可能</th>
                     <th class="group_size_highest">群量最多</th>
                     <th class="mix_type">混群種類</th>
-                        <!-- <tr>
-                            <td data-label="sailing_id"></td>
-                            <td data-label="sighting_id"></td>
-                            <td data-label="mix"></td>
-                            <td data-label="year"></td>
-                            <td data-label="month"></td>
-                            <td data-label="day"></td>
-                            <td data-label="period"></td>
-                            <td data-label="sighting_id"></td>
-                            <td data-label="departure"></td>
-                            <td data-label="arrival"></td>
-                            <td data-label="boat_size"></td>
-                            <td data-label="sighting"></td>
-                            <td data-label="gps_no"></td>
-                            <td data-label="guide"></td>
-                            <td data-label="recorder"></td>
-                            <td data-label="observations"></td>
-                            <td data-label="weather"></td>
-                            <td data-label="wind_direction"></td>
-                            <td data-label="wave_condition"></td>
-                            <td data-label="current"></td>
-                            <td data-label="latitude"></td>
-                            <td data-label="latitude_min"></td>
-                            <td data-label="latitude_sec"></td>
-                            <td data-label="longitude"></td>
-                            <td data-label="longitude_min"></td>
-                            <td data-label="longitude_sec"></td>
-                            <td data-label="approach_time"></td>
-                            <td data-label="approach_gps_no"></td>
-                            <td data-label="leaving_time"></td>
-                            <td data-label="leaving_gps_no"></td>
-                            <td data-label="leaving_metdod"></td>
-                            <td data-label="sighting_metdod"></td>
-                            <td data-label="type_confirmation"></td>
-                            <td data-label="dolphin_group_no"></td>
-                            <td data-label="dolphin_type_no"></td>
-                            <td data-label="dorsal_fin"></td>
-                            <td data-label="exhalation"></td>
-                            <td data-label="splash"></td>
-                            <td data-label="exhibition"></td>
-                            <td data-label="motder_child"></td>
-                            <td data-label="motder_child_no"></td>
-                            <td data-label="group_size_lowest"></td>
-                            <td data-label="group_size_probable"></td>
-                            <td data-label="group_size_highest"></td>
-                            <td data-label="mix_type"></td>
-                        </tr> -->
                 </thead>
             </table>
             <button type="button" class="dataUpdate-submit" onclick="updateSubmit()">修改</button>

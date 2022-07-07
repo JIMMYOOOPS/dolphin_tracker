@@ -24,6 +24,7 @@ headerTemplate.innerHTML = `
       font-weight: 700;
       margin: 0 40px;
       color: #fff;
+      text-align: center !important;
       text-decoration: none;
       width: 80px;
       display: inline-block;
@@ -32,6 +33,11 @@ headerTemplate.innerHTML = `
     a:hover {
       padding-bottom: 5px;
       box-shadow: inset 0 -2px 0 0 #fff;
+    }
+
+    #logo:hover {
+      padding-bottom: 5px;
+      box-shadow: none;
     }
 
     .logo {
@@ -55,7 +61,7 @@ headerTemplate.innerHTML = `
     <nav>
       <ul>
         <li>
-          <a href="/index.html">
+          <a href="/index.html" id="logo">
             <img src="/assets/icon.png" height="35px" alt="Logo">
           </a>
         </li>

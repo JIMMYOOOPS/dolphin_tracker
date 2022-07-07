@@ -37,15 +37,15 @@ footerTemplate.innerHTML = `
     }
 
     a:hover {
-      padding-bottom: 5px;
+      padding-bottom: 5px !important;
       box-shadow: inset 0 -2px 0 0 #fff;
     }
   </style>
   <footer>
     <ul>
-      <li><a href="Facebook.html">Facebook</a></li>
-      <li><a href="Insagram.html">Insagram</a></li>
-      <li><a href="Youtube.html">Youtube</a></li>
+      <li><a href="">Facebook</a></li>
+      <li><a href="">Insagram</a></li>
+      <li><a href="">Youtube</a></li>
       <li id = "contribute"><a href="http://www.freepik.com">Designed by rawpixel.com/Freepik</a><li>
       <li id = "contribute2"><a href="https://www.oca.gov.tw/ch/home.jsp?id=289&parentpath=0,5">Designed by oca.gov.tw/海洋保育署</a><li>
     </ul>
