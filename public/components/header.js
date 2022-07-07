@@ -17,24 +17,54 @@ headerTemplate.innerHTML = `
     ul li {
       list-style: none;
       display: inline;
+      vertical-align: middle;
     }
     
     a {
       font-weight: 700;
       margin: 0 40px;
       color: #fff;
+      text-align: center !important;
       text-decoration: none;
+      width: 80px;
+      display: inline-block;
     }
     
     a:hover {
       padding-bottom: 5px;
       box-shadow: inset 0 -2px 0 0 #fff;
     }
+
+    #logo:hover {
+      padding-bottom: 5px;
+      box-shadow: none;
+    }
+
+    .logo {
+      background-color: #fff;
+      border-radius: 100%;
+      display:inline-block;
+      width: 50px;
+      height:50px;
+    }
+
+    img {
+      display: inline-block;
+      width: 44%;
+      background-color: white;
+      border-radius: 100%;
+      border: 3px solid #fff;
+    }
+
   </style>
   <header>
     <nav>
       <ul>
-        <li><a href="/index.html">Logo</a></li>
+        <li>
+          <a href="/index.html" id="logo">
+            <img src="/assets/icon.png" height="35px" alt="Logo">
+          </a>
+        </li>
         <li><a href="/tracker.html">追蹤鯨豚</a></li>
         <li><a href="/species.html">認識鯨豚</a></li>
       </ul>

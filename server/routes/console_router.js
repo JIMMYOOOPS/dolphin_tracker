@@ -19,8 +19,7 @@ const {
 
 const {
     createData,
-    updateData,
-    deleteData
+    updateData
   } = require('../controllers/sightdata_controller');
 
 const createDataRouter = express.Router();

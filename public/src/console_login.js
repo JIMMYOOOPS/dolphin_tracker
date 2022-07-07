@@ -83,3 +83,12 @@ async function signup() {
         console.log('Error', err )
     }
 }
+
+$('.toggle-button-hide').on('click', () => {
+    $('.util').toggleClass('hide');
+})
+
+$('.toggle-button-show').on('click', () => {
+    console.log('click')
+    $('.util').removeClass('hide');
+})

@@ -67,57 +67,98 @@ const getDataAll = async (pageSize, paging) => {
     };
 };
 
-const updateData = async (pageSize, paging = 0)=> {
-    try{
-        // const dataQuery = 
-        // `
-        // UPDATE ${table} 
-        // `;
-    //     const condition = {sql: '', binding: []};
-    //     switch (table) {
-    //         case 'sailing_info':
-    //         case 'obv_approach':
-    //         case 'obv_gps':
-    //         case 'obv_detail':
-    //         case 'obv_interaction':
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     `UPDATE [LOW_PRIORITY] [IGNORE] table_name 
-    //     SET 
-    //         column_name1 = expr1,
-    //         column_name2 = expr2,
-    //         ...
-    //     [WHERE
-    //         condition]
-    // ;`
-    } catch (error) {
-        console.log(error)
-    }
-}
+const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail)=> {
+    try{  
+        const conn = await pool.getConnection();
+        const sailingId = Object.values(sailingInfoData.id);
+        try {
+            await conn.query('START TRANSACTION');
+            // Update to table sailing_info
+            for (i=0; i < sailingId.length; i++) {
+                const sqlUpdateQuery = 
+                `UPDATE sailing_info SET ? WHERE id = ?`;
+                let dataSailingInfo = {
+                    sailing_id: sailingInfoData.sailing_id[i],
+                    sighting_id: sailingInfoData.sighting_id[i],
+                    year: sailingInfoData.year[i],
+                    month: sailingInfoData.month[i],
+                    day: sailingInfoData.day[i],
+                    period: sailingInfoData.period[i],
+                    departure: sailingInfoData.departure[i],
+                    arrival: sailingInfoData.arrival[i],
+                    boat_size: sailingInfoData.boat_size[i],
+                    sighting: sailingInfoData.sighting[i],
+                    gps_no: sailingInfoData.gps_no[i],
+                    guide: sailingInfoData.guide[i],
+                    recorder: sailingInfoData.recorder[i],
+                    observations: sailingInfoData.observations[i],
+                    weather: sailingInfoData.weather[i],
+                    wind_direction: sailingInfoData.wind_direction[i],
+                    wave_condition: sailingInfoData.wave_condition[i],
+                    current: sailingInfoData.current[i]
+                };
+                await conn.query(sqlUpdateQuery, [dataSailingInfo ,[sailingId[i]]])
+            }
+            // Update to table obv_gps
+            for (i=0; i < sailingId.length; i++) {
+                let dataObvGPS = {
+                    latitude: obvGPS.latitude[i],
+                    latitude_min: obvGPS.latitude_min[i],
+                    latitude_sec: obvGPS.latitude_sec[i],
+                    longitude: obvGPS.longitude[i],
+                    longitude_min: obvGPS.longitude_min[i],
+                    longitude_sec: obvGPS.longitude_sec[i]
+                }
+                await conn.query('UPDATE obv_gps SET ? WHERE obv_id = ?', [dataObvGPS ,[sailingId[i]]]);
+            }
 
-const deleteData = async ()=> {
-    try {
-    //     const condition = {sql: '', binding: []};
-    //     switch (key) {
-    //         case 'sailing_info':
-    //         case 'obv_approach':
-    //         case 'obv_gps':
-    //         case 'obv_detail':
-    //         case 'obv_interaction':
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     `UPDATE [LOW_PRIORITY] [IGNORE] table_name 
-    //     SET 
-    //         column_name1 = expr1,
-    //         column_name2 = expr2,
-    //         ...
-    //     [WHERE
-    //         condition]
-    // ;`
+            // Update to table obv_approach
+            for (i=0; i < sailingId.length; i++) {
+                let dataObvApproach = {
+                    approach_time: obvApproach.approach_time[i],
+                    approach_gps_no: obvApproach.approach_gps_no[i],
+                    leaving_time: obvApproach.leaving_time[i],
+                    leaving_gps_no: obvApproach.leaving_gps_no[i],
+                    leaving_method: obvApproach.leaving_method[i]
+                }
+                await conn.query('UPDATE obv_approach SET ? WHERE obv_id = ?', [dataObvApproach ,[sailingId[i]]]);
+            }
+
+            console.log(obvDetail.type_confirmation);
+            // Update to table obv_detail
+            for (i=0; i < sailingId.length; i++) {
+                let dataObvDetail = {
+                    sighting_method: obvDetail.sighting_method[i],
+                    dolphin_type: obvDetail.dolphin_type[i],
+                    type_confirmation: obvDetail.type_confirmation[i],
+                    dolphin_group_no: obvDetail.dolphin_group_no[i],
+                    dolphin_type_no: obvDetail.dolphin_type_no[i],
+                    dorsal_fin: obvDetail.dorsal_fin[i],
+                    exhalation: obvDetail.exhalation[i],
+                    splash: obvDetail.splash[i],
+                    exhibition: obvDetail.exhibition[i],
+                    mother_child: obvDetail.mother_child[i], 
+                    mother_child_no:  obvDetail.mother_child_no[i],
+                    group_size_lowest: obvDetail.group_size_lowest[i],
+                    group_size_probable: obvDetail.group_size_probable[i],
+                    group_size_highest: obvDetail.group_size_highest[i],
+                    mix: obvDetail.mix[i],
+                    mix_type: obvDetail.mix_type[i]
+                }
+                await conn.query('UPDATE obv_detail SET ? WHERE obv_id = ?', [dataObvDetail ,[sailingId[i]]]);
+            }   
+            await conn.query('COMMIT');
+            console.log('Done')
+            return 'Success';
+        } catch (error) {
+            await conn.query('ROLLBACK');
+            console.log(error)
+            return -1;
+        } finally {
+            await conn.release();
+        }
+        // const dataQuery = 
+        // `UPDATE ${table} SET (sailing_id, sighting_id, mix, dolphin_type, year, month, day, period, departure, arrival, boat_size, sighting, gps_no, guide, recorder, observations, weather, wind_direction, wave_condition, current) = WHERE ()`;  
     } catch (error) {
         console.log(error)
     }
@@ -191,12 +232,38 @@ const getDataDolphin = async (pageSize, paging = 0, requirement = {}) => {
     };
 };
 
+const getDownload = async () => {
+    let sqlall = 'SELECT * FROM sailing_info ' + 
+    `
+    INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id
+    INNER JOIN obv_approach ON sailing_info.id = obv_approach.obv_id 
+    INNER JOIN obv_detail ON sailing_info.id = obv_detail.obv_id 
+	 `  +
+    ' ORDER BY sailing_info.id ASC '
+    let sqlObvInteraction = 'SELECT boat_interaction, boat_distance, group_closeness_normal, group_closeness_spreaded, group_closeness_close, speed_slow, speed_moderate, speed_fast, speed_resting, speed_circling, foraging_maybe, foraging_sure, mating, splash_interaction, snorkel, racing, jump, surfing_artificial, surfing,  tail_lift, contact, backstroke, boat_no, other FROM obv_interaction ' + 
+    `WHERE time = ?`
+    ' ORDER BY obv_interaction.obv_id ASC '
+    let time = ['0-10', '11-20', '21-30']
+    const all = await queryPromise(sqlall);
+    const obvInteraction10 = await queryPromise(sqlObvInteraction, time[0]);
+    const obvInteraction20 = await queryPromise(sqlObvInteraction, time[1]);
+    const obvInteraction30 = await queryPromise(sqlObvInteraction, time[2]);
+    let data = {};
+    data = {
+        all: all,
+        obvInteraction10: obvInteraction10,
+        obvInteraction20: obvInteraction20,
+        obvInteraction30: obvInteraction30
+    }
+    return data
+}
+
 module.exports = {
     createSailingInfo,
     createObv,
     getDataAll,
     updateData,
-    deleteData,
     getDataMap,
-    getDataDolphin
+    getDataDolphin,
+    getDownload
 }

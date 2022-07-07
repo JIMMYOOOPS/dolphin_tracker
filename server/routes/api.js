@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path')
 require('dotenv').config({path:__dirname+'/../../.env'});
+const Data = require('../models/sightdata_model');
 const { API_VERSION } = process.env 
 
 const api = express.Router();
@@ -14,7 +15,8 @@ const {
 const {
     getDataAllRouter,
     getDataMapRouter,
-    getDataDolphinRouter
+    getDataDolphinRouter,
+    getDownloadRouter
 } = require('./sightdata_router')
 const {
     createDataRouter,
@@ -24,12 +26,14 @@ const {
     userSignupRouter,
     userLoginRouter,
     usersPageRouter
-} = require('./console_router')
+} = require('./console_router');
 
-api.use(`/api/${API_VERSION}/data`,  getDataAllRouter, getDataMapRouter, getDataDolphinRouter)
+api.use(`/api/${API_VERSION}/data`, getDownloadRouter, getDataAllRouter, getDataMapRouter, getDataDolphinRouter)
 api.use(`/api/${API_VERSION}/tracker`, trackerRouter)
 api.use(`/api/${API_VERSION}/species`, speciesRouter)
 
 api.use('/admin/console', createDataRouter, dataBasePageRouter, webConsoleRouter, webConsolePageRouter, userSignupRouter, userLoginRouter, usersPageRouter);
+
+
 
 module.exports = api;
