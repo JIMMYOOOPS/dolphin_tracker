@@ -15,10 +15,42 @@ a:hover {
     cursor: pointer;
 }
 
+button:hover {
+    cursor: pointer;
+    background-color: #464646;
+    transition: 0.05s;
+}
+
 .util {
+    position:absolute;
+    left: 0;
+    top: 0;
     min-height: 100%;
     width: 30vh;
     background-color: black;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hide {
+    transform: translateX(-100%);
+}
+
+.show {
+    transform: translateX(0);
+}
+
+.sidebar-toggle {
+    margin-left: auto;
+    width: 50px;
+    height: 50px;
+    background-color: #232323;
+    color: #fff;
+    font-size: 1.75rem;
+    border-radius:10px;
 }
 
 .user {
@@ -88,6 +120,7 @@ ul {
   </style>
   <sidebar>
     <div class="util">
+    <button class="sidebar-toggle" onclick="close()">☰</button>
     <div class="user">
         <div class="user-logo"></div>
         <div class="user-info">
@@ -109,6 +142,10 @@ ul {
 
 let script = document.createElement('script')
 script.textContent = `
+document.querySelector('sidebar-component').shadowRoot.querySelector('.sidebar-toggle').addEventListener('click', function close(event) {
+    document.querySelector('sidebar-component').shadowRoot.querySelector('.util').classList.toggle("hide");
+});
+
 document.querySelector('sidebar-component').shadowRoot.querySelector('#sighting').addEventListener('click', async function(event) {
     try {
         const accessToken = localStorage.getItem('access_token');

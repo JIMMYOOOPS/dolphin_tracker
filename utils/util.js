@@ -10,20 +10,20 @@ const {PORT, AWS_BUCKET_NAME, TOKEN_SECRET} = process.env;
 
 // Upload files to local
 const upload = multer({
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            const data = req.body;
-            let date = data.datepicker.split('/')
-            let [year, month, day] = date;
-            let boat_time = data.boat_time.replace(/:/g, '')
-            let sailing_id = year + month + day + boat_time
-            const imageId = sailing_id;
-            const imagePath = path.join(__dirname, `../public/assets/${imageId}`);
-            if (!fs.existsSync(imagePath)) {
-                fs.mkdirSync(imagePath);
-            }
-            cb(null, imagePath);
-        },
+    storage: multer.memoryStorage({
+        // destination: (req, file, cb) => {
+        //     const data = req.body;
+        //     let date = data.datepicker.split('/')
+        //     let [year, month, day] = date;
+        //     let boat_time = data.boat_time.replace(/:/g, '')
+        //     let sailing_id = year + month + day + boat_time
+        //     const imageId = sailing_id;
+        //     const imagePath = path.join(__dirname, `../public/assets/${imageId}`);
+        //     if (!fs.existsSync(imagePath)) {
+        //         fs.mkdirSync(imagePath);
+        //     }
+        //     cb(null, imagePath);
+        // },
         filename: (req, file, cb) => {
             const fileName = Date.now() + '_' + file.originalname;
             cb(null, fileName);
@@ -31,30 +31,28 @@ const upload = multer({
     })
 });
 
-const getImagePath = (protocol, hostname, productId) => {
+const getImagePath = (protocol, hostname, imageId) => {
     if (protocol == 'http') {
-        return protocol + '://' + hostname + ':' + PORT + '/assets/' + productId + '/';
+        return protocol + '://' + hostname + ':' + PORT + '/assets/' + imageId + '/';
     } else {
-        return protocol + '://' + hostname + '/assets/' + productId + '/';
+        return protocol + '://' + hostname + '/assets/' + imageId + '/';
     }
 };
 
 // UPLOAD FILE TO S3
 async function uploadS3(file, location) {
 try {
-    let responseData = [];
-    Object.values(file).map((item) => {
-        const fileStream = fs.createReadStream(item[0].path);
-        let params = {
-          Bucket: AWS_BUCKET_NAME,
-          Key: `images/${location}/${item[0].filename}`,
-          Body: fileStream
-        };
-        responseData.push(params);
-        if(responseData.length == file.length){
-            return responseData;
-        }
+    const params = Object.values(file).map((item) => {
+        let base64data = Buffer.from(item[0].buffer, 'binary');
+        let currentDate = new Date().toISOString().split('T')[0];
+        return {
+            Bucket: AWS_BUCKET_NAME,
+            Key: `images/${location}/${currentDate + '_' + item[0].fieldname}`,
+            Body: base64data
+          };
     })
+    const result = await Promise.all(params.map(item => Config.s3.upload(item).promise()))
+    return result;
     } catch (error) {
         return {"error": true, "Message": error}
     }

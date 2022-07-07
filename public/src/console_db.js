@@ -1,6 +1,6 @@
 (async () => {
     try {
-        let url ='http://localhost:3000/api/1.0/data/database'
+        let url =`${window.location.origin}/api/1.0/data/database`
         let options = {
             method: 'GET',
             headers: {
@@ -30,6 +30,7 @@
             // }
             for (i= numInfos; i < numInfos -1 + pageSize; i++) {            
             let dataRow = '<tr>' +
+                `<td data-label=id-${i} id=id-${i}>${databaseData[i].id}</td>` +
                 `<td data-label=sailing_id-${i} id=sailing_id-${i} contenteditable="true">${databaseData[i].sailing_id}</td>` +
                 `<td data-label=sighting_id-${i} id=sighting_id-${i} contenteditable="true">${databaseData[i].sighting_id}</td>` +
                 `<td data-label=mix-${i} id=mix-${i} contenteditable="true">${databaseData[i].mix}</td>` +
@@ -62,6 +63,7 @@
                 `<td data-label=leaving_gps_no-${i} id=leaving_gps_no-${i} contenteditable="true">${databaseData[i].leaving_gps_no}</td>` +
                 `<td data-label=leaving_method-${i} id=leaving_method-${i} contenteditable="true">${databaseData[i].leaving_method}</td>` +
                 `<td data-label=sighting_method-${i} id=sighting_method-${i} contenteditable="true">${databaseData[i].sighting_method}</td>` +
+                `<td data-label=type_confirmation-${i} id=type_confirmation-${i} contenteditable="true">${databaseData[i].type_confirmation}</td>` +
                 `<td data-label=dolphin_group_no-${i} id=dolphin_group_no-${i} contenteditable="true">${databaseData[i].dolphin_group_no}</td>` +
                 `<td data-label=dolphin_type_no-${i} id=dolphin_type_no-${i} contenteditable="true">${databaseData[i].dolphin_type_no}</td>` +
                 `<td data-label=dorsal_fin-${i} id=dorsal_fin-${i} contenteditable="true">${databaseData[i].dorsal_fin}</td>` +
@@ -70,7 +72,6 @@
                 `<td data-label=exhibition-${i} id=exhibition-${i} contenteditable="true">${databaseData[i].exhibition}</td>` +
                 `<td data-label=mother_child-${i} id=mother_child-${i} contenteditable="true">${databaseData[i].mother_child}</td>` +
                 `<td data-label=mother_child_no-${i} id=mother_child_no-${i} contenteditable="true">${databaseData[i].mother_child_no}</td>` +
-                `<td data-label=leaving_time-${i} id=leaving_time-${i} contenteditable="true">${databaseData[i].leaving_time}</td>` +
                 `<td data-label=group_size_lowest-${i} id=group_size_lowest-${i} contenteditable="true">${databaseData[i].group_size_lowest}</td>` +
                 `<td data-label=group_size_probable-${i} id=group_size_probable-${i} contenteditable="true">${databaseData[i].group_size_probable}</td>` +
                 `<td data-label=group_size_highest-${i} id=group_size_highest-${i} contenteditable="true">${databaseData[i].group_size_highest}</td>` +
@@ -91,6 +92,7 @@
 async function updateSubmit() {
     try{
         pageSize = 10
+        let id =[];
         let sailing_id = [];
         let sighting_id = [];
         let mix = [];
@@ -123,6 +125,7 @@ async function updateSubmit() {
         let leaving_gps_no = [];
         let leaving_method = [];
         let sighting_method = [];
+        let type_confirmation = [];
         let dolphin_group_no = [];
         let dolphin_type_no = [];
         let dorsal_fin = [];
@@ -136,7 +139,8 @@ async function updateSubmit() {
         let group_size_highest = [];
         let mix_type = [];
 
-        for (i=0; i < pageSize; i++) { 
+        for (i=0; i < pageSize; i++) {
+            id.push($(`#id-${i}`).text())
             sailing_id.push($(`#sailing_id-${i}`).text())
             sighting_id.push($(`#sighting_id-${i}`).text())
             mix.push($(`#mix-${i}`).text())
@@ -169,6 +173,7 @@ async function updateSubmit() {
             leaving_gps_no.push($(`#leaving_gps_no-${i}`).text())
             leaving_method.push($(`#leaving_method-${i}`).text())
             sighting_method.push($(`#sighting_method-${i}`).text())
+            type_confirmation.push($(`#type_confirmation-${i}`).text())
             dolphin_group_no.push($(`#dolphin_group_no-${i}`).text())
             dolphin_type_no.push($(`#dolphin_type_no-${i}`).text())
             dorsal_fin.push($(`#dorsal_fin-${i}`).text())
@@ -183,6 +188,7 @@ async function updateSubmit() {
             mix_type.push($(`#mix_type-${i}`).text())
         }
         const body = {
+            id,
             sailing_id,
             sighting_id,
             mix,
@@ -215,6 +221,7 @@ async function updateSubmit() {
             leaving_gps_no,
             leaving_method,
             sighting_method,
+            type_confirmation,
             dolphin_group_no,
             dolphin_type_no,
             dorsal_fin,
@@ -228,7 +235,7 @@ async function updateSubmit() {
             group_size_highest,
             mix_type,
         };
-        let url = `/admin/console/database`
+        let url = `${window.location.origin}/admin/console/database`
         let options = {
             method: 'PUT',
             body: JSON.stringify(body),
@@ -238,13 +245,44 @@ async function updateSubmit() {
         }
         let raUpdateDataResponse = await fetch(url, options);
         let updateDataResponse = await raUpdateDataResponse.json();
-        if (updateDataResponse) {
+        console.log(updateDataResponse);
+        if (updateDataResponse == 'Success') {
             alert('update table successful!');
             window.location.href = "/console_db.html";
         } else {
-            console.log('the table has not been updated.')
+            alert('the table has not been updated.')
         }
     } catch(err) {
         console.log('Error', err )
     }
 }
+
+async function download() {
+    try {
+        let url = `${window.location.origin}/api/1.0/data/download`
+        let options = {
+            method: 'get',
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        let rawdownlaodResponse = await fetch(url, options);
+        let downlaodResponse = await rawdownlaodResponse.json();
+        console.log(downlaodResponse);
+        let dir = downlaodResponse.split('downloadfile/')
+        console.log(dir)
+        if (dir) {
+            alert(`Your file is downloaded as ${dir[1]}`);
+            window.location.href = "/console_db.html";
+        } else {
+            alert('the file has not been downloaded.')
+        }
+    } catch(err) {
+        console.log('Error', err )
+    }
+}
+$('.toggle-button').on('click', () => {
+    document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
+    .classList.remove("hide")
+    .classList.toggle("show");
+})

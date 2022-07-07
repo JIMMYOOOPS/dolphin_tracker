@@ -109,7 +109,7 @@ async function searchSelection() {
   try {
     result = await (async function getData() {
       let data;
-      let url = 'http://localhost:3000/api/1.0/data/map/all'
+      let url = `/api/${api}/data/map/all`
       try {
         const options = {
           method: 'GET',

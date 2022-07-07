@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-button:hover {
-  cursor: pointer;
-}
-
 html,
 body {
   height: 100%;
@@ -124,7 +120,7 @@ main {
   color: #000;
   font-size: 1rem;
   color: #fff;
-  background-color: #102F4A;
+  background-color: #39708f;
   width: 20vh;
   height: 40px;
   margin: 10px;
@@ -134,3 +130,22 @@ main {
   border-radius: 0.5rem;
   font-weight: 400;
 }
+
+button:hover {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #fff;
+  background-color: #102F4A;
+  color: #fff;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* button:focus {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #fff !important;
+  background-color: #102F4A !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  border: #000;
+} */
