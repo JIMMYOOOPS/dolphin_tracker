@@ -232,7 +232,7 @@ const getDataDolphin = async (pageSize, paging = 0, requirement = {}) => {
     };
 };
 
-const getDownloadExcel = async () => {
+const getDownload = async () => {
     let sqlall = 'SELECT * FROM sailing_info ' + 
     `
     INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id
@@ -265,5 +265,5 @@ module.exports = {
     updateData,
     getDataMap,
     getDataDolphin,
-    getDownloadExcel
+    getDownload
 }

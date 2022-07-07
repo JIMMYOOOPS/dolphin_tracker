@@ -235,7 +235,6 @@ async function updateSubmit() {
             group_size_highest,
             mix_type,
         };
-        console.log(body.type_confirmation)
         let url = `${window.location.origin}/admin/console/database`
         let options = {
             method: 'PUT',
@@ -258,6 +257,30 @@ async function updateSubmit() {
     }
 }
 
+async function download() {
+    try {
+        let url = `${window.location.origin}/api/1.0/data/download`
+        let options = {
+            method: 'get',
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        let rawdownlaodResponse = await fetch(url, options);
+        let downlaodResponse = await rawdownlaodResponse.json();
+        console.log(downlaodResponse);
+        let dir = downlaodResponse.split('downloadfile/')
+        console.log(dir)
+        if (dir) {
+            alert(`Your file is downloaded as ${dir[1]}`);
+            window.location.href = "/console_db.html";
+        } else {
+            alert('the file has not been downloaded.')
+        }
+    } catch(err) {
+        console.log('Error', err )
+    }
+}
 $('.toggle-button').on('click', () => {
     document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
     .classList.remove("hide")
