@@ -3,6 +3,8 @@ services:
   dolphin-tracker: 
     build: .
     container_name: "dolphin-tracker"
+    ports:
+      - 3000:3000
     env_file:
       - .env
     networks:
