@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "lint": "eslint *.js"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,11 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.11",
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
     "jsdom": "^20.0.0",
     "node-xlsx": "^0.21.0",
     "nodemon": "^2.0.16",

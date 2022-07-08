@@ -1,34 +1,32 @@
-require('dotenv').config();
+require('dotenv').config()
 const path = require('path')
-var cors = require('cors');
-const { PORT } = process.env;
+const cors = require('cors')
+const { PORT } = process.env
 
 // Express Initialization
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
 const api = require('./server/routes/api')
 
-app.use(cors());
-app.use(express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+app.use(express.static('public'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/', api)
 
 // Error handling
 app.use(function (err, req, res, next) {
-    console.log(err);
-    res.status(500).send('Internal Server Error');
-});
+  console.log(err)
+  res.status(500).send('Internal Server Error')
+})
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './', 'index.html'));
-});
+  res.sendFile(path.join(__dirname, './', 'index.html'))
+})
 
-
-
-app.listen(PORT, ()=> {
-    console.log('test')
-    console.log(`Listening to port ${PORT}`)
-});
+app.listen(PORT, () => {
+  console.log('test')
+  console.log(`Listening to port ${PORT}`)
+})
