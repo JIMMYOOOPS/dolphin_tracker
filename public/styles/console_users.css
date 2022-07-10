@@ -14,6 +14,7 @@ flex: 1 0 auto;
 
 body {
   display: flex;
+  flex-direction: row;
   min-height: 100vh;
   font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 100%;
@@ -29,6 +30,16 @@ body {
   background-size: cover;
   margin: 0 auto;
   min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  margin-top: 30px;
+  margin-left: 330px;
 }
 
 a {
@@ -59,7 +70,7 @@ transform: translate(-100%); /* 用此屬性控制縮放 */
 
 .toggle-button:hover {
 cursor: pointer;
-background-color: #464646;
+background-color: #edede9;
 transition: 0.05s;
 }
 
@@ -76,11 +87,101 @@ border-radius:10px;
 
 .content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   min-height: 100vh;
 }
 
+.user-card {
+  margin: 50px 50px 50px 320px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 140vh;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+  width: 450px;
+  background-color: #103855;
+  border: 1px solid #000;
+  border-radius: 20px;
+  margin: 20px 20px 20px 20px;
+}
+
+.image-container {
+  display: flex;
+  height: 100%;
+  width: 200px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background-color: #9cbed9;
+  height: 180px;
+  width: 180px;
+  padding: 10px 10px 10px 10px;
+  margin-top: 40px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.line {
+  margin-top: 17px;
+  display:block;
+  width:60%;
+  border-top: 3px solid #fff
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 225px;
+  padding: 1px 1px 1px 1px;
+  justify-content: space-around;
+  border-left: 1px solid #edede9;
+}
+
+.note {
+  margin-left: 330px;
+  font-weight: 500;
+}
+
+.name, .email, .role_id, .login_at, .button-container {
+  height:55px;
+  width:100%;
+  padding: 5px 5px 5px 5px;
+  line-height: 45px;
+  font-size: 100%;
+  font-weight: 300;
+  color: #fff;
+  border-bottom: 1px solid #edede9;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  border-bottom: none;
+}
+
+.user-button {
+  margin:5px;
+  height: 40px;
+  width: 80px;
+  background-color: #edede9;
+  font-size: 100%;
+  font-weight: 500;
+}

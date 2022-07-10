@@ -107,9 +107,39 @@ const getUserDetail = async (email, roleId, userRoleId) => {
     }
 };
 
+const getUsers = async () => {
+    try {
+        let result = await queryPromise('SELECT name, email, role_id, picture, login_at FROM user')
+        return result;
+    } catch (error) {
+        return error
+    }
+}
+
+const getUser = async (email) => {
+    try {
+        let result = await queryPromise('SELECT * FROM user WHERE email = ?', [email])
+        return result;
+    } catch (error) {
+        return error
+    }
+}
+
+const updateUsers = async (email, role_id) => {
+    try {
+        let user = await queryPromise('UPDATE user SET role_id = ? WHERE email = ?', [role_id, email]);
+        return user;
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     USER_ROLE,
     userSignup,
     userLogin,
-    getUserDetail
+    getUserDetail,
+    getUsers,
+    getUser,
+    updateUsers
 }

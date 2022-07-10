@@ -14,7 +14,9 @@ const {
     webConsolePage,
     userSignup,
     userLogin,
-    getUsersPage
+    getUsers,
+    updateUsers,
+    getUser
 } = require('../controllers/console_controller');
 
 const {
@@ -25,29 +27,28 @@ const {
 const createDataRouter = express.Router();
 const dataBasePageRouter = express.Router();
 const webConsoleRouter = express.Router();
-const webConsolePageRouter = express.Router();
 const userSignupRouter = express.Router();
 const userLoginRouter = express.Router();
-const usersPageRouter = express.Router();
-
+const usersRouter = express.Router();
 
 createDataRouter.post('/sighting', cdUpload, createData);
 createDataRouter.get('/sighting', authentication(USER_ROLE.RECORDERS), sightingPage);
 dataBasePageRouter.get('/database', authentication(USER_ROLE.KUROSHIO), dataBasePage);
-dataBasePageRouter.put('/database', updateData);
-// dataBasePageRouter.delete('/database', deleteData);
-usersPageRouter.get('/users', authentication(USER_ROLE.ADMIN), getUsersPage);
+dataBasePageRouter.put('/database', authentication(USER_ROLE.KUROSHIO), updateData);
+usersRouter.get('/users', authentication(USER_ROLE.ADMIN), getUsers);
+usersRouter.put('/users', authentication(USER_ROLE.ADMIN), updateUsers);
+usersRouter.get('/users/login', getUser);
 webConsoleRouter.get('/', webConsole);
-webConsolePageRouter.get('/login', webConsolePage);
-userSignupRouter.post('/signup', userSignup);
+userLoginRouter.get('/login', webConsolePage);
 userLoginRouter.post('/login', userLogin);
+userSignupRouter.post('/signup', userSignup);
+
 
 module.exports = {
     createDataRouter,
     dataBasePageRouter,
     webConsoleRouter,
-    webConsolePageRouter,
     userSignupRouter,
     userLoginRouter,
-    usersPageRouter
+    usersRouter
 }
