@@ -113,7 +113,6 @@ ul li {
 
 ul {
     margin-top: 15vh;
-    margin-left: 30px;
 }
 
 button:hover {
