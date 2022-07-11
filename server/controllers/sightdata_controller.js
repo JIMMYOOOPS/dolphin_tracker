@@ -3,7 +3,8 @@ const Data = require('../models/sightdata_model');
 const Util = require('../../utils/util');
 const xlsx = require('node-xlsx');
 const path = require('path');
-const fs = require('fs')
+const fs = require('fs');
+const { Readable } = require('stream');
 let pageSize = 4;
 
 const createData = async (req, res) => {
@@ -562,10 +563,10 @@ const getDownload = async (req, res) => {
 
       let currentDate = new Date().toISOString().split('T')[0];
       let buffer = xlsx.build([{name: `${currentDate}_dolphin_sighting`, data: result}]);
-      let downloadDir = path.resolve(__dirname, '../../', 'public', 'downloadfile');
-      let dir = downloadDir+ '/' + currentDate + '鯨豚目擊紀錄.xlsx';
-      fs.writeFileSync(dir, buffer);
-      res.status(200).json(dir);            
+      let stream = Readable.from(buffer)
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=' + currentDate + '-dolphinsighting.xlsx');
+      stream.pipe(res);      
   } catch (error) {
       console.log(error);
       res.status(500).json(error.message)

@@ -42,8 +42,9 @@ a:hover {
 }
 
 .dataUpdate-submit:hover, .dataUpdate-submit:focus, .download:hover, .download:focus  {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #fff;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 1px #fff;
   cursor: pointer;
+  background-color: #102F4A;
 }
 
 h1 {
@@ -61,7 +62,6 @@ h1 {
     -o-background-size: cover;
     background-size: cover;
     margin: 0 auto;
-
     min-height: 100vh;
 }
 
@@ -99,20 +99,22 @@ h1 {
   margin: 10px 0 0 0;
   color: #fff;
   font-size: 1rem;
-  background-color: #102F4A;
+  background-color: #39708f;
   display: block;
   width: 120px;
   height: 40px;
+  border-color: transparent;
 }
 
 .download {
   margin: 10px 0 0 0;
   color: #fff;
   font-size: 1rem;
-  background-color: #102F4A;
+  background-color: #39708f;
   display: block;
   width: 120px;
   height: 40px;
+  border-color: transparent;
 }
 
 .toggle-button:hover {
