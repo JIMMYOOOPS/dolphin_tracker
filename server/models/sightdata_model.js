@@ -166,7 +166,6 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail)=> {
 
 const getDataMap = async (pageSize, paging = 0, requirement = {}) => {
     const condition = {sql: '', binding: []};
-    console.log(requirement)
     if (requirement.startDate && requirement.endDate && requirement.type) {
         condition.sql = "WHERE (SUBSTRING(sailing_id, 1, 8) BETWEEN ? AND ?) AND sailing_info.dolphin_type = ?"  
         condition.binding = [requirement.startDate, requirement.endDate, requirement.type]
