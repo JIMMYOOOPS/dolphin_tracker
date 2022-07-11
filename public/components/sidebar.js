@@ -30,7 +30,6 @@ button:hover {
     background-color: black;
     top: 0;
     left: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -117,6 +116,25 @@ ul li {
 ul {
     margin-top: 100px
 }
+
+button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 1px #fff;
+    background-color: #102F4A !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+#button-logout {
+    margin: 10px 0 0 30px;
+    color: #fff;
+    font-size: 1rem;
+    background-color: #39708f;
+    display: block;
+    width: 20vh;
+    height: 40px;
+}
+
   </style>
   <sidebar>
     <div class="util">
@@ -125,7 +143,8 @@ ul {
         <li><a id="sighting">鯨豚目擊紀錄</a></li>
         <li><a id="database">鯨豚目擊資料庫</a></li>
         <li><a id="users" href="/console_users.html">使用者管理</a></li>
-    </ul>   
+    </ul>
+    <button id="button-logout">登出</button>
     </div>
   </sidebar>
 `;
@@ -223,6 +242,11 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#database'
         console.log(err);
     }
 })()
+
+document.querySelector('sidebar-component').shadowRoot.querySelector('#button-logout').addEventListener('click', function(event) {
+    localStorage.removeItem('access_token')
+    window.location.href = '/admin/console'
+  });
 `
 
 class Sidebar extends HTMLElement {

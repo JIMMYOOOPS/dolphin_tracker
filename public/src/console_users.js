@@ -65,11 +65,13 @@
           }).appendTo(`#user-info-${i}`);
           const updateButton = $('<button></button>', {
             id: `update-user-${i}`,
-            class: "user-button"
+            class: "user-button",
+            onclick: "updateSubmit()"
           }).appendTo(`#button-container-${i}`);
           const deleteButton = $('<button></button>', {
             id: `delete-user-${i}`,
-            class: "user-button"
+            class: "user-button",
+            onclick: "deleteSubmit()"
           }).appendTo(`#button-container-${i}`);
         }
       }
@@ -108,8 +110,88 @@
       }
 })()
 
+async function updateSubmit() {
+  try{
+     const accessToken = localStorage.getItem('access_token');
+     let id = event.target.id;
+     let idSplit = id.split('-')
+     id = idSplit[2]
+
+      let email = $(`#email-${id}`).text()
+      let role_id = $(`#role_id-${id}`).text()
+      let emailSplit = email.split(' ')
+      let role_idSplit = role_id.split(' ')
+      email = emailSplit[1];
+      role_id = role_idSplit[1];
+      const body = {
+        email,
+        role_id
+      };
+
+      let url = `${window.location.origin}/admin/console/users`
+      let options = {
+          method: 'PUT',
+          body: JSON.stringify(body),
+          headers: {
+              "Content-Type": "application/json",
+              'Authorization': 'Bearer ' + accessToken
+          },
+      }
+      let rawUpdateDataResponse = await fetch(url, options);
+      let updateDataResponse = await rawUpdateDataResponse.json();
+      if (updateDataResponse.success) {
+          alert('update user successful!');
+          window.location.href = "/console_users.html";
+      } else {
+          alert('the user has not been updated.')
+      }
+  } catch(err) {
+      console.log('Error', err )
+  }
+}
+
+async function deleteSubmit() {
+  try{
+    if (window.confirm("Do you want to delete the user?")) {
+      const accessToken = localStorage.getItem('access_token');
+      let id = event.target.id;
+      let idSplit = id.split('-')
+      id = idSplit[2]
+  
+      let email = $(`#email-${id}`).text()
+      let emailSplit = email.split(' ')
+      email = emailSplit[1];
+      const body = {
+        email
+      };
+  
+      let url = `${window.location.origin}/admin/console/users`
+      let options = {
+          method: 'DELETE',
+          body: JSON.stringify(body),
+          headers: {
+              "Content-Type": "application/json",
+              'Authorization': 'Bearer ' + accessToken
+          },
+      }
+      let rawUpdateDataResponse = await fetch(url, options);
+      let updateDataResponse = await rawUpdateDataResponse.json();
+      if (updateDataResponse.success) {
+          alert('delete user successful!');
+          window.location.href = "/console_users.html";
+      } else {
+          alert('the user has not been deleted.')
+      }
+    } else {
+      window.location.href = "/console_users.html"
+    }
+  } catch(err) {
+      console.log('Error', err )
+  }
+}
+
 // Toggle sidebar
-// $('.toggle-button').on('click', () => {
-//   document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
-//   .classList.remove("hide");
-// })
+$('.toggle-button').on('click', () => {
+  document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
+  .classList.remove("hide");
+})

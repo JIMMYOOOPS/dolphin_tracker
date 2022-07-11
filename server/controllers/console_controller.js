@@ -83,13 +83,14 @@ async function updateUsers (req, res) {
     try {
         let {email, role_id} = req.body;
         let result = await Console.updateUsers(email, role_id);
+        console.log(result);
         if (result.changedRows === 0) {
             res.status(200).json({
-                message: 'User information has NOT been updated.'
+                fail: 'User information has NOT been updated.'
             });    
         } else {
             res.status(200).json({
-                message: 'User information has been updated.'
+                success: 'User information has been updated.'
             });
         }
     } catch (error) {
@@ -150,6 +151,27 @@ async function getUser (req, res) {
     }
 }
 
+async function deleteUsers (req, res) {
+    try {
+        let {email} = req.body;
+        let result = await Console.deleteUsers(email);
+        if (result.affectedRows === 0) {
+            res.status(200).json({
+                fail: 'User information has NOT been deleted.'
+            });    
+        } else {
+            res.status(200).json({
+                success: 'User information has been deleted.'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: console.log(error),
+            message: 'An error has occured on the server'
+        })
+    }
+}
+
 module.exports = {
     sightingPage,
     dataBasePage,
@@ -160,6 +182,6 @@ module.exports = {
     getUsersPage,
     getUsers,
     getUser,
-    updateUsers
+    updateUsers,
+    deleteUsers
 }
-
