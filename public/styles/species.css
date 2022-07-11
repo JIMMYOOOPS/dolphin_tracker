@@ -28,7 +28,7 @@ body {
   display: flex;
   flex-direction: column;
   color: #333;
-  font-family: sans-serif;
+  font-family: 'Raleway',sans-serif;
 }
 
 main {
@@ -49,15 +49,38 @@ main {
 }
 
 #about {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   height: 25vh;
   width: 100vw;
-  font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 100%;
-  font-weight: 100;
+  font-weight: 200;
   letter-spacing: 0.25em;
   color: #fff;
   text-align: center;
-  background-color: #6C8DA8;
+  background-color: #8d99ae;
+}
+
+#about-title {
+  max-height: 25vh;
+  max-width: 40%;
+  text-align: center;
+  font-size: 150%;
+  margin: auto 0;
+  margin-left: 100px;
+  letter-spacing: 30px;
+  font-style: italic;
+}
+
+#about-body {
+  border-left: 2px solid #fff;
+  padding: 5px 0 5px 40px;
+  max-height: 25vh;
+  max-width: 60%;
+  margin: auto 0;
+  font-size: 110%;
+  text-align: start;
 }
 
 .intro {
