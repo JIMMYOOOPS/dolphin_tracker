@@ -134,6 +134,15 @@ const updateUsers = async (email, role_id) => {
     }
 }
 
+const deleteUsers = async (email) => {
+    try {
+        let user = await queryPromise('DELETE FROM user WHERE email = ?', [email]);
+        return user;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     USER_ROLE,
     userSignup,
@@ -141,5 +150,6 @@ module.exports = {
     getUserDetail,
     getUsers,
     getUser,
-    updateUsers
+    updateUsers,
+    deleteUsers
 }
