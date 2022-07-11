@@ -68,7 +68,9 @@
                 pageNum = data.next_paging -1
                 pageSize = 4
                 let numInfos = pageNum * pageSize
+                console.log(dolphinData)
                     createInfoCard(numInfos, pageSize);
+
                     insertInfoCard(numInfos, pageSize);
                 });
             $('.intro').infiniteScroll('loadNextPage');
