@@ -60,7 +60,7 @@
                 path: '.pagination__next',
                 responseBody: 'json',
                 status: ".scroller-status",
-                maxPage: 5,
+                maxPage: 7,
                 history: false,
             });
             $('.intro').on( 'load.infiniteScroll', function( event, data ) {
@@ -72,6 +72,7 @@
                     insertInfoCard(numInfos, pageSize);
                 });
             $('.intro').infiniteScroll('loadNextPage');
+
         } catch (err) {
             console.log(err);
         }
