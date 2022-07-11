@@ -22,17 +22,16 @@ const {
     createDataRouter,
     dataBasePageRouter,
     webConsoleRouter,
-    webConsolePageRouter,
     userSignupRouter,
     userLoginRouter,
-    usersPageRouter
+    usersRouter
 } = require('./console_router');
 
 api.use(`/api/${API_VERSION}/data`, getDownloadRouter, getDataAllRouter, getDataMapRouter, getDataDolphinRouter)
 api.use(`/api/${API_VERSION}/tracker`, trackerRouter)
 api.use(`/api/${API_VERSION}/species`, speciesRouter)
 
-api.use('/admin/console', createDataRouter, dataBasePageRouter, webConsoleRouter, webConsolePageRouter, userSignupRouter, userLoginRouter, usersPageRouter);
+api.use('/admin/console', createDataRouter, dataBasePageRouter, webConsoleRouter, userSignupRouter, userLoginRouter, usersRouter);
 
 
 

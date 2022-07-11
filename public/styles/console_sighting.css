@@ -5,12 +5,12 @@
   }
 
 html {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
     display: flex;
-    min-height: 100vh;
+    max-height: 100vh;
     line-height: 1.5em !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -19,10 +19,10 @@ body {
     font-size: 1.5rem;
     font-weight: 500;
     margin: 0 auto;
-    min-height: 100vh;
 }
 
 main {
+  overflow: scroll;
   flex: 1 0 auto;
 }
 

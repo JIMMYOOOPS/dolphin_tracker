@@ -30,7 +30,6 @@ button:hover {
     background-color: black;
     top: 0;
     left: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -117,25 +116,35 @@ ul li {
 ul {
     margin-top: 100px
 }
+
+button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 1px #fff;
+    background-color: #102F4A !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+#button-logout {
+    margin: 10px 0 0 30px;
+    color: #fff;
+    font-size: 1rem;
+    background-color: #39708f;
+    display: block;
+    width: 20vh;
+    height: 40px;
+}
+
   </style>
   <sidebar>
     <div class="util">
     <button class="sidebar-toggle" onclick="close()">☰</button>
-    <div class="user">
-        <div class="user-logo"></div>
-        <div class="user-info">
-            <div class="user-name" >劉寯碩 </div> 
-            <br>
-            <div class="user-admin" >權限： </div>
-        </div>
-    </div>
     <ul>
-        <li><a 
- id="sighting">鯨豚目擊紀錄</a></li>
+        <li><a id="sighting">鯨豚目擊紀錄</a></li>
         <li><a id="database">鯨豚目擊資料庫</a></li>
-        <!-- <li><a id="statistics">統計資料</a></li> -->
-        <li><a id="users">使用者管理</a></li>
-    </ul>   
+        <li><a id="users" href="/console_users.html">使用者管理</a></li>
+    </ul>
+    <button id="button-logout">登出</button>
     </div>
   </sidebar>
 `;
@@ -198,39 +207,46 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#database'
                 alert('You are forbidden to enter this page.')
             }
         }
-        
     } catch(error) {
         console.log(error);
     }
 });
 
-document.querySelector('sidebar-component').shadowRoot.querySelector('#users').addEventListener('click', async function(event) {
+(async () => {
     try {
         const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            alert('Please Sign In')
-            return window.location.href = '/console_login.html'
-            } else {
-                const url = '/admin/console/users';
-                const options = {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + accessToken
-                }
-            };
-            let rawUsersResponse = await fetch(url, options);
-            if (rawUsersResponse.status == 200) {
-                window.location.href = '/console_users.html';
-            } else {
-                alert('You are forbidden to enter this page.')
-            }
+        let url ='/admin/console/users/login'
+        let options = {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': 'Bearer ' + accessToken
+            },
         }
-    } catch(error) {
-        console.log(error);
+        async function getData(url, options) {
+            try {
+                let rawData = await fetch(url, options);
+                let data = await rawData.json();
+                return data;
+        } catch (err) {
+            console.log(err.message);
+            }
+        };
+    let result = await getData(url, options)
+    let userData = result[0]
+    console.log(userData);
+    document.querySelector('sidebar-component').shadowRoot.querySelector('.user-name').innerText = userData.name
+    document.querySelector('sidebar-component').shadowRoot.querySelector('.user-admin').innerText = userData.role_id
+    } catch (err) {
+        console.log(err);
     }
-});
+})()
+
+document.querySelector('sidebar-component').shadowRoot.querySelector('#button-logout').addEventListener('click', function(event) {
+    localStorage.removeItem('access_token')
+    window.location.href = '/admin/console'
+  });
 `
 
 class Sidebar extends HTMLElement {

@@ -5,16 +5,21 @@
 }
 
 html {
-height: 100%;
+  height: 100vh;
 }
 
 main {
-flex: 1 0 auto;
+  overflow: scroll;
+  flex: 1 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
   display: flex;
-  min-height: 100vh;
+  flex-direction: row;
+  max-height: 100vh;
   font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 100%;
   font-weight: 100;
@@ -28,7 +33,11 @@ body {
   -o-background-size: cover;
   background-size: cover;
   margin: 0 auto;
-  min-height: 100vh;
+}
+
+h1 {
+  margin-top: 30px;
+  margin-left: 330px;
 }
 
 a {
@@ -42,19 +51,26 @@ a:hover {
   box-shadow: inset 0 -2px 0 0 #fff;
 }
 
+button:hover {
+  cursor: pointer;
+  background-color: #232323;
+  color: #fff;
+}
+
 .sidebar {
-position: fixed !important;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: var(--clr-white);
-display: grid;
-grid-template-rows: auto 1fr auto;
-row-gap: 1rem;
-box-shadow: var(--clr-red-dark);
-transition: var(--transition);
-transform: translate(-100%); /* 用此屬性控制縮放 */
+  max-height: 100vh;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--clr-white);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 1rem;
+  box-shadow: var(--clr-red-dark);
+  transition: var(--transition);
+  transform: translate(-100%); /* 用此屬性控制縮放 */
 }
 
 .toggle-button:hover {
@@ -65,7 +81,7 @@ transition: 0.05s;
 
 .toggle-button {
 margin-left: auto;
-width: 50px;
+min-width: 50px;
 height: 50px;
 background-color: #232323;
 color: #fff;
@@ -75,12 +91,103 @@ border-radius:10px;
 }
 
 .content {
+  max-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  margin: 0 auto;
-  min-height: 100vh;
+  /* margin: 0 auto; */
 }
 
+.user-card {
+  max-height: 100vh;
+  margin: 25px 50px 50px 300px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 140vh;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+  width: 450px;
+  background-color: #103855;
+  border: 1px solid #000;
+  border-radius: 20px;
+  margin: 20px 20px 20px 20px;
+}
+
+.image-container {
+  display: flex;
+  height: 100%;
+  width: 200px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background-color: #9cbed9;
+  height: 180px;
+  width: 180px;
+  padding: 10px 10px 10px 10px;
+  margin-top: 40px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.line {
+  margin-top: 17px;
+  display:block;
+  width:60%;
+  border-top: 3px solid #fff
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 225px;
+  padding: 1px 1px 1px 1px;
+  justify-content: space-around;
+  border-left: 1px solid #edede9;
+}
+
+.note {
+  margin-left: 330px;
+  font-weight: 500;
+}
+
+.name, .email, .role_id, .login_at, .button-container {
+  height:55px;
+  width:100%;
+  padding: 5px 5px 5px 5px;
+  line-height: 45px;
+  font-size: 100%;
+  font-weight: 300;
+  color: #fff;
+  border-bottom: 1px solid #edede9;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  border-bottom: none;
+}
+
+.user-button {
+  margin:5px;
+  height: 40px;
+  width: 80px;
+  background-color: #edede9;
+  font-size: 100%;
+  font-weight: 500;
+}

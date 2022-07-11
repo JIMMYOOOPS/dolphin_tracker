@@ -1,6 +1,9 @@
 const path = require('path');
 const validator = require('validator');
 const Console = require('../models/console_model');
+const jwt = require('jsonwebtoken');
+const {TOKEN_SECRET} = process.env;
+require('dotenv').config();
 
 function webConsole (req, res) {
     res.sendFile(path.join(__dirname, '../../', 'public', 'console_login.html'));
@@ -76,6 +79,99 @@ async function userLogin (req, res) {
     }
 }
 
+async function updateUsers (req, res) {
+    try {
+        let {email, role_id} = req.body;
+        let result = await Console.updateUsers(email, role_id);
+        console.log(result);
+        if (result.changedRows === 0) {
+            res.status(200).json({
+                fail: 'User information has NOT been updated.'
+            });    
+        } else {
+            res.status(200).json({
+                success: 'User information has been updated.'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: console.log(error),
+            message: 'An error has occured on the server'
+        })
+    }
+}
+
+async function getUsers (req, res) {
+    try {
+        let data = await Console.getUsers();
+        let result = {}
+        let loginAt = [];
+        for (i=0; i<data.length; i++) {
+            if (data[i].login_at == null) {
+                loginAt.push(data[i].login_at)
+            } else {
+                loginAtArray = data[i].login_at.split(' ') 
+                loginAt.push(loginAtArray[0])
+            } 
+        }
+        for(i=0; i<loginAt.length; i++) {
+            data[i].login_at = loginAt[i]
+        }
+        result = {
+            data
+        }
+        res.status(200).json(result);   
+    } catch (error) {
+        res.status(500).json({
+            error: console.log(error),
+            message: 'An error has occured on the server'
+        })
+    }
+}
+
+async function getUser (req, res) {
+    try {
+        let accessToken = req.get('Authorization')
+        accessToken = accessToken.replace('Bearer ', '');
+        const user = await new Promise(
+            function (resolve,reject) {
+                jwt.verify(accessToken, TOKEN_SECRET, (err, user) =>{
+                    if (err) {
+                        reject(err);
+                    } 
+                    resolve(user);
+                });
+            }
+        )
+        req.user = user;
+        let result = await Console.getUser(user.email);
+        res.status(200).json(result); 
+    } catch(error) {
+        res.status(403).json({message: 'You are Forbidden to enter this page'});
+    }
+}
+
+async function deleteUsers (req, res) {
+    try {
+        let {email} = req.body;
+        let result = await Console.deleteUsers(email);
+        if (result.affectedRows === 0) {
+            res.status(200).json({
+                fail: 'User information has NOT been deleted.'
+            });    
+        } else {
+            res.status(200).json({
+                success: 'User information has been deleted.'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: console.log(error),
+            message: 'An error has occured on the server'
+        })
+    }
+}
+
 module.exports = {
     sightingPage,
     dataBasePage,
@@ -83,6 +179,9 @@ module.exports = {
     webConsolePage,
     userSignup,
     userLogin,
-    getUsersPage
+    getUsersPage,
+    getUsers,
+    getUser,
+    updateUsers,
+    deleteUsers
 }
-

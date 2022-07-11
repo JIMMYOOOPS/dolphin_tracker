@@ -266,23 +266,36 @@ async function download() {
                 "Content-Type": "application/json",
             },
         }
-        let rawdownlaodResponse = await fetch(url, options);
-        let downlaodResponse = await rawdownlaodResponse.json();
-        console.log(downlaodResponse);
-        let dir = downlaodResponse.split('downloadfile/')
-        console.log(dir)
-        if (dir) {
-            alert(`Your file is downloaded as ${dir[1]}`);
-            window.location.href = "/console_db.html";
-        } else {
-            alert('the file has not been downloaded.')
-        }
+        let response = await fetch(url, options);
+        let filenameArr = response.headers.get('Content-Disposition').split('=') 
+        let filename = filenameArr[1]
+        const reader = response.body.getReader();
+        let receivedLength = 0; 
+        let chunks = [];
+        while(true) {
+            const {done, value} = await reader.read();
+            if (done) {
+              break;
+            }
+            chunks.push(value);
+            receivedLength += value.length;
+            console.log(`Received ${receivedLength}`)
+          }
+        let blob = new Blob(chunks);
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.setAttribute('download', `${filename}`);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(blobUrl);
     } catch(err) {
         console.log('Error', err )
     }
 }
+
 $('.toggle-button').on('click', () => {
     document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
-    .classList.remove("hide")
-    .classList.toggle("show");
+    .classList.remove("hide");
 })
