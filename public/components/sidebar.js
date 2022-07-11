@@ -28,8 +28,6 @@ button:hover {
     min-height: 100%;
     width: 30vh;
     background-color: black;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
 }
@@ -114,7 +112,8 @@ ul li {
 
 
 ul {
-    margin-top: 100px
+    margin-top: 15vh;
+    margin-left: 30px;
 }
 
 button:hover {
@@ -142,7 +141,7 @@ button:hover {
     <ul>
         <li><a id="sighting">鯨豚目擊紀錄</a></li>
         <li><a id="database">鯨豚目擊資料庫</a></li>
-        <li><a id="users" href="/console_users.html">使用者管理</a></li>
+        <li><a id="users">使用者管理</a></li>
     </ul>
     <button id="button-logout">登出</button>
     </div>
@@ -211,6 +210,35 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#database'
         console.log(error);
     }
 });
+
+document.querySelector('sidebar-component').shadowRoot.querySelector('#users').addEventListener('click', async function(event) {
+    try {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            alert('Please Sign In')
+            return window.location.href = '/console_users.html'
+            } else {
+                const url = '/admin/console/database';
+                const options = {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            };
+            let rawDatabaseResponse = await fetch(url, options);
+            if (rawDatabaseResponse.status == 200) {
+                window.location.href = '/console_users.html';
+            } else {
+                alert('You are forbidden to enter this page.')
+            }
+        }
+    } catch(error) {
+        console.log(error);
+    }
+});
+
 
 (async () => {
     try {

@@ -142,6 +142,53 @@ button {
   cursor: pointer;
 }
 
+.legend {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 150px;
+  width: 120px;
+  margin: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 2px 2px #3A362E;;
+  z-index: 1;
+}
+
+.legend-name {
+  margin:0px auto;
+  padding-bottom: 10px;
+  width: 60%;
+  border-bottom: 2px solid #3A362E;
+  text-align: center;
+}
+
+.legend-dolphin, .legend-whale {
+  margin: 0 0 0 10px;
+  line-height: 24px;
+}
+
+.circle-dolphin, .circle-whale {
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  height: 22px;
+  width: 22px;
+  vertical-align: middle;
+  margin-left: 18px;
+}
+
+.circle-dolphin {
+  background-color: #e9c46a;
+}
+
+.circle-whale {
+  background-color: #006d77;
+}
 /* button:focus {
   box-shadow: 0 0 0 2px #fff, 0 0 0 3px #fff !important;
   background-color: #102F4A !important;

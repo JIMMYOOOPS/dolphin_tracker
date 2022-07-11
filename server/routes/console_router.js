@@ -35,7 +35,7 @@ const usersRouter = express.Router();
 createDataRouter.post('/sighting', cdUpload, createData);
 createDataRouter.get('/sighting', authentication(USER_ROLE.RECORDERS), sightingPage);
 dataBasePageRouter.get('/database', authentication(USER_ROLE.KUROSHIO), dataBasePage);
-dataBasePageRouter.put('/database', authentication(USER_ROLE.KUROSHIO), updateData);
+dataBasePageRouter.put('/database', updateData);
 usersRouter.get('/users', authentication(USER_ROLE.ADMIN), getUsers);
 usersRouter.put('/users', authentication(USER_ROLE.ADMIN), updateUsers);
 usersRouter.delete('/users', authentication(USER_ROLE.ADMIN), deleteUsers);
