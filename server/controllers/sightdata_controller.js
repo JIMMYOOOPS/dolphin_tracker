@@ -175,6 +175,7 @@ const getDataAll = async (req, res) => {
 
 const updateData = async (req, res) => {
     const data = req.body;
+    console.log(data)
     // For table sailing_info
     const sailingInfoData = { 
         id: data.id,

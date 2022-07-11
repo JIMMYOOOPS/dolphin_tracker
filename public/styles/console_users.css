@@ -176,6 +176,20 @@ border-radius:10px;
   border-bottom: 1px solid #edede9;
 }
 
+select, option {
+  height: 40px;
+  width: 70% !important;
+  margin: 5px 0 0 5px;
+  text-align: center;
+  font-size: 90%;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.login_at {
+  border-top: 1px solid #edede9;
+}
+
 .button-container {
   display: flex;
   flex-direction: row;

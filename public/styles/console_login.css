@@ -147,6 +147,11 @@ h1 {
     text-align: center;
 }
 
+.signin {
+    margin-top: 10vh;
+    margin-left: 30px;
+}
+
 .name-box, .email-box, .password-box {
     margin: 30px;
     color: #fff;

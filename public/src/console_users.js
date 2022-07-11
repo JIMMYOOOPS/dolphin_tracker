@@ -50,10 +50,10 @@
             id: `email-${i}`,
             class: "email"
           }).appendTo(`#user-info-${i}`);
-          const roleID = $('<div></div>', {
+          const roleID = $(`<select><option>使用者身份： ${userData[i].role_id}</option><option value="-1">管理員</option><option value="1">基金會同仁</option><option value="2">志工夥伴</option></select>`, {
             id: `role_id-${i}`,
             class: "role_id",
-            contenteditable: "true"
+            name: "role_id"
           }).appendTo(`#user-info-${i}`);
           const lastSeen = $('<div></div>', {
             id: `login_at-${i}`,
@@ -81,7 +81,7 @@
             $(`#image-${i}`).css('background-image', `url('${userData[i].picture}')`)
             $(`#name-${i}`).text(`名稱： ${userData[i].name}`)
             $(`#email-${i}`).text(`信箱： ${userData[i].email}`)
-            $(`#role_id-${i}`).text(`使用者身份： ${userData[i].role_id}`)
+            $(`#role_id-${i}`).val()
             $(`#login_at-${i}`).text(`最後上線時間： ${userData[i].login_at}`)
             $(`#update-user-${i}`).text(`更新`)
             $(`#delete-user-${i}`).text(`刪除`)
@@ -118,11 +118,10 @@ async function updateSubmit() {
      id = idSplit[2]
 
       let email = $(`#email-${id}`).text()
-      let role_id = $(`#role_id-${id}`).text()
+      let role_id = $(`#role_id-${id}`).val()
+      console.log(role_id)
       let emailSplit = email.split(' ')
-      let role_idSplit = role_id.split(' ')
       email = emailSplit[1];
-      role_id = role_idSplit[1];
       const body = {
         email,
         role_id
