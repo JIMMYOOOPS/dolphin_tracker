@@ -25,9 +25,9 @@ async function searchSelection() {
               "Content-Type": "application/json",
           },
       }
-      let rawData = await fetch(url, options);
-      data = await rawData.json();
-      if (data) {
+      let rawDataSelect = await fetch(url, options);
+      dataSelect = await rawDataSelect.json();
+      if (dataSelect) {
         require([
           'esri/config',
           'esri/Map',
@@ -61,20 +61,16 @@ async function searchSelection() {
           const graphicsLayer = new GraphicsLayer();
           map.layers.add(graphicsLayer);
       
-          const simpleMarkerSymbol = {
-            type: 'simple-marker',
-            color: '#102F4A',
-            size: 10,
-            style: 'circle',
-            outline: {
-              color: '#fff',
-              width: 1,
-            },
-          };
-          data['data'].forEach((e) => {
-            // const attribute = {
-            //   date: e.year+'.'+e.month+'.'+e.day,
-            // }
+          dataSelect['data'].forEach((e) => {
+            let color;
+            var match = e.name.match(/海豚/i);
+            if(match != null) {
+              if (match[1] != ""){
+                color = '#e9c46a';
+              } 
+            } else {
+              color = '#006d77';
+            }
             // Create point
             const point = {
               type: 'point',
@@ -88,6 +84,18 @@ async function searchSelection() {
               `<p>鯨豚種類：${e.name}</p>` +
               `<img src='${e.img}'></img>`
             };
+      
+            const simpleMarkerSymbol = {
+              type: 'simple-marker',
+              color: color,
+              size: 10,
+              style: 'circle',
+              outline: {
+                color: '#fff',
+                width: 0.5,
+              },
+            };
+      
             let pointGraphic = new Graphic({
               popupTemplate: template,
               geometry: webMercatorUtils.geographicToWebMercator(point),

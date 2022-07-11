@@ -41,7 +41,7 @@ headerTemplate.innerHTML = `
     }
 
     .logo {
-      background-color: #fff;
+      background-color: #f5f3f4;
       border-radius: 100%;
       display:inline-block;
       width: 50px;
@@ -51,9 +51,9 @@ headerTemplate.innerHTML = `
     img {
       display: inline-block;
       width: 44%;
-      background-color: white;
+      background-color: #f5f3f4;
       border-radius: 100%;
-      border: 3px solid #fff;
+      border: 3px solid #f5f3f4;
     }
 
   </style>
