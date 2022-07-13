@@ -27,7 +27,7 @@ jobs:
         run: |
           touch .env
            echo ${{ secrets.API_VERSION }} >> .env
-           echo PORT=${{ secrets.PORT }} >> .env
+           echo PORT=${{ secrets.APP_PORT }} >> .env
            echo ${{ secrets.DB_HOST }} >> .env
            echo ${{ secrets.DB_USERNAME }} >> .env
            echo ${{ secrets.DB_PASSWORD }} >> .env
