@@ -13,7 +13,6 @@ jobs:
   build: 
     env:
       CI: true
-      DB_HOST: mysql://localhost/dolphintracker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,12 +22,6 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: '16'
-      - name: create mock DB
-        uses: mirromutth/mysql-action@v1.1
-        with: 
-          mysql-version: '8.0'
-          mysql user: 'test'
-          mysql password: 'test'
       - run: npm install
       - run: npm test
 
