@@ -23,14 +23,15 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: '16'
-      - run: npm install
-      - run: npm test
       - name: create mock DB
         uses: mirromutth/mysql-action@v1.1
         with: 
           mysql-version: '8.0'
           mysql user: 'test'
           mysql password: 'test'
+      - run: npm install
+      - run: npm test
+
   # deploy:
   #   name: Deploy to EC2 on main branch
   #   runs-on: ubuntu-latest
