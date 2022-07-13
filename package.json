@@ -7,8 +7,8 @@
     "start": "node server.js",
     "watch": "nodemon server.js",
     "lint": "eslint *.js ",
-    "test": "jest",
-    "test-watch": "jest --watch"
+    "test": "set NODE_ENV=test jest",
+    "test-watch": "set NODE_ENV=test jest --watch"
   },
   "keywords": [],
   "author": "",
