@@ -23,6 +23,14 @@ jobs:
         with: 
           node-version: '16'
       - run: npm install
+      - name: 'Create env file'
+        run: |
+          touch .env
+           echo ${{ secrets.DB_HOST }} >> .env
+           echo ${{ secrets.DB_USERNAME }} >> .env
+           echo ${{ secrets.DB_PASSWORD }} >> .env
+           echo ${{ secrets.DB_DATABASE_TEST }} >> .env
+
       - run: npm test
 
   deploy:
