@@ -9,6 +9,7 @@ const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE,
 
 // Configure for MySQL
 const mysqlConfig = {
+    development: { // for RDS
         host: DB_HOST,
         user: DB_USERNAME,
         password: DB_PASSWORD,
@@ -16,6 +17,13 @@ const mysqlConfig = {
         waitForConnections: true,
         connectionLimit: 20,
         queueLimit: 0
+    }, 
+    test: { // for automation testing
+        host: DB_HOST,
+        user: DB_USERNAME,
+        password: DB_PASSWORD,
+        database: DB_DATABASE_TEST
+    }
 };
 
 // Configure for Redis
