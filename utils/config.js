@@ -7,6 +7,8 @@ const {DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_DATABASE_TEST,
     ESRI_API_KEY, AWS_BUCKET_REGION, AWS_ACCESS_KEY, AWS_SECRET_KEY
 } = process.env;
 
+console.log(DB_HOST);
+
 // Configure for MySQL
 const mysqlConfig = {
     development: { // for RDS
