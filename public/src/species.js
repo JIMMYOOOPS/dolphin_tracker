@@ -60,7 +60,7 @@
                 path: '.pagination__next',
                 responseBody: 'json',
                 status: ".scroller-status",
-                maxPage: 5,
+                maxPage: 7,
                 history: false,
             });
             $('.intro').on( 'load.infiniteScroll', function( event, data ) {
@@ -68,10 +68,13 @@
                 pageNum = data.next_paging -1
                 pageSize = 4
                 let numInfos = pageNum * pageSize
+                console.log(dolphinData)
                     createInfoCard(numInfos, pageSize);
+
                     insertInfoCard(numInfos, pageSize);
                 });
             $('.intro').infiniteScroll('loadNextPage');
+
         } catch (err) {
             console.log(err);
         }

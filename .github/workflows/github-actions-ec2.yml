@@ -5,34 +5,57 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
-    name: Deploy to EC2 on main branch push
+  build: 
+  env:
+    CI: true
+    DB_HOST: mysql://localhost/dolphintracker
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Node.js version 16
+        uses: actions/setup-node@v2
+        with: 
+          node-version: '16'
+      -run: npm install
+      -run: npm test
+      -name: create mock DB
+        uses: mirromutth/mysql-action@v1.1
+        with: 
+          mysql-version: '8.0'
+          mysql user: 'test'
+          mysql password: 'test'
+  # deploy:
+  #   name: Deploy to EC2 on main branch
+  #   runs-on: ubuntu-latest
 
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Deploy to Server 1
+  #       uses: easingthemes/ssh-deploy@main
+  #       env:
+  #         SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+  #         REMOTE_HOST: ${{ secrets.HOST_DNS }}
+  #         REMOTE_USER: ${{ secrets.USERNAME }}
+  #         TARGET: ${{ secrets.TARGET_DIR }}
       
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script_stop: true
-          script: |
-            cd campus/dolphin_tracker/
-            docker-compose down
-            docker-compose up --build -d
-            docker rmi $(docker images -f "dangling=true" -q)
+  #     - name: executing remote ssh commands using password
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.HOST }}
+  #         username: ${{ secrets.USERNAME }}
+  #         key: ${{ secrets.KEY }}
+  #         port: ${{ secrets.PORT }}
+  #         script_stop: true
+  #         script: |
+  #           cd campus/dolphin_tracker/
+  #           docker-compose down
+  #           docker-compose up --build -d
+  #           docker rmi $(docker images -f "dangling=true" -q)
