@@ -1,7 +1,9 @@
 const mysql = require('mysql2/promise');
 const { mysqlConfig } = require('./config');
+require('dotenv').config({path:__dirname+'/../.env'});
+const { NODE_ENV } = process.env;
 
-const pool = mysql.createPool(mysqlConfig);
+const pool = mysql.createPool(mysqlConfig[NODE_ENV]);
 console.log('Mysql is connected');
 
 async function queryPromise(sql, params) {
