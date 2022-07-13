@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  build: 
+  test: 
     env:
       CI: true
     runs-on: ubuntu-latest
@@ -25,32 +25,33 @@ jobs:
       - run: npm install
       - run: npm test
 
-  # deploy:
-  #   name: Deploy to EC2 on main branch
-  #   runs-on: ubuntu-latest
+  deploy:
+    needs: test
+    name: Deploy to EC2 on main branch
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-  #     - name: Deploy to Server 1
-  #       uses: easingthemes/ssh-deploy@main
-  #       env:
-  #         SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-  #         REMOTE_HOST: ${{ secrets.HOST_DNS }}
-  #         REMOTE_USER: ${{ secrets.USERNAME }}
-  #         TARGET: ${{ secrets.TARGET_DIR }}
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
       
-  #     - name: executing remote ssh commands using password
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USERNAME }}
-  #         key: ${{ secrets.KEY }}
-  #         port: ${{ secrets.PORT }}
-  #         script_stop: true
-  #         script: |
-  #           cd campus/dolphin_tracker/
-  #           docker-compose down
-  #           docker-compose up --build -d
-  #           docker rmi $(docker images -f "dangling=true" -q)
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script_stop: true
+          script: |
+            cd campus/dolphin_tracker/
+            docker-compose down
+            docker-compose up --build -d
+            docker rmi $(docker images -f "dangling=true" -q)
