@@ -29,10 +29,18 @@ async function createInBulk (sql, params) {
     }
 };
 
+async function poolConnection () {
+    await pool.getConnection()
+}
 
+async function poolRelease () {
+    await pool.end()
+}
 
 module.exports = {
     pool,
     queryPromise,
-    createInBulk
+    createInBulk,
+    poolConnection,
+    poolRelease
 };

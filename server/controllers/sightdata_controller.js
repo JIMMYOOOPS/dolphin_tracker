@@ -249,41 +249,22 @@ const getDataMap = async (req, res) => {
                 case 'all':
                     return Data.getDataMap()
                 case 'date': {
+                    // Gets date in range format (2016. 01. 01. - 2020. 12. 31.)
                     const range = req.body.range.split('. ')
                     const type = req.body.type
+                    // Amend date format to 20160101
+                    const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
+                    let endDayArr = rawEndDay.split('.')
+                    let endDay = endDayArr[0]
+                    let endYearArr = rawEndYear.split('- ');
+                    let endYear = endYearArr[1]
+                    let startDate =  startYear + startMonth + startDay
+                    let endDate = endYear + endMonth + endDay
                     if (range && type) {
-                        const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
-                        let endDayArr = rawEndDay.split('.')
-                        let endDay = endDayArr[0]
-                        let endYearArr = rawEndYear.split('- ');
-                        let endYear = endYearArr[1]
-                        let startDate =  startYear + startMonth + startDay
-                        let endDate = endYear + endMonth + endDay
                         return await Data.getDataMap(null, null, {startDate, endDate, type});
                     } else if (range) {
-                        const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
-                        let endDayArr = rawEndDay.split('.')
-                        let endDay = endDayArr[0]
-                        let endYearArr = rawEndYear.split('- ');
-                        let endYear = endYearArr[1]
-                        let startDate =  startYear + startMonth + startDay
-                        let endDate = endYear + endMonth + endDay
                         return await Data.getDataMap(null, null, {startDate, endDate});
                     }
-                    // if(Number.isInteger(day)) {
-                    //     console.log('here1', year, month, day)
-                    //     return await Data.getDataMap(null, null, {year, month, day});
-                    // } else if (Number.isInteger(month)) {
-                    //     console.log('here2', year, month)
-                    //     return await Data.getDataMap(null, null, {year, month})
-                    // } else {
-                    //     console.log('here3', year)
-                    //     return await Data.getDataMap(null, null, {year})
-                    // }
-                }
-                case 'type': {
-                    const type = req.body.type;
-                    return await Data.getDataMap(null, null, {type});
                 }
             }
         }
@@ -295,9 +276,8 @@ const getDataMap = async (req, res) => {
         result["data"].forEach(e => {
             // Create function to add dolphin actions
             // Amend GPS convert function
-            
             // GPS convert for 1998 - 2020
-            if (e.latitude < 23 || e.longitude < 121)  {
+            if (e.latitude < 23 || e.longitude !== 121)  {
                 e.latitude = null;
                 e.latitude_min = null;
                 e.latitude_sec = null;
@@ -309,8 +289,6 @@ const getDataMap = async (req, res) => {
                 e.longitude = e.longitude + (e.longitude_min + e.longitude_sec/1000)/60;
             }
 
-
-
             // GPS convert for 2021 to now
             // e.latitude_min = e.latitude_min/60;
             // e.latitude_sec = e.latitude_sec/3600;
@@ -318,7 +296,6 @@ const getDataMap = async (req, res) => {
             // e.longitude_min = e.longitude_min/60;
             // e.longitude_sec = e.longitude_sec/3600;
             // e.longitude = e.longitude + e.longitude_min + e.longitude_sec;
-            
         })
         res.status(200).json(result)
     } catch (error) {

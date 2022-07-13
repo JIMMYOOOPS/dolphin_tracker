@@ -26,6 +26,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './', 'index.html'))
 })
 
-app.listen(PORT, () => {
+let server = app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`)
 })
+
+module.exports = {
+  app, 
+  server
+}
