@@ -54,7 +54,7 @@ async function searchSelection() {
           const view = new MapView({
             map: map,
             center: [121.5, 23.75], // Longitude, latitude
-            zoom: 10, // Zoom level
+            zoom: 9.5, // Zoom level
             container: 'viewDiv', // Div element
           });
       
@@ -82,6 +82,7 @@ async function searchSelection() {
               content: 
               `<p>日期：${e.year + '.' + e.month + '.' + e.day}</p>` +
               `<p>鯨豚種類：${e.name}</p>` +
+              `<p>經度：${e.longitude} 緯度：${e.latitude}</p>` +
               `<img src='${e.img}'></img>`
             };
       
@@ -163,7 +164,7 @@ async function searchSelection() {
     const view = new MapView({
       map: map,
       center: [121.5, 23.75], // Longitude, latitude
-      zoom: 10, // Zoom level
+      zoom: 9.5, // Zoom level
       container: 'viewDiv', // Div element
     });
 
@@ -186,11 +187,13 @@ async function searchSelection() {
         longitude: e.longitude,
         latitude: e.latitude,
       };
+      console.log(point);
       const template = {
         title: '鯨豚目擊',
         content: 
         `<p>日期：${e.year + '.' + e.month + '.' + e.day}</p>` +
         `<p>鯨豚種類：${e.name}</p>` +
+        `<p>經度：${e.longitude} 緯度：${e.latitude}</p>` +
         `<img src='${e.img}'></img>`
       };
 
