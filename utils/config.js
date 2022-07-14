@@ -2,20 +2,29 @@ const path = require('path')
 require('dotenv').config({path:__dirname+'/../.env'});
 const S3 = require("aws-sdk/clients/s3");
 
-const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, 
+const {DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_DATABASE_TEST,
     CACHE_HOST, CACHE_PORT, CACHE_USER, CACHE_PASSWORD,
     ESRI_API_KEY, AWS_BUCKET_REGION, AWS_ACCESS_KEY, AWS_SECRET_KEY
 } = process.env;
 
 // Configure for MySQL
 const mysqlConfig = {
+    development: { // for RDS
         host: DB_HOST,
         user: DB_USERNAME,
         password: DB_PASSWORD,
         database: DB_DATABASE,
         waitForConnections: true,
         connectionLimit: 20,
-        queueLimit: 0
+    }, 
+    test: { // for automation testing
+        host: DB_HOST,
+        user: DB_USERNAME,
+        password: DB_PASSWORD,
+        database: DB_DATABASE_TEST,
+        waitForConnections: true,
+        connectionLimit: 20
+    }
 };
 
 // Configure for Redis

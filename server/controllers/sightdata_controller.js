@@ -243,6 +243,7 @@ const updateData = async (req, res) => {
 
 const getDataMap = async (req, res) => {
     try {
+        console.log(req.hostname);
         const category = req.params.category;
         async function findSightData(category) {
             switch (category) {
