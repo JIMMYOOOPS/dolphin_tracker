@@ -22,6 +22,7 @@
         console.log(result);
             let dolphinData = result['data']
             function createInfoCard(numInfos, pageSize) {
+                    console.log(numInfos);
                     for (i= numInfos ; i < numInfos + pageSize; i++) {
                         const dolphinInfo = $('<a></a>', {
                             id: `intro-${i}`,
