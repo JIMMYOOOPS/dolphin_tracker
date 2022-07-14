@@ -74,9 +74,9 @@
                     let numInfos = pageNum * pageSize;
                     createInfoCard(numInfos, pageSize);
                     insertInfoCard(numInfos, pageSize);
-                    $('.intro').infiniteScroll('loadNextPage');
                 }
             })
+            $('.intro').infiniteScroll('loadNextPage');
         } catch (err) {
             console.log(err);
         }
