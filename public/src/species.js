@@ -19,10 +19,8 @@
             }
         };
         result = await getData(url, options)
-        console.log(result);
             let dolphinData = result['data']
             function createInfoCard(numInfos, pageSize) {
-                    console.log(numInfos);
                     for (i= numInfos ; i < numInfos + pageSize; i++) {
                         const dolphinInfo = $('<a></a>', {
                             id: `intro-${i}`,
@@ -61,21 +59,24 @@
                 path: '.pagination__next',
                 responseBody: 'json',
                 status: ".scroller-status",
-                maxPage: 7,
+                maxPage: 6,
                 history: false,
             });
+
+            let infScroll = $('.intro').data('infiniteScroll');
+            
+
             $('.intro').on( 'load.infiniteScroll', function( event, data ) {
-                dolphinData = data.data
-                pageNum = data.next_paging -1
-                pageSize = 4
-                let numInfos = pageNum * pageSize
-                console.log(dolphinData)
+                if (infScroll.pageIndex < 7) {
+                    dolphinData = data.data;
+                    pageNum = infScroll.pageIndex;
+                    pageSize = 4;
+                    let numInfos = pageNum * pageSize;
                     createInfoCard(numInfos, pageSize);
-
                     insertInfoCard(numInfos, pageSize);
-                });
-            $('.intro').infiniteScroll('loadNextPage');
-
+                    $('.intro').infiniteScroll('loadNextPage');
+                }
+            })
         } catch (err) {
             console.log(err);
         }
