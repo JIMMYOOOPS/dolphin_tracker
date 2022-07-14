@@ -68,14 +68,14 @@
                 if (infScroll.pageIndex < 7) {
                     dolphinData = data.data;
                     pageNum = infScroll.pageIndex;
-                    console.log(pagNum);
+                    console.log(pageNum);
                     pageSize = 4;
                     let numInfos = pageNum * pageSize;
                     createInfoCard(numInfos, pageSize);
                     insertInfoCard(numInfos, pageSize);
                 }
             })
-            .infiniteScroll('loadNextPage');
+            $('.intro').infiniteScroll('loadNextPage');
         } catch (err) {
             console.log(err);
         }
