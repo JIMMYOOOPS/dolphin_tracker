@@ -243,7 +243,6 @@ const updateData = async (req, res) => {
 
 const getDataMap = async (req, res) => {
     try {
-        console.log(req.hostname);
         const category = req.params.category;
         async function findSightData(category) {
             switch (category) {
@@ -251,24 +250,24 @@ const getDataMap = async (req, res) => {
                     return Data.getDataMap()
                 case 'date': {
                     // Gets date in range format (2016. 01. 01. - 2020. 12. 31.)
-                    const range = req.body.range.split('. ')
-                    const type = req.body.type
+                    const range = req.body.range.split('. ');
+                    const type = req.body.type;
                     // Amend date format to 20160101
                     const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
-                    let endDayArr = rawEndDay.split('.')
-                    let endDay = endDayArr[0]
+                    let endDayArr = rawEndDay.split('.');
+                    let endDay = endDayArr[0];
                     let endYearArr = rawEndYear.split('- ');
-                    let endYear = endYearArr[1]
-                    let startDate =  startYear + startMonth + startDay
-                    let endDate = endYear + endMonth + endDay
+                    let endYear = endYearArr[1];
+                    let startDate =  startYear + startMonth + startDay;
+                    let endDate = endYear + endMonth + endDay;
                     if (range && type) {
                         return await Data.getDataMap(null, null, {startDate, endDate, type});
                     } else if (range) {
                         return await Data.getDataMap(null, null, {startDate, endDate});
-                    }
-                }
-            }
-        }
+                    };
+                };
+            };
+        };
         let result = {}
         result = {
             data: await findSightData(category)
@@ -286,10 +285,38 @@ const getDataMap = async (req, res) => {
                 e.longitude_min = null;
                 e.longitude_sec = null;
             } else {
-                e.latitude = e.latitude + (e.latitude_min + e.latitude_sec/1000)/60;
-                e.longitude = e.longitude + (e.longitude_min + e.longitude_sec/1000)/60;
+                e.latitude = (e.latitude + (e.latitude_min + e.latitude_sec/1000)/60).toFixed(6);
+                e.longitude = (e.longitude + (e.longitude_min + e.longitude_sec/1000)/60).toFixed(6);
+                if(e.latitude > 24.68 || e.longitude < 121.61) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                } else if (e.latitude > 23.9828 && e.latitude < 23.9855 && e.longitude > 121.6120 && e.longitude < 121.623 ) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                } else if (e.latitude > 23.99 && e.latitude < 24.01 && e.longitude > 121.633 && e.longitude < 121.6393 ) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                } else if (e.latitude > 24.23 && e.latitude < 24.2321 && e.longitude > 121.698349 && e.longitude < 121.698351 ) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                }
             }
-
             // GPS convert for 2021 to now
             // e.latitude_min = e.latitude_min/60;
             // e.latitude_sec = e.latitude_sec/3600;
@@ -317,16 +344,16 @@ const getDataDolphin = async (req, res) => {
                     data: getDataDolphin.data,
                     next_paging: paging + 1
                 } : {
-                    data: getDataDolphin.data,
+                    data: getDataDolphin.data
                 };
             case 'details': {
                 const id = parseInt(req.query.id);
                 if (Number.isInteger(id)) {
                     let getDataDolphin = await Data.getDataDolphin(pageSize, paging, {id});
                     result = {
-                        data: getDataDolphin.data,
+                        data: getDataDolphin.data
                     };
-                }
+                };
             }
         }
         res.status(200).json(result)

@@ -74,11 +74,13 @@ main {
 
 .intro-image {
   height: 75vh;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: #F8F9FA;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-position: center;
   border: 1px solid #CED4DA;
   flex: 1 0 auto;
   box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
