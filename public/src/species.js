@@ -64,19 +64,18 @@
             });
 
             let infScroll = $('.intro').data('infiniteScroll');
-            
-
             $('.intro').on( 'load.infiniteScroll', function( event, data ) {
                 if (infScroll.pageIndex < 7) {
                     dolphinData = data.data;
                     pageNum = infScroll.pageIndex;
+                    console.log(pageNum);
                     pageSize = 4;
                     let numInfos = pageNum * pageSize;
                     createInfoCard(numInfos, pageSize);
                     insertInfoCard(numInfos, pageSize);
-                    $('.intro').infiniteScroll('loadNextPage');
                 }
             })
+            $('.intro').infiniteScroll('loadNextPage');
         } catch (err) {
             console.log(err);
         }
