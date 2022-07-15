@@ -20,14 +20,9 @@
             };
         result = await getData(url, options);
         let databaseData = result['data'];
+        let databaseData2 = result['obvInteraction20mins'];
+        let databaseData3 = result['obvInteraction30mins'];
         function createTableRow(numInfos, pageSize) {
-        // let rowArray = ['sailing_id', 'sighting_id', 'mix', 'dolphin_type', 'year', 'month', 'day', 'period', 'departure', 'arrival', 'boat_size', 'sighting', 'gps_no',  'guide', 'recorder', 'observations', 'type_confirmation', 'dolphin_group_no', 'dolphin_type_no', 'dorsal_fin', 'exhalation', 'splash', 'exhibition', 'weather', 'wind_direction', 'wave_condition', 'current', 'latitude', 'latitude_min', 'latitude_sec', 'longitude', 'longitude_min', 'longitude_sec', 'approach_time', 'approach_gps_no', 'leaving_time', 'leaving_gps_no', 'leaving_method', 'sighting_method', 'mother_child', 'mother_child_no', 'group_size_lowest', 'group_size_probable', 'group_size_highest',  'mix_type'];
-        // let attrArray = [];
-            // for (i= numInfos; i < numInfos -1 + pageSize; i++) {
-            //     for (j = 0; j< rowArray.length; j++) {
-            //         attrArray.push(`<td data-label=${rowArray[j]}-${i}>${databaseData[i].rowArray[j]}</td>`)
-            //     }
-            // }
             for (i= numInfos; i < numInfos -1 + pageSize; i++) {            
             let dataRow = '<tr>' +
                 `<td data-label=id-${i} id=id-${i}>${databaseData[i].id}</td>` +
@@ -75,7 +70,82 @@
                 `<td data-label=group_size_lowest-${i} id=group_size_lowest-${i} contenteditable="true">${databaseData[i].group_size_lowest}</td>` +
                 `<td data-label=group_size_probable-${i} id=group_size_probable-${i} contenteditable="true">${databaseData[i].group_size_probable}</td>` +
                 `<td data-label=group_size_highest-${i} id=group_size_highest-${i} contenteditable="true">${databaseData[i].group_size_highest}</td>` +
-                `<td data-label=mix_type-${i} id=mix_type-${i} contenteditable="true">${databaseData[i].mix_type}</td>`
+                `<td data-label=mix-${i} id=mix-${i} contenteditable="true">${databaseData[i].mix}</td>` +
+                `<td data-label=time1-${i} id=time1-${i} contenteditable="true">${databaseData[i].time}</td>` +
+                `<td data-label=boat_interaction1-${i} id=boat_interaction1-${i} contenteditable="true">${databaseData[i].boat_interaction}</td>` +
+                `<td data-label=boat_distance1-${i} id=boat_distance1-${i} contenteditable="true">${databaseData[i].boat_distance}</td>` +
+                `<td data-label=group_closeness_normal1-${i} id=group_closeness_normal1-${i} contenteditable="true">${databaseData[i].group_closeness_normal}</td>` +
+                `<td data-label=group_closeness_spreaded1-${i} id=group_closeness_spreaded1-${i} contenteditable="true">${databaseData[i].group_closeness_spreaded}</td>` +
+                `<td data-label=group_closeness_close1-${i} id=group_closeness_close1-${i} contenteditable="true">${databaseData[i].group_closeness_close}</td>` +
+                `<td data-label=speed_slow1-${i} id=speed_slow1-${i} contenteditable="true">${databaseData[i].speed_slow}</td>` +
+                `<td data-label=speed_moderate1-${i} id=speed_moderate1-${i} contenteditable="true">${databaseData[i].speed_moderate}</td>` +
+                `<td data-label=speed_fast1-${i} id=speed_fast1-${i} contenteditable="true">${databaseData[i].speed_fast}</td>` +
+                `<td data-label=speed_resting1-${i} id=speed_resting1-${i} contenteditable="true">${databaseData[i].speed_resting}</td>` +
+                `<td data-label=speed_circling1-${i} id=speed_circling1-${i} contenteditable="true">${databaseData[i].speed_circling}</td>` +
+                `<td data-label=foraging_maybe1-${i} id=foraging_maybe1-${i} contenteditable="true">${databaseData[i].foraging_maybe}</td>` +
+                `<td data-label=foraging_sure1-${i} id=foraging_sure1-${i} contenteditable="true">${databaseData[i].foraging_sure}</td>` +
+                `<td data-label=mating1-${i} id=mating1-${i} contenteditable="true">${databaseData[i].mating}</td>` +
+                `<td data-label=splash_interaction1-${i} id=splash_interaction1-${i} contenteditable="true">${databaseData[i].splash_interaction}</td>` +
+                `<td data-label=snorkel1-${i} id=snorkel1-${i} contenteditable="true">${databaseData[i].snorkel}</td>` +
+                `<td data-label=racing1-${i} id=racing1-${i} contenteditable="true">${databaseData[i].racing}</td>` +
+                `<td data-label=jump1-${i} id=jump1-${i} contenteditable="true">${databaseData[i].jump}</td>` +
+                `<td data-label=surfing_artificial1-${i} id=surfing_artificial1-${i} contenteditable="true">${databaseData[i].surfing_artificial}</td>` +
+                `<td data-label=surfing1-${i} id=surfing1-${i} contenteditable="true">${databaseData[i].surfing}</td>` +
+                `<td data-label=tail_lift1-${i} id=tail_lift1-${i} contenteditable="true">${databaseData[i].tail_lift}</td>` +
+                `<td data-label=contact1-${i} id=contact1-${i} contenteditable="true">${databaseData[i].contact}</td>` +
+                `<td data-label=backstroke1-${i} id=backstroke1-${i} contenteditable="true">${databaseData[i].backstroke}</td>` +
+                `<td data-label=boat_no1-${i} id=boat_no1-${i} contenteditable="true">${databaseData[i].boat_no}</td>` +
+                `<td data-label=other1-${i} id=other1-${i} contenteditable="true">${databaseData[i].other}</td>` +
+                `<td data-label=time2-${i} id=time2-${i} contenteditable="true">${databaseData2[i].time}</td>` +
+                `<td data-label=boat_interaction2-${i} id=boat_interaction2-${i} contenteditable="true">${databaseData2[i].boat_interaction}</td>` +
+                `<td data-label=boat_distance2-${i} id=boat_distance2-${i} contenteditable="true">${databaseData2[i].boat_distance}</td>` +
+                `<td data-label=group_closeness_normal2-${i} id=group_closeness_normal2-${i} contenteditable="true">${databaseData2[i].group_closeness_normal}</td>` +
+                `<td data-label=group_closeness_spreaded2-${i} id=group_closeness_spreaded2-${i} contenteditable="true">${databaseData2[i].group_closeness_spreaded}</td>` +
+                `<td data-label=group_closeness_close2-${i} id=group_closeness_close2-${i} contenteditable="true">${databaseData2[i].group_closeness_close}</td>` +
+                `<td data-label=speed_slow2-${i} id=speed_slow2-${i} contenteditable="true">${databaseData2[i].speed_slow}</td>` +
+                `<td data-label=speed_moderate2-${i} id=speed_moderate2-${i} contenteditable="true">${databaseData2[i].speed_moderate}</td>` +
+                `<td data-label=speed_fast2-${i} id=speed_fast2-${i} contenteditable="true">${databaseData2[i].speed_fast}</td>` +
+                `<td data-label=speed_resting2-${i} id=speed_resting2-${i} contenteditable="true">${databaseData2[i].speed_resting}</td>` +
+                `<td data-label=speed_circling2-${i} id=speed_circling2-${i} contenteditable="true">${databaseData2[i].speed_circling}</td>` +
+                `<td data-label=foraging_maybe2-${i} id=foraging_maybe2-${i} contenteditable="true">${databaseData2[i].foraging_maybe}</td>` +
+                `<td data-label=foraging_sure2-${i} id=foraging_sure2-${i} contenteditable="true">${databaseData2[i].foraging_sure}</td>` +
+                `<td data-label=mating2-${i} id=mating2-${i} contenteditable="true">${databaseData2[i].mating}</td>` +
+                `<td data-label=splash_interaction2-${i} id=splash_interaction2-${i} contenteditable="true">${databaseData2[i].splash_interaction}</td>` +
+                `<td data-label=snorkel2-${i} id=snorkel2-${i} contenteditable="true">${databaseData2[i].snorkel}</td>` +
+                `<td data-label=racing2-${i} id=racing2-${i} contenteditable="true">${databaseData2[i].racing}</td>` +
+                `<td data-label=jump2-${i} id=jump2-${i} contenteditable="true">${databaseData2[i].jump}</td>` +
+                `<td data-label=surfing_artificial2-${i} id=surfing_artificial2-${i} contenteditable="true">${databaseData2[i].surfing_artificial}</td>` +
+                `<td data-label=surfing2-${i} id=surfing2-${i} contenteditable="true">${databaseData2[i].surfing}</td>` +
+                `<td data-label=tail_lift2-${i} id=tail_lift2-${i} contenteditable="true">${databaseData2[i].tail_lift}</td>` +
+                `<td data-label=contact2-${i} id=contact2-${i} contenteditable="true">${databaseData2[i].contact}</td>` +
+                `<td data-label=backstroke2-${i} id=backstroke2-${i} contenteditable="true">${databaseData2[i].backstroke}</td>` +
+                `<td data-label=boat_no2-${i} id=boat_no2-${i} contenteditable="true">${databaseData2[i].boat_no}</td>` +
+                `<td data-label=other2-${i} id=other2-${i} contenteditable="true">${databaseData2[i].other}</td>` +
+                `<td data-label=time3-${i} id=time3-${i} contenteditable="true">${databaseData3[i].time}</td>` +
+                `<td data-label=boat_interaction3-${i} id=boat_interaction3-${i} contenteditable="true">${databaseData3[i].boat_interaction}</td>` +
+                `<td data-label=boat_distance3-${i} id=boat_distance3-${i} contenteditable="true">${databaseData3[i].boat_distance}</td>` +
+                `<td data-label=group_closeness_normal3-${i} id=group_closeness_normal3-${i} contenteditable="true">${databaseData3[i].group_closeness_normal}</td>` +
+                `<td data-label=group_closeness_spreaded3-${i} id=group_closeness_spreaded3-${i} contenteditable="true">${databaseData3[i].group_closeness_spreaded}</td>` +
+                `<td data-label=group_closeness_close3-${i} id=group_closeness_close3-${i} contenteditable="true">${databaseData3[i].group_closeness_close}</td>` +
+                `<td data-label=speed_slow3-${i} id=speed_slow3-${i} contenteditable="true">${databaseData3[i].speed_slow}</td>` +
+                `<td data-label=speed_moderate3-${i} id=speed_moderate3-${i} contenteditable="true">${databaseData3[i].speed_moderate}</td>` +
+                `<td data-label=speed_fast3-${i} id=speed_fast3-${i} contenteditable="true">${databaseData3[i].speed_fast}</td>` +
+                `<td data-label=speed_resting3-${i} id=speed_resting3-${i} contenteditable="true">${databaseData3[i].speed_resting}</td>` +
+                `<td data-label=speed_circling3-${i} id=speed_circling3-${i} contenteditable="true">${databaseData3[i].speed_circling}</td>` +
+                `<td data-label=foraging_maybe3-${i} id=foraging_maybe3-${i} contenteditable="true">${databaseData3[i].foraging_maybe}</td>` +
+                `<td data-label=foraging_sure3-${i} id=foraging_sure3-${i} contenteditable="true">${databaseData3[i].foraging_sure}</td>` +
+                `<td data-label=mating3-${i} id=mating3-${i} contenteditable="true">${databaseData3[i].mating}</td>` +
+                `<td data-label=splash_interaction3-${i} id=splash_interaction3-${i} contenteditable="true">${databaseData3[i].splash_interaction}</td>` +
+                `<td data-label=snorkel3-${i} id=snorkel3-${i} contenteditable="true">${databaseData3[i].snorkel}</td>` +
+                `<td data-label=racing3-${i} id=racing3-${i} contenteditable="true">${databaseData3[i].racing}</td>` +
+                `<td data-label=jump3-${i} id=jump3-${i} contenteditable="true">${databaseData3[i].jump}</td>` +
+                `<td data-label=surfing_artificial3-${i} id=surfing_artificial3-${i} contenteditable="true">${databaseData3[i].surfing_artificial}</td>` +
+                `<td data-label=surfing3-${i} id=surfing3-${i} contenteditable="true">${databaseData3[i].surfing}</td>` +
+                `<td data-label=tail_lift3-${i} id=tail_lift3-${i} contenteditable="true">${databaseData3[i].tail_lift}</td>` +
+                `<td data-label=contact3-${i} id=contact3-${i} contenteditable="true">${databaseData3[i].contact}</td>` +
+                `<td data-label=backstroke3-${i} id=backstroke3-${i} contenteditable="true">${databaseData3[i].backstroke}</td>` +
+                `<td data-label=boat_no3-${i} id=boat_no3-${i} contenteditable="true">${databaseData3[i].boat_no}</td>` +
+                `<td data-label=other3-${i} id=other3-${i} contenteditable="true">${databaseData3[i].other}</td>`
                 '</tr>';
                 $('thead').append(dataRow);
             }
@@ -138,6 +208,82 @@ async function updateSubmit() {
         let group_size_probable = [];
         let group_size_highest = [];
         let mix_type = [];
+        let time1 = [];
+        let boat_interaction1 = [];
+        let boat_distance1 = [];
+        let group_closeness_normal1 = [];
+        let group_closeness_spreaded1 = [];
+        let group_closeness_close1 = [];
+        let speed_slow1 = [];
+        let speed_moderate1 = [];
+        let speed_fast1 = [];
+        let speed_resting1 = [];
+        let speed_circling1 = [];
+        let foraging_maybe1 = [];
+        let foraging_sure1 = [];
+        let mating1 = [];
+        let splash_interaction1 = [];
+        let snorkel1 = [];
+        let racing1 = [];
+        let jump1 = [];
+        let surfing_artificial1 = [];
+        let surfing1 = [];
+        let tail_lift1 = [];
+        let contact1 = [];
+        let backstroke1 = [];
+        let boat_no1 = [];
+        let other1 = [];
+        let time2 = [];
+        let boat_interaction2 = [];
+        let boat_distance2 = [];
+        let group_closeness_normal2 = [];
+        let group_closeness_spreaded2 = [];
+        let group_closeness_close2 = [];
+        let speed_slow2 = [];
+        let speed_moderate2 = [];
+        let speed_fast2 = [];
+        let speed_resting2 = [];
+        let speed_circling2 = [];
+        let foraging_maybe2 = [];
+        let foraging_sure2 = [];
+        let mating2 = [];
+        let splash_interaction2 = [];
+        let snorkel2 = [];
+        let racing2 = [];
+        let jump2 = [];
+        let surfing_artificial2 = [];
+        let surfing2 = [];
+        let tail_lift2 = [];
+        let contact2 = [];
+        let backstroke2 = [];
+        let boat_no2 = [];
+        let other2 = [];
+        let time3 = [];
+        let boat_interaction3 = [];
+        let boat_distance3 = [];
+        let group_closeness_normal3 = [];
+        let group_closeness_spreaded3 = [];
+        let group_closeness_close3 = [];
+        let speed_slow3 = [];
+        let speed_moderate3 = [];
+        let speed_fast3 = [];
+        let speed_resting3 = [];
+        let speed_circling3 = [];
+        let foraging_maybe3 = [];
+        let foraging_sure3 = [];
+        let mating3 = [];
+        let splash_interaction3 = [];
+        let snorkel3 = [];
+        let racing3 = [];
+        let jump3 = [];
+        let surfing_artificial3 = [];
+        let surfing3 = [];
+        let tail_lift3 = [];
+        let contact3 = [];
+        let backstroke3 = [];
+        let boat_no3 = [];
+        let other3 = [];
+
 
         for (i=0; i < pageSize; i++) {
             id.push($(`#id-${i}`).text())
@@ -186,6 +332,81 @@ async function updateSubmit() {
             group_size_probable.push($(`#group_size_probable-${i}`).text())
             group_size_highest.push($(`#group_size_highest-${i}`).text())
             mix_type.push($(`#mix_type-${i}`).text())
+            time1.push($(`#time1-${i}`).text())
+            boat_interaction1.push($(`#boat_interaction1-${i}`).text())
+            boat_distance1.push($(`#boat_distance1-${i}`).text())
+            group_closeness_normal1.push($(`#group_closeness_normal1-${i}`).text())
+            group_closeness_spreaded1.push($(`#group_closeness_spreaded1-${i}`).text())
+            group_closeness_close1.push($(`#group_closeness_close1-${i}`).text())
+            speed_slow1.push($(`#speed_slow1-${i}`).text())
+            speed_moderate1.push($(`#speed_moderate1-${i}`).text())
+            speed_fast1.push($(`#speed_fast1-${i}`).text())
+            speed_resting1.push($(`#speed_resting1-${i}`).text())
+            speed_circling1.push($(`#speed_circling1-${i}`).text())
+            foraging_maybe1.push($(`#foraging_maybe1-${i}`).text())
+            foraging_sure1.push($(`#foraging_sure1-${i}`).text())
+            mating1.push($(`#mating1-${i}`).text())
+            splash_interaction1.push($(`#splash_interaction1-${i}`).text())
+            snorkel1.push($(`#snorkel1-${i}`).text())
+            racing1.push($(`#racing1-${i}`).text())
+            jump1.push($(`#jump1-${i}`).text())
+            surfing_artificial1.push($(`#surfing_artificial1-${i}`).text())
+            surfing1.push($(`#surfing1-${i}`).text())
+            tail_lift1.push($(`#tail_lift1-${i}`).text())
+            contact1.push($(`#contact1-${i}`).text())
+            backstroke1.push($(`#backstroke1-${i}`).text())
+            boat_no1.push($(`#boat_no1-${i}`).text())
+            other1.push($(`#other1-${i}`).text())
+            time2.push($(`#time2-${i}`).text())
+            boat_interaction2.push($(`#boat_interaction2-${i}`).text())
+            boat_distance2.push($(`#boat_distance2-${i}`).text())
+            group_closeness_normal2.push($(`#group_closeness_normal2-${i}`).text())
+            group_closeness_spreaded2.push($(`#group_closeness_spreaded2-${i}`).text())
+            group_closeness_close2.push($(`#group_closeness_close2-${i}`).text())
+            speed_slow2.push($(`#speed_slow2-${i}`).text())
+            speed_moderate2.push($(`#speed_moderate2-${i}`).text())
+            speed_fast2.push($(`#speed_fast2-${i}`).text())
+            speed_resting2.push($(`#speed_resting2-${i}`).text())
+            speed_circling2.push($(`#speed_circling2-${i}`).text())
+            foraging_maybe2.push($(`#foraging_maybe2-${i}`).text())
+            foraging_sure2.push($(`#foraging_sure2-${i}`).text())
+            mating2.push($(`#mating2-${i}`).text())
+            splash_interaction2.push($(`#splash_interaction2-${i}`).text())
+            snorkel2.push($(`#snorkel2-${i}`).text())
+            racing2.push($(`#racing2-${i}`).text())
+            jump2.push($(`#jump2-${i}`).text())
+            surfing_artificial2.push($(`#surfing_artificial2-${i}`).text())
+            surfing2.push($(`#surfing2-${i}`).text())
+            tail_lift2.push($(`#tail_lift2-${i}`).text())
+            contact2.push($(`#contact2-${i}`).text())
+            backstroke2.push($(`#backstroke2-${i}`).text())
+            boat_no2.push($(`#boat_no2-${i}`).text())
+            other2.push($(`#other2-${i}`).text())
+            time3.push($(`#time3-${i}`).text())
+            boat_interaction3.push($(`#boat_interaction3-${i}`).text())
+            boat_distance3.push($(`#boat_distance3-${i}`).text())
+            group_closeness_normal3.push($(`#group_closeness_normal3-${i}`).text())
+            group_closeness_spreaded3.push($(`#group_closeness_spreaded3-${i}`).text())
+            group_closeness_close3.push($(`#group_closeness_close3-${i}`).text())
+            speed_slow3.push($(`#speed_slow3-${i}`).text())
+            speed_moderate3.push($(`#speed_moderate3-${i}`).text())
+            speed_fast3.push($(`#speed_fast3-${i}`).text())
+            speed_resting3.push($(`#speed_resting3-${i}`).text())
+            speed_circling3.push($(`#speed_circling3-${i}`).text())
+            foraging_maybe3.push($(`#foraging_maybe3-${i}`).text())
+            foraging_sure3.push($(`#foraging_sure3-${i}`).text())
+            mating3.push($(`#mating3-${i}`).text())
+            splash_interaction3.push($(`#splash_interaction3-${i}`).text())
+            snorkel3.push($(`#snorkel3-${i}`).text())
+            racing3.push($(`#racing3-${i}`).text())
+            jump3.push($(`#jump3-${i}`).text())
+            surfing_artificial3.push($(`#surfing_artificial3-${i}`).text())
+            surfing3.push($(`#surfing3-${i}`).text())
+            tail_lift3.push($(`#tail_lift3-${i}`).text())
+            contact3.push($(`#contact3-${i}`).text())
+            backstroke3.push($(`#backstroke3-${i}`).text())
+            boat_no3.push($(`#boat_no3-${i}`).text())
+            other3.push($(`#other3-${i}`).text())
         }
         const body = {
             id,
@@ -234,6 +455,81 @@ async function updateSubmit() {
             group_size_probable,
             group_size_highest,
             mix_type,
+            time1,
+            boat_interaction1,
+            boat_distance1,
+            group_closeness_normal1,
+            group_closeness_spreaded1,
+            group_closeness_close1,
+            speed_slow1,
+            speed_moderate1,
+            speed_fast1,
+            speed_resting1,
+            speed_circling1,
+            foraging_maybe1,
+            foraging_sure1,
+            mating1,
+            splash_interaction1,
+            snorkel1,
+            racing1,
+            jump1,
+            surfing_artificial1,
+            surfing1,
+            tail_lift1,
+            contact1,
+            backstroke1,
+            boat_no1,
+            other1,
+            time2,
+            boat_interaction2,
+            boat_distance2,
+            group_closeness_normal2,
+            group_closeness_spreaded2,
+            group_closeness_close2,
+            speed_slow2,
+            speed_moderate2,
+            speed_fast2,
+            speed_resting2,
+            speed_circling2,
+            foraging_maybe2,
+            foraging_sure2,
+            mating2,
+            splash_interaction2,
+            snorkel2,
+            racing2,
+            jump2,
+            surfing_artificial2,
+            surfing2,
+            tail_lift2,
+            contact2,
+            backstroke2,
+            boat_no2,
+            other2,
+            time3,
+            boat_interaction3,
+            boat_distance3,
+            group_closeness_normal3,
+            group_closeness_spreaded3,
+            group_closeness_close3,
+            speed_slow3,
+            speed_moderate3,
+            speed_fast3,
+            speed_resting3,
+            speed_circling3,
+            foraging_maybe3,
+            foraging_sure3,
+            mating3,
+            splash_interaction3,
+            snorkel3,
+            racing3,
+            jump3,
+            surfing_artificial3,
+            surfing3,
+            tail_lift3,
+            contact3,
+            backstroke3,
+            boat_no3,
+            other3
         };
         let url = `${window.location.origin}/admin/console/database`
         let options = {
@@ -245,7 +541,6 @@ async function updateSubmit() {
         }
         let raUpdateDataResponse = await fetch(url, options);
         let updateDataResponse = await raUpdateDataResponse.json();
-        console.log(updateDataResponse);
         if (updateDataResponse == 'Success') {
             alert('update table successful!');
             window.location.href = "/console_db.html";
