@@ -35,25 +35,17 @@
             <h2>鯨豚目擊紀錄</h2>
               <fieldset id="sailing-info" class="fieldlabels">
                 <h3>航次基本資料</h3>
-                <label for="datepicker">日期：</label><br>
-                <input name="datepicker" placeholder="Select date" type="text" class="datepicker" value="2022/06/30" required>
-                <span>*依出勤日期填寫</span><br>
+                <label for="date">日期：
+                <span><br>*依出勤日期填寫</span>
+                <input class="date" name="date" type="text" value="00:00" readonly>
+                </label><br>
                 <label for="boat_time">
-                  航班時間
-                  <select name="boat_time">
-                    <option value="00:00">00:00</option>
-                    <option value="05:00">05:00</option>
-                    <option value="06:30">06:30</option>
-                    <option value="08:30">08:30</option>
-                    <option value="10:30">10:30</option>
-                    <option value="14:00">14:00</option>
-                    <option value="16:00">16:00</option>
-                  </select>
-                  <span>*依實際航次</span>
+                  航班時間<span><br>*依實際航次</span>
+                  <input class="timepicker" name="boat_time" value="00:00" required>
                 </label><br>
                 <label for="period"> 上午/下午
                   <select name="period" required>
-                    <option value="Select">test</option>
+                    <option value="-">-</option>
                     <option value="1">上午</option>
                     <option value="2">下午</option>
                   </select>
@@ -66,60 +58,57 @@
                   進港時間：
                   <input class="timepicker" name="arrival" value="00:00" required>
                 </label><br>
-                <label for="boat_size"> 船隻大小
-                  <select name="boat_size" required>
-                    <option value="Select">test</option>
-                    <option value="b">大</option>
-                    <option value="s">小</option>
-                  </select>
+                <label for="boat_size"> 船隻
+                  <input list="boat_size" name="boat_size"></input>
+                  <datalist id="boat_size">
+                    <option value="大多"></option>
+                    <option value="小多"></option>
+                    <option value="其他"></option>
+                  </datalist>
                 </label><br>
                 <label for="gps_no">
-                  GPS編號
+                  GPS編號<span><br>*GPS機身側邊，白色的數字即是該GPS編號</span>
                   <input type="number" name="gps_no" class="gps_no" placeholder="number" min="1" max="10" value="1"></input> 
                 </label><br>
-                <span>*GPS機身側邊，白色的數字即是該GPS編號</span><br>
                 <label for="解說員">
                   解說員：
-                <input placeholder="解說員" type="text" name="guide" class="guide" value="test" required>
+                <input placeholder="解說員" type="text" name="guide" class="guide" value="-" required>
                 </label>
                 <label for="攝影者" class="recorder">
                   攝影者：
-                <input placeholder="攝影者" type="text" name="recorder" class="recorder" value="test">
+                <input placeholder="攝影者" type="text" name="recorder" class="recorder" value="-">
                 </label><br>
                 <label for="sighting">目擊紀錄
                   <select name="sighting" required>
-                    <option value="Select">test</option>
+                    <option value="-">-</option>
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
                 </label><br>
                 <label for="sighting_id">
-                  目擊記錄編號
-                  <input type="number" name="sighting_id" class="sighting_id" placeholder="number" min="1" max="9" value="1"></input>
-                  <span>*依當航次遭遇的鯨豚群次依序編號</span>
+                  目擊記錄編號<span><br>*依當航次遭遇的鯨豚群次依序編號</span>
+                  <input type="number" name="sighting_id" class="sighting_id" placeholder="number" min="1" max="9" value="-"></input>
                 </label><br>
                 <label for="observations">
                   特殊觀察與紀錄
-                  <textarea name="observations">test</textarea>
+                  <textarea name="observations"></textarea>
                 </label><br>
                 <label for="weather">
-                  天氣
-                  <textarea name="weather" >test</textarea>
-                  <span>*如：晴、多雲、陰天、有霧、陰霾、小雨、大雨等</span><br>
+                  天氣<span><br>*如：晴、多雲、陰天、有霧、陰霾、小雨、大雨等</span>
+                  <textarea name="weather" ></textarea>
                 </label><br>
                 <label for="wind_direction">
-                  風向
-                  <textarea name="wind_direction">test</textarea>
-                  <span>*風從哪裡吹來，代表風向</span><br>
+                  風向<span><br>*風從哪裡吹來，代表風向</span>
+                  <textarea name="wind_direction"></textarea>
+                  
                 </label><br>               
                 <label for="wave_condition">
                   浪況
-                  <textarea name="wave_condition">test</textarea>
+                  <textarea name="wave_condition"></textarea>
                 </label><br>
                 <label for="current">
-                  流向
-                  <textarea name="current">test</textarea>
-                    <span>*海裡的流水往哪邊流，為海流</span><br>                    
+                  流向<span><br>*海裡的流水往哪邊流，為海流</span>  
+                  <textarea name="current"></textarea>
                 </label><br>
                 <input type="button" name="next" class="next action-button" value="Next" />
               </fieldset>
@@ -128,37 +117,37 @@
                 <label for="latitude">
                   緯度：
                 <select name="latitude" required>
-                  <option value="23" >Selected</option>
+                  <option value="-" >-</option>
                   <option value="23">23</option>
                   <option value="24">24</option>
                 </select>
                 </label><br>
                 <label for="latitude_min">
                   緯度（分）：
-                <input placeholder="0-59" type="number"  name="latitude_min" class="latitude_min"  min="0" max="59" value="1" required>
+                <input placeholder="0-59" type="number"  name="latitude_min" class="latitude_min"  min="0" max="59" value="-">
                 </label><br>
                 <label for="latitude_sec">
                   緯度（秒）：
-                <input placeholder="0-59" type="number" name="latitude_sec" class="latitude_sec" min="0" max="59" value="1" required>
+                <input placeholder="0-59" type="number" step="0.01" name="latitude_sec" class="latitude_sec" min="0" max="59" value="-" >
                 </label><br>
                 <label for="latitude">
                   經度：
-                <select name="longitude">
-                  <option value="121" >Selected</option>
+                <select name="longitude" required>
+                  <option value="-" >-</option>
                   <option value="121">121</option>
                 </select>
                 </label><br>
                 <label for="longitude_min">
                   經度（分）：
-                <input placeholder="0-59" type="number" name="longitude_min" class="longitude_min" min="0" max="59" value="1" required>
+                <input placeholder="0-59" type="number" name="longitude_min" class="longitude_min" min="0" max="59" value="-">
                 </label><br>
                 <label for="longitude_sec">
                   經度（秒）：
-                <input placeholder="0-59" type="number"  name="longitude_sec" class="longitude_sec" min="0" max="59" value="1" required>
+                <input placeholder="0-59" type="number"  step="0.01" name="longitude_sec" class="longitude_sec" min="0" max="59" value="-">
                 </label><br>
                 <label for="boat_number">
                   賞鯨船數量：
-                <input placeholder="1-10" name="boat_number" type="number" class="boat_number" value="0" required>
+                <input placeholder="1-10" name="boat_number" type="number" class="boat_number" value="-">
                 </label><br>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
@@ -168,12 +157,12 @@
                 <label for="sighting_method">
                   目擊方式
                   <select name="sighting_method">
-                    <option value="Selected">Selected</option>
+                    <option value="-">-</option>
                     <option value="1">船隻告知</option>
                     <option value="2">我船目擊</option>
                   </select>
                 </label><br>
-                <h5>目擊線索</h5>
+                <h5>目擊線索<span><br>*請單選一種目擊方式</span></h5>
                 <div class="sighting-lead">
                     <label for="dorsal_fin">
                       背鰭：
@@ -188,30 +177,30 @@
                       <input type="checkbox" class="checkbox" name="splash" value="1" id="splash">
                     </label> <br>
                     <label for="exhibition">
-                      展示：
+                      空中展示：
                       <input type="checkbox" class="checkbox" name="exhibition" value="1" id="exhibition">
                     </label><br>
                 </div>
                 <label for="approach_time">
                   接觸時間：
-                  <input class="timepicker" name="approach_time" value="00:00" required>
+                  <input class="timepicker" name="approach_time" value="-" required>
                 </label>
                 <label for="approach_gps_no">
                   接觸GPS編號：
-                <input type="number" name="approach_gps_no" class="approach_gps_no" value="1" required>
+                <input type="number" name="approach_gps_no" placeholder="1-9999" class="approach_gps_no" value="-">
                 </label><br>
                 <label for="leaving_time">
                   離開時間：
-                  <input class="timepicker" name="leaving_time" value="00:00" required>
+                  <input class="timepicker" name="leaving_time" value="-" required>
                 </label>
                 <label for="leaving_gps_no">
                   離開GPS編號：
-                <input type="number" name="leaving_gps_no" class="leaving_gps_no" value="1" required>
+                <input type="number" name="leaving_gps_no" placeholder="1-9999" class="leaving_gps_no" value="-">
                 </label><br>
                 <label for="leaving_method">
                   離開方式：
                 <select name="leaving_method">
-                  <option value="Selected">Selected</option>
+                  <option value="-">-</option>
                   <option value="1">船離開</option>
                   <option value="2">動物離開</option>
                 </select>
@@ -223,17 +212,17 @@
                 <h3>鯨豚紀錄</h3>
                 <label for="dolphin_type">鯨豚種類
                   <select name="dolphin_type">
-                    <option value="Selected" >Selected</option>
+                    <option value="-" >-</option>
                     <option value="Be">布氏鯨</option>
                     <option value="Bo">大村鯨</option>
                     <option value="Dc">長吻真海豚</option>
                     <option value="Fa">小虎鯨</option>
                     <option value="Gg">瑞氏海豚</option>
                     <option value="Gm">短肢領航鯨</option>
-                    <option value="Kb">Kb</option>
-                    <option value="Ks">Ks</option>
+                    <option value="Kb">小抹香鯨</option>
+                    <option value="Ks">侏儒抹香鯨</option>
                     <option value="Lh">弗氏海豚</option>
-                    <option value="Mg">Mg</option>
+                    <option value="Mg">銀杏齒喙鯨</option>
                     <option value="Mn">大翅鯨</option>
                     <option value="Oo">虎鯨</option>
                     <option value="Pc">偽虎鯨</option>
@@ -243,31 +232,29 @@
                     <option value="Sb">糙齒海豚</option>
                     <option value="Sl">長吻飛旋海豚</option>
                     <option value="Tt">真瓶鼻海豚</option>
-                    <option value="Z">Z</option>
+                    <option value="Z">喙鯨科</option>
                     <option value="Zc">柯氏喙鯨</option>
                   </select>
                 </label><br>
                 <label for="type_confirmation">鯨豚確認
                   <select name="type_confirmation">
-                    <option value="Selected">Selected</option>
+                    <option value="-">-</option>
                     <option value="1">確認</option>
                     <option value="2">可能</option>
                     <option value="3">不確定</option>
                   </select>
                 </label><br>
                 <label for="dolphin_group_no">
-                  鯨豚群次：
-                <input type="number" name="dolphin_group_no" class="dolphin_group_no" value="1" required>
-                <span>*當航次遭遇的群體數</span>
+                  鯨豚群次：<span><br>*當航次遭遇的群體數</span>
+                <input type="number" name="dolphin_group_no" class="dolphin_group_no" value="-">
                 </label><br>
                 <label for="dolphin_type_no">
-                  鯨豚種數：
-                <input type="number" name="dolphin_type_no" class="dolphin_type_no" value="1" required>
-                <span>*當航次遭遇的種類數</span>
+                  鯨豚種數：<span><br>*當航次遭遇的種類數</span>
+                <input type="number" name="dolphin_type_no" class="dolphin_type_no" value="-">
                 </label><br>
                 <label for="mother_child">是否有母子
                   <select name="mother_child">
-                    <option value="Selected">Selected</option>
+                    <option value="-">-</option>
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
@@ -279,26 +266,26 @@
                 <h5>群體數</h5>
                 <label for="group_size_lowest">
                   群量至少：
-                <input placeholder="0-999" type="number" class="group_size_lowest" value="1">
+                <input placeholder="0-999" type="number" class="group_size_lowest" value="-">
                 </label><br>
                 <label for="group_size_probable">
                   群量可能：
-                <input placeholder="0-999" type="number" class="group_size_probable" value="1">
+                <input placeholder="0-999" type="number" class="group_size_probable" value="-">
                 </label><br>
                 <label for="group_size_highest">
-                  群量最可能：
-                <input placeholder="0-999" type="number" class="group_size_highest" value="1">
+                  群量最多：
+                <input placeholder="0-999" type="number" class="group_size_highest" value="-">
                 </label><br>
                 <label for="mix">是否混群
                   <select name="mix">
-                    <option value="Selected">Selected</option>
+                    <option value="-">-</option>
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
                 </label><br>
                 <label for="mix_type">混群種類
                   <select name="mix_type">
-                    <option value="Selected" >Selected</option>
+                    <option value="-" >-</option>
                     <option value="Be">布氏鯨</option>
                     <option value="Bo">大村鯨</option>
                     <option value="Dc">長吻真海豚</option>
@@ -335,7 +322,7 @@
                 </label><br>
                 <label for="boat_interaction">與我船互動
                   <select name="boat_interaction">
-                    <option value="Selected" >Selected</option>
+                    <option value="-" >-</option>
                     <option value="1">主動靠近</option>
                     <option value="2">躲避</option>
                     <option value="3">不打理</option>
@@ -343,11 +330,10 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：
-                  <textarea name="boat_distance" class="boat_distance"></textarea>
-                  <span>*三種記錄方式，幾公尺、幾個船身、很遠，三項擇一填寫即可</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺</span>
+                  <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
-                <h5>鯨豚間距離</h5>
+                <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>
                 <div class="group_closeness">
                   <label for="group_closeness_close">
                     群體距離緊密：
@@ -362,21 +348,20 @@
                     <input type="checkbox" class="checkbox" name="group_closeness_spreaded" value="1" id="group_closeness_spreaded">
                   </label>
                 </div>
-                <span>*以整群鯨豚個體之間的距離來判定</span>
-                <h5>鯨豚行進速度</h5>
+                <h5>活動<span><br>*分為「行進中」、「休息」、「兜圈」三項，行進速度請依實際狀況擇一圈選</span></h5>
                 <div class="sighting-lead">
                   <label for="speed_slow">
-                    速度慢：
+                    行進-很慢：
                     <input type="checkbox" class="checkbox" name="speed_slow" value="1" id="speed_slow">
                   </label>
                   <label for="speed_moderate">
-                    速度一般：
+                    行進-平常：
                     <input type="checkbox" class="checkbox" name="speed_moderate" value="1" id="speed_moderate">
-                  </label> <br>
+                  </label><br>
                   <label for="speed_fast">
-                    速度快：
+                    行進-急速：
                     <input type="checkbox" class="checkbox" name="speed_fast" value="1" id="speed_fast">
-                  </label> <br>
+                  </label><br>
                   <label for="speed_resting">
                     休息：
                     <input type="checkbox" class="checkbox" name="speed_resting" value="1" id="speed_resting">
@@ -386,7 +371,6 @@
                     <input type="checkbox" class="checkbox" name="speed_circling" value="1" id="speed_circling">
                   </label> <br>
                 </div>
-                <span>*分為「行進中」、「休息」、「兜圈」三項，原則上請依實際狀況擇一圈選</span><br>
                 <h5>行為</h5>
                 <div class="bahaviour">
                   <label for="foraging_maybe">
@@ -402,12 +386,12 @@
                     <input type="checkbox" class="checkbox" name="mating" value="1" id="mating">
                   </label>
                     <label for="splash_interaction">
-                      拍水：
+                      拍打水面：
                       <input type="checkbox" class="checkbox" name="splash_interaction" value="1" id="splash_interaction_0-10">
                     </label> <br>
                   </label> <br>
                   <label for="snorkel">
-                    浮淺：
+                    浮窺：
                     <input type="checkbox" class="checkbox" name="snorkel" value="1" id="snorkel">
                   </label>
                   <label for="racing">
@@ -415,15 +399,15 @@
                     <input type="checkbox" class="checkbox" name="racing" value="1" id="racing">
                   </label> <br>
                   <label for="jump">
-                    展示：
+                    空中展示：
                     <input type="checkbox" class="checkbox" name="jump" value="1" id="jump">
                   </label>
                   <label for="surfing_artificial">
-                    人工衝浪：
+                    人為衝浪：
                     <input type="checkbox" class="checkbox" name="surfing_artificial" value="1" id="surfing_artificial">
                   </label> <br>
                   <label for="surfing">
-                    衝浪：
+                    自然衝浪：
                     <input type="checkbox" class="checkbox" name="surfing" value="1" id="surfing">
                   </label>
                   <label for="tail_lift">
@@ -431,20 +415,20 @@
                     <input type="checkbox" class="checkbox" name="tail_lift" value="1" id="tail_lift">
                   </label> <br>
                   <label for="contact">
-                    接觸：
+                    身體觸碰：
                     <input type="checkbox" class="checkbox" name="contact" value="1" id="contact">
                   </label> <br>
                   <label for="backstroke">
-                    仰式：
+                    仰泳：
                     <input type="checkbox" class="checkbox" name="backstroke" id="backstroke" value="1">
                   </label><br>
                 </div>
                 <label for="boat_no">
                   賞鯨船數量：
-                <input placeholder="1-10" name="boat_no" type="number" class="boat_no" value="0" required>
+                <input placeholder="1-10" name="boat_no" type="number" class="boat_no" value="-">
                 </label><br>
                 <label for="other">
-                  其它
+                  其他、補充說明
                   <textarea name="other">other</textarea>
                 </label><br>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -460,7 +444,7 @@
                 </label><br>
                 <label for="boat_interaction">與我船互動
                   <select name="boat_interaction">
-                    <option value="Selected" >Selected</option>
+                    <option value="-" >-</option>
                     <option value="1">主動靠近</option>
                     <option value="2">躲避</option>
                     <option value="3">不打理</option>
@@ -468,11 +452,10 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：
-                  <textarea name="boat_distance" class="boat_distance"></textarea>
-                  <span>*三種記錄方式，幾公尺、幾個船身、很遠，三項擇一填寫即可</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺</span>
+                  <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
-                <h5>鯨豚間距離</h5>
+                <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>
                 <div class="group_closeness">
                   <label for="group_closeness_close">
                     群體距離緊密：
@@ -487,21 +470,20 @@
                     <input type="checkbox" class="checkbox" name="group_closeness_spreaded" value="1" id="group_closeness_spreaded">
                   </label>
                 </div>
-                <span>*以整群鯨豚個體之間的距離來判定</span>
-                <h5>鯨豚行進速度</h5>
+                <h5>活動<span><br>*分為「行進中」、「休息」、「兜圈」三項，行進速度請依實際狀況擇一圈選</span></h5>
                 <div class="sighting-lead">
                   <label for="speed_slow">
-                    速度慢：
+                    行進-很慢：
                     <input type="checkbox" class="checkbox" name="speed_slow" value="1" id="speed_slow">
                   </label>
                   <label for="speed_moderate">
-                    速度一般：
+                    行進-平常：
                     <input type="checkbox" class="checkbox" name="speed_moderate" value="1" id="speed_moderate">
-                  </label> <br>
+                  </label><br>
                   <label for="speed_fast">
-                    速度快：
+                    行進-急速：
                     <input type="checkbox" class="checkbox" name="speed_fast" value="1" id="speed_fast">
-                  </label> <br>
+                  </label><br>
                   <label for="speed_resting">
                     休息：
                     <input type="checkbox" class="checkbox" name="speed_resting" value="1" id="speed_resting">
@@ -511,7 +493,6 @@
                     <input type="checkbox" class="checkbox" name="speed_circling" value="1" id="speed_circling">
                   </label> <br>
                 </div>
-                <span>*分為「行進中」、「休息」、「兜圈」三項，原則上請依實際狀況擇一圈選</span><br>
                 <h5>行為</h5>
                 <div class="bahaviour">
                   <label for="foraging_maybe">
@@ -527,12 +508,12 @@
                     <input type="checkbox" class="checkbox" name="mating" value="1" id="mating">
                   </label>
                     <label for="splash_interaction">
-                      拍水：
+                      拍打水面：
                       <input type="checkbox" class="checkbox" name="splash_interaction" value="1" id="splash_interaction_11-20">
                     </label> <br>
                   </label> <br>
                   <label for="snorkel">
-                    浮淺：
+                    浮窺：
                     <input type="checkbox" class="checkbox" name="snorkel" value="1" id="snorkel">
                   </label>
                   <label for="racing">
@@ -540,15 +521,15 @@
                     <input type="checkbox" class="checkbox" name="racing" value="1" id="racing">
                   </label> <br>
                   <label for="jump">
-                    展示：
+                    空中展示：
                     <input type="checkbox" class="checkbox" name="jump" value="1" id="jump">
                   </label>
                   <label for="surfing_artificial">
-                    人工衝浪：
+                    人為衝浪：
                     <input type="checkbox" class="checkbox" name="surfing_artificial" value="1" id="surfing_artificial">
                   </label> <br>
                   <label for="surfing">
-                    衝浪：
+                    自然衝浪：
                     <input type="checkbox" class="checkbox" name="surfing" value="1" id="surfing">
                   </label>
                   <label for="tail_lift">
@@ -556,20 +537,20 @@
                     <input type="checkbox" class="checkbox" name="tail_lift" value="1" id="tail_lift">
                   </label> <br>
                   <label for="contact">
-                    接觸：
+                    身體觸碰：
                     <input type="checkbox" class="checkbox" name="contact" value="1" id="contact">
                   </label> <br>
                   <label for="backstroke">
-                    仰式：
+                    仰泳：
                     <input type="checkbox" class="checkbox" name="backstroke" id="backstroke" value="1">
                   </label><br>
                 </div>
                 <label for="boat_no">
                   賞鯨船數量：
-                <input placeholder="1-10" name="boat_no" type="number" class="boat_no" value="0" required>
+                <input placeholder="1-10" name="boat_no" type="number" class="boat_no" value="-">
                 </label><br>
                 <label for="other">
-                  其它
+                  其他、補充說明
                   <textarea name="other">other</textarea>
                 </label><br>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -585,7 +566,7 @@
                 </label><br>
                 <label for="boat_interaction">與我船互動
                   <select name="boat_interaction">
-                    <option value="Selected" >Selected</option>
+                    <option value="-" >-</option>
                     <option value="1">主動靠近</option>
                     <option value="2">躲避</option>
                     <option value="3">不打理</option>
@@ -593,11 +574,10 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：
-                  <textarea name="boat_distance" class="boat_distance"></textarea>
-                  <span>*三種記錄方式，幾公尺、幾個船身、很遠，三項擇一填寫即可</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺</span>
+                  <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
-                <h5>鯨豚間距離</h5>
+                <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>
                 <div class="group_closeness">
                   <label for="group_closeness_close">
                     群體距離緊密：
@@ -612,21 +592,20 @@
                     <input type="checkbox" class="checkbox" name="group_closeness_spreaded" value="1" id="group_closeness_spreaded">
                   </label>
                 </div>
-                <span>*以整群鯨豚個體之間的距離來判定</span>
-                <h5>鯨豚行進速度</h5>
+                <h5>活動<span><br>*分為「行進中」、「休息」、「兜圈」三項，行進速度請依實際狀況擇一圈選</span></h5>
                 <div class="sighting-lead">
                   <label for="speed_slow">
-                    速度慢：
+                    行進-很慢：
                     <input type="checkbox" class="checkbox" name="speed_slow" value="1" id="speed_slow">
                   </label>
                   <label for="speed_moderate">
-                    速度一般：
+                    行進-平常：
                     <input type="checkbox" class="checkbox" name="speed_moderate" value="1" id="speed_moderate">
-                  </label> <br>
+                  </label><br>
                   <label for="speed_fast">
-                    速度快：
+                    行進-急速：
                     <input type="checkbox" class="checkbox" name="speed_fast" value="1" id="speed_fast">
-                  </label> <br>
+                  </label><br>
                   <label for="speed_resting">
                     休息：
                     <input type="checkbox" class="checkbox" name="speed_resting" value="1" id="speed_resting">
@@ -636,7 +615,6 @@
                     <input type="checkbox" class="checkbox" name="speed_circling" value="1" id="speed_circling">
                   </label> <br>
                 </div>
-                <span>*分為「行進中」、「休息」、「兜圈」三項，原則上請依實際狀況擇一圈選</span><br>
                 <h5>行為</h5>
                 <div class="bahaviour">
                   <label for="foraging_maybe">
@@ -652,12 +630,12 @@
                     <input type="checkbox" class="checkbox" name="mating" value="1" id="mating">
                   </label>
                     <label for="splash_interaction">
-                      拍水：
+                      拍打水面：
                       <input type="checkbox" class="checkbox" name="splash_interaction" value="1" id="splash_interaction_21-30">
                     </label> <br>
                   </label> <br>
                   <label for="snorkel">
-                    浮淺：
+                    浮窺：
                     <input type="checkbox" class="checkbox" name="snorkel" value="1" id="snorkel">
                   </label>
                   <label for="racing">
@@ -665,15 +643,15 @@
                     <input type="checkbox" class="checkbox" name="racing" value="1" id="racing">
                   </label> <br>
                   <label for="jump">
-                    展示：
+                    空中展示：
                     <input type="checkbox" class="checkbox" name="jump" value="1" id="jump">
                   </label>
                   <label for="surfing_artificial">
-                    人工衝浪：
+                    人為衝浪：
                     <input type="checkbox" class="checkbox" name="surfing_artificial" value="1" id="surfing_artificial">
                   </label> <br>
                   <label for="surfing">
-                    衝浪：
+                    自然衝浪：
                     <input type="checkbox" class="checkbox" name="surfing" value="1" id="surfing">
                   </label>
                   <label for="tail_lift">
@@ -681,20 +659,20 @@
                     <input type="checkbox" class="checkbox" name="tail_lift" value="1" id="tail_lift">
                   </label> <br>
                   <label for="contact">
-                    接觸：
+                    身體觸碰：
                     <input type="checkbox" class="checkbox" name="contact" value="1" id="contact">
                   </label> <br>
                   <label for="backstroke">
-                    仰式：
+                    仰泳：
                     <input type="checkbox" class="checkbox" name="backstroke" id="backstroke" value="1">
                   </label><br>
                 </div>
                 <label for="boat_no">
                   賞鯨船數量：
-                <input placeholder="1-10" name="boat_no" type="number" class="boat_no" value="0" required>
+                <input placeholder="1-10" name="boat_no" type="number" class="boat_no" value="-">
                 </label><br>
                 <label for="other">
-                  其它
+                  其他、補充說明
                   <textarea name="other">other</textarea>
                 </label><br>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />

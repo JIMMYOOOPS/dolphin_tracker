@@ -262,7 +262,6 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#users').a
         };
     let result = await getData(url, options)
     let userData = result[0]
-    console.log(userData);
     document.querySelector('sidebar-component').shadowRoot.querySelector('.user-name').innerText = userData.name
     document.querySelector('sidebar-component').shadowRoot.querySelector('.user-admin').innerText = userData.role_id
     } catch (err) {
