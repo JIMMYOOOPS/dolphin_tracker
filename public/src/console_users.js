@@ -23,6 +23,17 @@
       let userData = result['data']
       function createUserCard(userData) {
         for (i= 0 ; i < userData.length; i++) {
+          switch(userData[i].role_id) {
+            case -1 : 
+            userData[i].role_id = "管理員"
+            break;
+            case 1 : 
+            userData[i].role_id = "基金會同仁"
+            break;
+            case 2 : 
+            userData[i].role_id = "志工夥伴"
+            break;
+          }
           const user = $('<div></div>', {
             id: `user-${i}`,
             class: "user"
@@ -50,7 +61,7 @@
             id: `email-${i}`,
             class: "email"
           }).appendTo(`#user-info-${i}`);
-          const roleID = $(`<select><option>使用者身份： ${userData[i].role_id}</option><option value="-1">管理員</option><option value="1">基金會同仁</option><option value="2">志工夥伴</option></select>`, {
+          const roleID = $(`<select><option>身份： ${userData[i].role_id}</option><option value="-1">管理員</option><option value="1">基金會同仁</option><option value="2">志工夥伴</option></select>`, {
             id: `role_id-${i}`,
             class: "role_id",
             name: "role_id"
@@ -88,23 +99,6 @@
         }
       }
       insertInfoCard(userData);
-          // $('.intro').infiniteScroll({
-          //     // options
-          //     path: '.pagination__next',
-          //     responseBody: 'json',
-          //     status: ".scroller-status",
-          //     maxPage: 5,
-          //     history: false,
-          // });
-          // $('.intro').on( 'load.infiniteScroll', function( event, data ) {
-          //     dolphinData = data.data
-          //     pageNum = data.next_paging -1
-          //     pageSize = 4
-          //     let numInfos = pageNum * pageSize
-          //         createInfoCard(numInfos, pageSize);
-          //         insertInfoCard(numInfos, pageSize);
-          //     });
-          // $('.intro').infiniteScroll('loadNextPage');
       } catch (err) {
           console.log(err);
       }
