@@ -38,14 +38,17 @@ function createSignup() {
                     <div class = 'name-box'>
                         <label for="name">使用者名字：</label><br>
                         <input type="name" value="test" class="name" name="name" required>
+                        <span>*長度至少為4到12碼，且不包含特殊字元(如：!?@#_ ...)</span>
                     </div>
                     <div class = 'email-box'>
                         <label for="email">使用者帳號：</label><br>
                         <input type="email" value="test@email.com" class="email" name="email" required>
+                        <span>*請填入有效的電子信箱格式</span>
                     </div>
                     <div class = 'password-box'>
                         <label for="password">使用者密碼：</label><br>
                         <input type="password" value="test" class="password" name="password"  required>
+                        <span>*長度至少為4到12碼，且不包含特殊字元(如：!?@#_ ...)</span>
                     </div>
                     <button type="button" class="signup-submit" onclick="signup()">建立帳號</button>
                 </div>

@@ -10,6 +10,7 @@ footerTemplate.innerHTML = `
       justify-content: flex-end;
       align-items: center;
       background-color: #102F4A;
+      z-index:2;
     }
 
     ul {
