@@ -10,7 +10,7 @@ let pageSize = 4;
 const createData = async (req, res) => {
     try {
         const data = req.body;
-        let date = data.datepicker.split('/')
+        let date = data.date.split('-')
         let [year, month, day] = date;
         let boat_time = data.boat_time.replace(/:/g, '')
         let sailing_id = year + month + day + boat_time
@@ -97,7 +97,7 @@ const createData = async (req, res) => {
                 foraging_maybe: data.foraging_maybe[i],
                 foraging_sure: data.foraging_sure[i],
                 mating: data.mating[i],
-                splash_interaction: data.splash[i],
+                splash_interaction: data.splash_interaction[i],
                 snorkel: data.snorkel[i],
                 racing: data.racing[i],
                 jump: data.jump[i],
@@ -119,7 +119,6 @@ const createData = async (req, res) => {
         let location = sailingInfo.insertId
         let file = JSON.parse(JSON.stringify(req.files));
         let uploadResponse = await Util.uploadS3(file, location);
-        console.log('here', uploadResponse);
         const image = {
             obv_id: sailingInfo.insertId,
             main_image: main_image,
@@ -160,8 +159,13 @@ const getDataAll = async (req, res) => {
         } else if(category == 'database') {
             pageSize = 10;
             let getDataAll = await Data.getDataAll(pageSize, paging)
+            let obvInteraction20mins = getDataAll.obvInteraction20mins
+            let obvInteraction30mins = getDataAll.obvInteraction30mins
+
             result = (getDataAll.dataCount > (paging + 1) * pageSize) ? {
                 data: getDataAll.data,
+                obvInteraction20mins: obvInteraction20mins,
+                obvInteraction30mins: obvInteraction30mins,
                 next_paging: paging + 1
             } : {
                 data: getDataAll.data,
@@ -175,7 +179,6 @@ const getDataAll = async (req, res) => {
 
 const updateData = async (req, res) => {
     const data = req.body;
-    console.log(data)
     // For table sailing_info
     const sailingInfoData = { 
         id: data.id,
@@ -218,7 +221,6 @@ const updateData = async (req, res) => {
         leaving_method: data.leaving_method
     }
     // For table obv_detail
-
     const obvDetail = {
         sighting_method: data.sighting_method,
         dolphin_type: data.dolphin_type,
@@ -237,13 +239,91 @@ const updateData = async (req, res) => {
         mix: data.mix,
         mix_type: data.mix_type
     }
-    let result = await Data.updateData(sailingInfoData, obvGPS, obvApproach, obvDetail);
+
+    // For table obv_interaction
+    const obvInteraction = {
+        time1: data.time1,
+        boat_interaction1: data.boat_interaction1,
+        boat_distance1: data.boat_distance1,
+        group_closeness_normal1: data.group_closeness_normal1,
+        group_closeness_spreaded1: data.group_closeness_spreaded1,
+        group_closeness_close1: data.group_closeness_close1,
+        speed_slow1: data.speed_slow1,
+        speed_moderate1: data.speed_moderate1,
+        speed_fast1: data.speed_fast1,
+        speed_resting1: data.speed_resting1,
+        speed_circling1: data.speed_circling1,
+        foraging_maybe1: data.foraging_maybe1,
+        foraging_sure1: data.foraging_sure1,
+        mating1: data.mating1,
+        splash_interaction1: data.splash_interaction1,
+        snorkel1: data.snorkel1,
+        racing1: data.racing1,
+        jump1: data.jump1,
+        surfing_artificial1: data.surfing_artificial1,
+        surfing1: data.surfing1,
+        tail_lift1: data.tail_lift1,
+        contact1: data.contact1,
+        backstroke1: data.backstroke1,
+        boat_no1: data.boat_no1,
+        other1: data.other1,
+        time2: data.time2,
+        boat_interaction2: data.boat_interaction2,
+        boat_distance2: data.boat_distance2,
+        group_closeness_normal2: data.group_closeness_normal2,
+        group_closeness_spreaded2: data.group_closeness_spreaded2,
+        group_closeness_close2: data.group_closeness_close2,
+        speed_slow2: data.speed_slow2,
+        speed_moderate2: data.speed_moderate2,
+        speed_fast2: data.speed_fast2,
+        speed_resting2: data.speed_resting2,
+        speed_circling2: data.speed_circling2,
+        foraging_maybe2: data.foraging_maybe2,
+        foraging_sure2: data.foraging_sure2,
+        mating2: data.mating2,
+        splash_interaction2: data.splash_interaction2,
+        snorkel2: data.snorkel2,
+        racing2: data.racing2,
+        jump2: data.jump2,
+        surfing_artificial2: data.surfing_artificial2,
+        surfing2: data.surfing2,
+        tail_lift2: data.tail_lift2,
+        contact2: data.contact2,
+        backstroke2: data.backstroke2,
+        boat_no2: data.boat_no2,
+        other2: data.other2,
+        time3: data.time3,
+        boat_interaction3: data.boat_interaction3,
+        boat_distance3: data.boat_distance3,
+        group_closeness_normal3: data.group_closeness_normal3,
+        group_closeness_spreaded3: data.group_closeness_spreaded3,
+        group_closeness_close3: data.group_closeness_close3,
+        speed_slow3: data.speed_slow3,
+        speed_moderate3: data.speed_moderate3,
+        speed_fast3: data.speed_fast3,
+        speed_resting3: data.speed_resting3,
+        speed_circling3: data.speed_circling3,
+        foraging_maybe3: data.foraging_maybe3,
+        foraging_sure3: data.foraging_sure3,
+        mating3: data.mating3,
+        splash_interaction3: data.splash_interaction3,
+        snorkel3: data.snorkel3,
+        racing3: data.racing3,
+        jump3: data.jump3,
+        surfing_artificial3: data.surfing_artificial3,
+        surfing3: data.surfing3,
+        tail_lift3: data.tail_lift3,
+        contact3: data.contact3,
+        backstroke3: data.backstroke3,
+        boat_no3: data.boat_no3,
+        other3: data.other3
+    }
+    let result = await Data.updateData(sailingInfoData, obvGPS, obvApproach, obvDetail, obvInteraction);
     res.status(200).json(result)
 }
 
 const getDataMap = async (req, res) => {
     try {
-        console.log(req.hostname);
         const category = req.params.category;
         async function findSightData(category) {
             switch (category) {
@@ -251,24 +331,24 @@ const getDataMap = async (req, res) => {
                     return Data.getDataMap()
                 case 'date': {
                     // Gets date in range format (2016. 01. 01. - 2020. 12. 31.)
-                    const range = req.body.range.split('. ')
-                    const type = req.body.type
+                    const range = req.body.range.split('. ');
+                    const type = req.body.type;
                     // Amend date format to 20160101
                     const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
-                    let endDayArr = rawEndDay.split('.')
-                    let endDay = endDayArr[0]
+                    let endDayArr = rawEndDay.split('.');
+                    let endDay = endDayArr[0];
                     let endYearArr = rawEndYear.split('- ');
-                    let endYear = endYearArr[1]
-                    let startDate =  startYear + startMonth + startDay
-                    let endDate = endYear + endMonth + endDay
+                    let endYear = endYearArr[1];
+                    let startDate =  startYear + startMonth + startDay;
+                    let endDate = endYear + endMonth + endDay;
                     if (range && type) {
                         return await Data.getDataMap(null, null, {startDate, endDate, type});
                     } else if (range) {
                         return await Data.getDataMap(null, null, {startDate, endDate});
-                    }
-                }
-            }
-        }
+                    };
+                };
+            };
+        };
         let result = {}
         result = {
             data: await findSightData(category)
@@ -286,10 +366,38 @@ const getDataMap = async (req, res) => {
                 e.longitude_min = null;
                 e.longitude_sec = null;
             } else {
-                e.latitude = e.latitude + (e.latitude_min + e.latitude_sec/1000)/60;
-                e.longitude = e.longitude + (e.longitude_min + e.longitude_sec/1000)/60;
+                e.latitude = (e.latitude + (e.latitude_min + e.latitude_sec/1000)/60).toFixed(6);
+                e.longitude = (e.longitude + (e.longitude_min + e.longitude_sec/1000)/60).toFixed(6);
+                if(e.latitude > 24.68 || e.longitude < 121.61) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                } else if (e.latitude > 23.9828 && e.latitude < 23.9855 && e.longitude > 121.6120 && e.longitude < 121.623 ) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                } else if (e.latitude > 23.99 && e.latitude < 24.01 && e.longitude > 121.633 && e.longitude < 121.6393 ) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                } else if (e.latitude > 24.23 && e.latitude < 24.2321 && e.longitude > 121.698349 && e.longitude < 121.698351 ) {
+                    e.latitude = null;
+                    e.latitude_min = null;
+                    e.latitude_sec = null;
+                    e.longitude = null;
+                    e.longitude_min = null;
+                    e.longitude_sec = null;
+                }
             }
-
             // GPS convert for 2021 to now
             // e.latitude_min = e.latitude_min/60;
             // e.latitude_sec = e.latitude_sec/3600;
@@ -317,16 +425,16 @@ const getDataDolphin = async (req, res) => {
                     data: getDataDolphin.data,
                     next_paging: paging + 1
                 } : {
-                    data: getDataDolphin.data,
+                    data: getDataDolphin.data
                 };
             case 'details': {
                 const id = parseInt(req.query.id);
                 if (Number.isInteger(id)) {
                     let getDataDolphin = await Data.getDataDolphin(pageSize, paging, {id});
                     result = {
-                        data: getDataDolphin.data,
+                        data: getDataDolphin.data
                     };
-                }
+                };
             }
         }
         res.status(200).json(result)

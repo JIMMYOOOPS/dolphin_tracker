@@ -57,6 +57,10 @@ a:hover {
     box-shadow: inset 0 -2px 0 0 #fff;
 }
 
+span {
+    font-size: 0.5rem;
+}
+
 button:hover {
     cursor: pointer;
     box-shadow: 0 0 0 1px #fff, 0 0 0 1px #fff;

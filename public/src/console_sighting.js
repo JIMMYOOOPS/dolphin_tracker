@@ -66,20 +66,18 @@ function setProgressBar(currentStep){
     .css("width",percent+"%")   
 }
 
-// Data Picker Initialization
-$('.datepicker').datepicker({
-  dateFormat: "yy/mm/dd",
-  timeFormat: 'HH:mm',
-  onSelect: function(dateText, inst) {
-    $('#'+inst.id).attr('value', dateText);
-  }
-});
+let date = new Date().toISOString().substring(0, 10);
+$('.date').val(date);
 
 // Time Picker Initialization
-$('input.timepicker').timepicker({ timeFormat: 'HH:mm'});
+$('input.timepicker').timepicker({ 
+  timeFormat: 'HH:mm',
+  interval: 60,
+  scrollbar: true
+});
 
 // Default Value for Check boxes
-$("form").on('submit', function () {
+$("form").on('submit', function (event) {
   let thisForm = $(this);
   thisForm.find('input[type="checkbox"]').each( function () {
       //Set unchecked values as 0

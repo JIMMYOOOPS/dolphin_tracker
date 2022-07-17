@@ -15,6 +15,8 @@ main {
 h1 {
   font-size: 5rem;
   color: #102F4A;
+  letter-spacing: 30px;
+  text-align: center;
 }
 
 body {
@@ -22,7 +24,7 @@ body {
   flex: 1 0 auto;
   flex-direction: column;
   min-height: 100vh;
-  font-family: "Maison Neue Book","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: 'cwTeXKai', 'Raleway',sans-serif;
   font-size: 100%;
   font-weight: 100;
   line-height: 1.5;
@@ -84,42 +86,43 @@ iframe{
   min-height: 50vh;
 }
 
-#species-logo {
-  background-image: url("../assets/dolphin.png");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: 350px;
+.image-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#species-logo, #tracker-logo {
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  object-fit: cover;
+  width: 400px;
+  height: 100%;
   -webkit-transform: translateZ(999px) scale(.7);
   transform: translateZ(999px) scale(.7);
   z-index: 1;
+}
+
+#species-logo {
+  background-image: url("../assets/dolphin.png");
 }
 
 #tracker-logo {
   background-image: url("../assets/whale.png");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: 350px;
-  background-position: center;
-  background-repeat: no-repeat;
-  object-fit: cover;
-  -webkit-transform: translateZ(999px) scale(.7);
-  transform: translateZ(999px) scale(.7);
-  z-index: 1;
 }
 
 .species-btn {
-  margin-top: 280px; 
-  margin-left: 250px;
+  margin-top: 38vh; 
+  margin-left: 225px;
 }
 
 .tracker-btn {
-  margin-top: 280px; 
-  margin-left: 40px;
+  margin-top: 38vh; 
+  margin-left: 0;
 }
 
 .content-btn {

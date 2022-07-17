@@ -41,33 +41,62 @@ const getDataAll = async (pageSize, paging) => {
         };
     }
     const dataQuery = 
-    'SELECT * FROM sailing_info ' + 
+    'SELECT sailing_info.id, sailing_id, obv_detail.mix, obv_detail.dolphin_type, sailing_info.sighting_id, year, month, day, period, departure, arrival, boat_size, sighting, gps_no, guide, recorder, observations, weather, wind_direction, wave_condition, current, sighting_method,  type_confirmation, dolphin_group_no, dolphin_type_no, dorsal_fin, exhalation, splash, exhibition, mother_child, mother_child_no, group_size_lowest, group_size_probable, group_size_highest, mix_type, approach_time, approach_gps_no, leaving_time, leaving_gps_no,leaving_method, latitude, latitude_min, latitude_sec, longitude, longitude_min, longitude_sec, boat_number, time, boat_interaction, boat_distance, group_closeness_normal, group_closeness_spreaded, group_closeness_close, speed_slow, speed_moderate, speed_fast, speed_resting, speed_circling, foraging_maybe, foraging_sure, mating, splash_interaction, snorkel, racing, jump, surfing_artificial, surfing,  tail_lift, contact, backstroke, boat_no, other FROM sailing_info' 
+    + 
     `
     INNER JOIN obv_detail ON sailing_info.id = obv_detail.obv_id 
     INNER JOIN obv_approach ON sailing_info.id = obv_approach.obv_id 
-	INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id `
-	// INNER JOIN obv_interaction ON sailing_info.id = obv_interaction.obv_id 
+	INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id 
+	INNER JOIN obv_interaction ON (sailing_info.id = obv_interaction.obv_id AND obv_interaction.time = "0-10")
+    `
      +
      ' ORDER BY sailing_info.id DESC '
      +
      `${limit.sql}`
      ;
+    const dataQueryi1 = 
+    'SELECT obv_id, time, boat_interaction, boat_distance, group_closeness_normal, group_closeness_spreaded, group_closeness_close, speed_slow, speed_moderate, speed_fast, speed_resting, speed_circling, foraging_maybe, foraging_sure, mating, splash_interaction, snorkel, racing, jump, surfing_artificial, surfing,  tail_lift, contact, backstroke, boat_no, other FROM sailing_info ' + 
+    `
+    INNER JOIN obv_interaction ON (sailing_info.id = obv_interaction.obv_id AND obv_interaction.time = "11-20")
+    `
+    +
+    ' ORDER BY sailing_info.id DESC '
+    +
+    `${limit.sql}`
+    ;
+
+    const dataQueryi2 = 
+    'SELECT obv_id, time, boat_interaction, boat_distance, group_closeness_normal, group_closeness_spreaded, group_closeness_close, speed_slow, speed_moderate, speed_fast, speed_resting, speed_circling, foraging_maybe, foraging_sure, mating, splash_interaction, snorkel, racing, jump, surfing_artificial, surfing,  tail_lift, contact, backstroke, boat_no, other FROM sailing_info ' + 
+    `
+    INNER JOIN obv_interaction ON (sailing_info.id = obv_interaction.obv_id AND obv_interaction.time = "21-30")
+    `
+    +
+    ' ORDER BY sailing_info.id DESC '
+    +
+    `${limit.sql}`
+    ;
+
     const data = await queryPromise(dataQuery, limit.binding)
+    const obvInteraction20mins = await queryPromise(dataQueryi1, limit.binding)
+    const obvInteraction30mins = await queryPromise(dataQueryi2, limit.binding)
     const dataCountQuery = 'SELECT COUNT(*) as count FROM sailing_info '  + 
     `
     INNER JOIN obv_detail ON sailing_info.id = obv_detail.obv_id 
     INNER JOIN obv_approach ON sailing_info.id = obv_approach.obv_id 
-	INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id `
-	// INNER JOIN obv_interaction ON sailing_info.id = obv_interaction.obv_id 
+	INNER JOIN obv_gps ON sailing_info.id = obv_gps.obv_id
+    INNER JOIN obv_interaction ON (sailing_info.id = obv_interaction.obv_id AND obv_interaction.time = "0-10")
+     `
     ;
     const dataCounts = await queryPromise(dataCountQuery);
     return {
         'data': data,
+        'obvInteraction20mins': obvInteraction20mins,
+        'obvInteraction30mins': obvInteraction30mins,
         'dataCount': dataCounts[0].count
     };
 };
 
-const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail)=> {
+const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvInteraction)=> {
     try{  
         const conn = await pool.getConnection();
         const sailingId = Object.values(sailingInfoData.id);
@@ -123,8 +152,6 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail)=> {
                 }
                 await conn.query('UPDATE obv_approach SET ? WHERE obv_id = ?', [dataObvApproach ,[sailingId[i]]]);
             }
-
-            console.log(obvDetail.type_confirmation);
             // Update to table obv_detail
             for (i=0; i < sailingId.length; i++) {
                 let dataObvDetail = {
@@ -147,6 +174,99 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail)=> {
                 }
                 await conn.query('UPDATE obv_detail SET ? WHERE obv_id = ?', [dataObvDetail ,[sailingId[i]]]);
             }   
+
+            for (i=0; i < sailingId.length; i++) {
+                let dataObvInteraction = {
+                    time: obvInteraction.time1[i],
+                    boat_interaction: obvInteraction.boat_interaction1[i],
+                    boat_distance: obvInteraction.boat_distance1[i],
+                    group_closeness_normal: obvInteraction.group_closeness_normal1[i],
+                    group_closeness_spreaded: obvInteraction.group_closeness_spreaded1[i],
+                    group_closeness_close: obvInteraction.group_closeness_close1[i],
+                    speed_slow: obvInteraction.speed_slow1[i],
+                    speed_moderate: obvInteraction.speed_moderate1[i],
+                    speed_fast: obvInteraction.speed_fast1[i],
+                    speed_resting: obvInteraction.speed_resting1[i],
+                    speed_circling: obvInteraction.speed_circling1[i],
+                    foraging_maybe: obvInteraction.foraging_maybe1[i],
+                    foraging_sure: obvInteraction.foraging_sure1[i],
+                    mating: obvInteraction.mating1[i],
+                    splash_interaction: obvInteraction.splash_interaction1[i],
+                    snorkel: obvInteraction.snorkel1[i],
+                    racing: obvInteraction.racing1[i],
+                    jump: obvInteraction.jump1[i],
+                    surfing_artificial: obvInteraction.surfing_artificial1[i],
+                    surfing: obvInteraction.surfing1[i],
+                    tail_lift: obvInteraction.tail_lift1[i],
+                    contact: obvInteraction.contact1[i],
+                    backstroke: obvInteraction.backstroke1[i],
+                    boat_no: obvInteraction.boat_no1[i],
+                    other: obvInteraction.other1[i]
+                }
+                await conn.query('UPDATE obv_interaction SET ? WHERE (obv_id = ? AND time = "0-10")', [dataObvInteraction ,[sailingId[i]]]);
+            }
+
+            for (i=0; i < sailingId.length; i++) {
+                let dataObvInteraction = {
+                    time: obvInteraction.time2[i],
+                    boat_interaction: obvInteraction.boat_interaction2[i],
+                    boat_distance: obvInteraction.boat_distance2[i],
+                    group_closeness_normal: obvInteraction.group_closeness_normal2[i],
+                    group_closeness_spreaded: obvInteraction.group_closeness_spreaded2[i],
+                    group_closeness_close: obvInteraction.group_closeness_close2[i],
+                    speed_slow: obvInteraction.speed_slow2[i],
+                    speed_moderate: obvInteraction.speed_moderate2[i],
+                    speed_fast: obvInteraction.speed_fast2[i],
+                    speed_resting: obvInteraction.speed_resting2[i],
+                    speed_circling: obvInteraction.speed_circling2[i],
+                    foraging_maybe: obvInteraction.foraging_maybe2[i],
+                    foraging_sure: obvInteraction.foraging_sure2[i],
+                    mating: obvInteraction.mating2[i],
+                    splash_interaction: obvInteraction.splash_interaction2[i],
+                    snorkel: obvInteraction.snorkel2[i],
+                    racing: obvInteraction.racing2[i],
+                    jump: obvInteraction.jump2[i],
+                    surfing_artificial: obvInteraction.surfing_artificial2[i],
+                    surfing: obvInteraction.surfing2[i],
+                    tail_lift: obvInteraction.tail_lift2[i],
+                    contact: obvInteraction.contact2[i],
+                    backstroke: obvInteraction.backstroke2[i],
+                    boat_no: obvInteraction.boat_no2[i],
+                    other: obvInteraction.other2[i]
+                }
+                await conn.query('UPDATE obv_interaction SET ? WHERE (obv_id = ? AND time = "11-20")', [dataObvInteraction ,[sailingId[i]]]);
+            }
+
+            for (i=0; i < sailingId.length; i++) {
+                let dataObvInteraction = {
+                    time: obvInteraction.time3[i],
+                    boat_interaction: obvInteraction.boat_interaction3[i],
+                    boat_distance: obvInteraction.boat_distance3[i],
+                    group_closeness_normal: obvInteraction.group_closeness_normal3[i],
+                    group_closeness_spreaded: obvInteraction.group_closeness_spreaded3[i],
+                    group_closeness_close: obvInteraction.group_closeness_close3[i],
+                    speed_slow: obvInteraction.speed_slow3[i],
+                    speed_moderate: obvInteraction.speed_moderate3[i],
+                    speed_fast: obvInteraction.speed_fast3[i],
+                    speed_resting: obvInteraction.speed_resting3[i],
+                    speed_circling: obvInteraction.speed_circling3[i],
+                    foraging_maybe: obvInteraction.foraging_maybe3[i],
+                    foraging_sure: obvInteraction.foraging_sure3[i],
+                    mating: obvInteraction.mating3[i],
+                    splash_interaction: obvInteraction.splash_interaction3[i],
+                    snorkel: obvInteraction.snorkel3[i],
+                    racing: obvInteraction.racing3[i],
+                    jump: obvInteraction.jump3[i],
+                    surfing_artificial: obvInteraction.surfing_artificial3[i],
+                    surfing: obvInteraction.surfing3[i],
+                    tail_lift: obvInteraction.tail_lift3[i],
+                    contact: obvInteraction.contact3[i],
+                    backstroke: obvInteraction.backstroke3[i],
+                    boat_no: obvInteraction.boat_no3[i],
+                    other: obvInteraction.other3[i]
+                }
+                await conn.query('UPDATE obv_interaction SET ? WHERE (obv_id = ? AND time = "21-30")', [dataObvInteraction ,[sailingId[i]]]);
+            }
             await conn.query('COMMIT');
             console.log('Done')
             return 'Success';

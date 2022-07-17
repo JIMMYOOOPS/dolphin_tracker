@@ -28,16 +28,32 @@ function getUsersPage (req, res) {
 async function userSignup (req, res) {
     try {
         const {name, email, password} = req.body;
+        // Validate user info
         if(!name || !email || !password) {
             res.status(400).send({error:'Request Error: Missing fields in name, email or password.'});
             return;
         }
-    
         if (!validator.isEmail(email)) {
             res.status(400).send({error:'Request Error: Invalid email format'});
             return;
         }
-    
+
+        if (!validator.matches(name, '^[a-zA-Z0-9]*$')) {
+            res.status(400).send({error:'Username includes invalid characters'});
+            return;
+        } else if (!validator.isLength(name, {min:4, max: 12})) {
+            res.status(400).send({error:'Username length should be between 4 to 12 letters'});
+            return;
+        }
+        
+        if (!validator.matches(password, '^[a-zA-Z0-9]*$')) {
+            res.status(400).send({error:'Password includes invalid characters'});
+            return;
+        } else if (!validator.isLength(password, {min:4, max: 12})) {
+            res.status(400).send({error:'Password length should be between 4 to 12 letters'});
+            return;
+        }
+
         // Set role_id for user default as 2
         const result = await Console.userSignup(name, 2, email, password);
         res.status(200).json(result);

@@ -41,7 +41,7 @@ headerTemplate.innerHTML = `
     }
 
     .logo {
-      background-color: #f5f3f4;
+      background-color: #f8f9fa;
       border-radius: 100%;
       display:inline-block;
       width: 50px;
