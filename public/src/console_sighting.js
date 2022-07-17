@@ -77,7 +77,7 @@ $('input.timepicker').timepicker({
 });
 
 // Default Value for Check boxes
-$("form").on('submit', function () {
+$("form").on('submit', function (event) {
   let thisForm = $(this);
   thisForm.find('input[type="checkbox"]').each( function () {
       //Set unchecked values as 0
