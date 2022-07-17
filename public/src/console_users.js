@@ -23,17 +23,17 @@
       let userData = result['data']
       function createUserCard(userData) {
         for (i= 0 ; i < userData.length; i++) {
-          switch(userData[i].role_id) {
-            case -1 : 
-            userData[i].role_id = "管理員"
+          switch (userData[i].role_id) {
+            case -1 :
+              userData[i].role_id = '管理員'
             break;
-            case 1 : 
-            userData[i].role_id = "基金會同仁"
+            case 1 :
+              userData[i].role_id = '基金會同仁'
             break;
-            case 2 : 
-            userData[i].role_id = "志工夥伴"
+            case 2 :
+              userData[i].role_id = '志工夥伴'
             break;
-          }
+          } 
           const user = $('<div></div>', {
             id: `user-${i}`,
             class: "user"
@@ -61,11 +61,27 @@
             id: `email-${i}`,
             class: "email"
           }).appendTo(`#user-info-${i}`);
-          const roleID = $(`<select><option>身份： ${userData[i].role_id}</option><option value="-1">管理員</option><option value="1">基金會同仁</option><option value="2">志工夥伴</option></select>`, {
+          const roleID = $(`<select></select>`, {
             id: `role_id-${i}`,
             class: "role_id",
-            name: "role_id"
+            name: "role_id",
           }).appendTo(`#user-info-${i}`);
+          const rolecurrent = $(`<option></option>`, {
+            value: `${userData[i].role_id}`,
+            text: `身份：${userData[i].role_id}`
+          }).appendTo(`#role_id-${i}`);
+          const role1 = $(`<option></option>`, {
+            value: -1,
+            text: '管理員'
+          }).appendTo(`#role_id-${i}`);
+          const role2 = $(`<option></option>`, {
+            value: 1,
+            text: '基金會同仁'
+          }).appendTo(`#role_id-${i}`);
+          const role3 = $(`<option></option>`, {
+            value: 1,
+            text: '志工夥伴'
+          }).appendTo(`#role_id-${i}`);
           const lastSeen = $('<div></div>', {
             id: `login_at-${i}`,
             class: "login_at"
@@ -92,7 +108,6 @@
             $(`#image-${i}`).css('background-image', `url('${userData[i].picture}')`)
             $(`#name-${i}`).text(`名稱： ${userData[i].name}`)
             $(`#email-${i}`).text(`信箱： ${userData[i].email}`)
-            $(`#role_id-${i}`).val()
             $(`#login_at-${i}`).text(`最後上線時間： ${userData[i].login_at}`)
             $(`#update-user-${i}`).text(`更新`)
             $(`#delete-user-${i}`).text(`刪除`)
@@ -106,14 +121,12 @@
 
 async function updateSubmit() {
   try{
-     const accessToken = localStorage.getItem('access_token');
-     let id = event.target.id;
-     let idSplit = id.split('-')
-     id = idSplit[2]
-
+      const accessToken = localStorage.getItem('access_token');
+      let id = event.target.id;
+      let idSplit = id.split('-')
+      id = idSplit[2]
       let email = $(`#email-${id}`).text()
       let role_id = $(`#role_id-${id}`).val()
-      console.log(role_id)
       let emailSplit = email.split(' ')
       email = emailSplit[1];
       const body = {
