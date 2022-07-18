@@ -1,20 +1,24 @@
-const request = require('supertest')
-const {app, server} = require('../../server')
+const request = require('supertest');
+const {app, server} = require('../../server');
+const { NODE_ENV } = process.env;
 const { 
     poolConnection,
     poolRelease
  } = require('../../utils/mysql');
 
+beforeAll(async () => {
+    if(NODE_ENV !== 'test') {
+        throw 'not in test environment'
+    }
+    await poolConnection();
+});
+
+afterAll(async () => {
+    server.close();
+    await poolRelease();
+})
+
 describe('tracker API', () => {
-    beforeAll(async () => {
-        await poolConnection();
-    });
-
-    afterAll(async () => {
-        server.close();
-        await poolRelease();
-    })
-
     describe('Test Get /map/all', () => {
         test('It should response with 200 success', async ()=> {
                 const response = await request(app).get('/api/1.0/data/map/all')

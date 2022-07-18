@@ -1,4 +1,8 @@
 // Toggle sidebar
+document.querySelector('sidebar-component').shadowRoot.querySelector('.sidebar-toggle').addEventListener('click', function close(event) {
+  $('#form-sighting').addClass("hide");
+});
+
 $('.toggle-button').on('click', () => {
   document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
   .classList.remove("hide");
@@ -72,7 +76,7 @@ $('.date').val(date);
 // Time Picker Initialization
 $('input.timepicker').timepicker({ 
   timeFormat: 'HH:mm',
-  interval: 60,
+  interval: 30,
   scrollbar: true
 });
 
