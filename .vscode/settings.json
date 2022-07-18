@@ -1,10 +1,9 @@
 {
     "files.autoSave": "onWindowChange",
     "editor.wordWrap": "on",
-    // "[javascript]": {
-    //   "editor.defaultFormatter": "esbenp.prettier-vscode"
-    // },
-    // "editor.formatOnSave": true,
-    // "prettier.singleQuote": true,
-    // "prettier.printWidth": 70,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }
+
+

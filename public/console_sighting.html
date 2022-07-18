@@ -78,7 +78,7 @@
                   攝影者：
                 <input placeholder="攝影者" type="text" name="recorder" class="recorder" value="-">
                 </label><br>
-                <label for="sighting">目擊紀錄
+                <label for="sighting">目擊紀錄 <span><br>*本航次是否有目擊鯨豚</span>
                   <select name="sighting" required>
                     <option value="-">-</option>
                     <option value="1">是</option>
@@ -216,6 +216,7 @@
                     <option value="Be">布氏鯨</option>
                     <option value="Bo">大村鯨</option>
                     <option value="Dc">長吻真海豚</option>
+                    <option value="Dd">短吻真海豚</option>
                     <option value="Fa">小虎鯨</option>
                     <option value="Gg">瑞氏海豚</option>
                     <option value="Gm">短肢領航鯨</option>
@@ -230,7 +231,8 @@
                     <option value="Pm">抹香鯨</option>
                     <option value="Sa">熱帶斑海豚</option>
                     <option value="Sb">糙齒海豚</option>
-                    <option value="Sl">長吻飛旋海豚</option>
+                    <option value="Sl">飛旋海豚</option>
+                    <option value="Ta">印太平洋瓶鼻海豚</option>
                     <option value="Tt">真瓶鼻海豚</option>
                     <option value="Z">喙鯨科</option>
                     <option value="Zc">柯氏喙鯨</option>
@@ -276,7 +278,7 @@
                   群量最多：
                 <input placeholder="0-999" type="number" class="group_size_highest" value="-">
                 </label><br>
-                <label for="mix">是否混群
+                <label for="mix">是否混群 <span><br>*若為"是"，請再多登錄一筆目擊記錄</span>
                   <select name="mix">
                     <option value="-">-</option>
                     <option value="1">是</option>
@@ -289,13 +291,14 @@
                     <option value="Be">布氏鯨</option>
                     <option value="Bo">大村鯨</option>
                     <option value="Dc">長吻真海豚</option>
+                    <option value="Dd">短吻真海豚</option>
                     <option value="Fa">小虎鯨</option>
                     <option value="Gg">瑞氏海豚</option>
                     <option value="Gm">短肢領航鯨</option>
-                    <option value="Kb">Kb</option>
-                    <option value="Ks">Ks</option>
+                    <option value="Kb">小抹香鯨</option>
+                    <option value="Ks">侏儒抹香鯨</option>
                     <option value="Lh">弗氏海豚</option>
-                    <option value="Mg">Mg</option>
+                    <option value="Mg">銀杏齒喙鯨</option>
                     <option value="Mn">大翅鯨</option>
                     <option value="Oo">虎鯨</option>
                     <option value="Pc">偽虎鯨</option>
@@ -303,9 +306,10 @@
                     <option value="Pm">抹香鯨</option>
                     <option value="Sa">熱帶斑海豚</option>
                     <option value="Sb">糙齒海豚</option>
-                    <option value="Sl">長吻飛旋海豚</option>
+                    <option value="Sl">飛旋海豚</option>
+                    <option value="Ta">印太平洋瓶鼻海豚</option>
                     <option value="Tt">真瓶鼻海豚</option>
-                    <option value="Z">Z</option>
+                    <option value="Z">喙鯨科</option>
                     <option value="Zc">柯氏喙鯨</option>
                   </select>
                 </label><br>
@@ -348,7 +352,7 @@
                     <input type="checkbox" class="checkbox" name="group_closeness_spreaded" value="1" id="group_closeness_spreaded">
                   </label>
                 </div>
-                <h5>活動<span><br>*分為「行進中」、「休息」、「兜圈」三項，行進速度請依實際狀況擇一圈選</span></h5>
+                <h5>活動<span><br>*本題為單選，請以觀察期間主要出現的活動勾選</span></h5>
                 <div class="sighting-lead">
                   <label for="speed_slow">
                     行進-很慢：
@@ -452,7 +456,7 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺 (賞鯨船長度約為20公尺 )</span>
                   <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
                 <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>
