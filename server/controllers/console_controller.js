@@ -97,10 +97,8 @@ async function userLogin (req, res) {
 
 async function updateUsers (req, res) {
     try {
-        console.log(req.body)
         let {email, role_id} = req.body;
         let result = await Console.updateUsers(email, role_id);
-        console.log(result);
         if (result.changedRows === 0) {
             res.status(200).json({
                 fail: 'User information has NOT been updated.'

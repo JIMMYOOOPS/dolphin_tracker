@@ -177,13 +177,14 @@ border-radius:10px;
 }
 
 select, option {
-  height: 40px;
-  width: 70% !important;
+  height: 40px !important;
+  width: 80% !important;
   margin: 5px 0 0 5px;
   text-align: center;
-  font-size: 90%;
-  font-weight: 500;
+  font-size: 90% !important;
+  font-weight: 500 !important;
   vertical-align: middle;
+  color: #000 !important;
 }
 
 .login_at {

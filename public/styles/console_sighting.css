@@ -84,6 +84,10 @@ li {
   /* z-index: -1; */
 }
 
+/* .hide {
+  transform: translateX(-50%);
+} */
+
 #form-sighting {
   margin: 40px 0 0 20px;
   width: 50vw

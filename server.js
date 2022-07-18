@@ -26,12 +26,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './', 'index.html'))
 })
 
-let server = app.listen(PORT, () => {
-  console.log()
+const server = app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`)
 })
 
 module.exports = {
-  app, 
+  app,
   server
 }

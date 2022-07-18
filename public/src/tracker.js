@@ -187,7 +187,6 @@ async function searchSelection() {
         longitude: e.longitude,
         latitude: e.latitude,
       };
-      console.log(point);
       const template = {
         title: '鯨豚目擊',
         content: 
