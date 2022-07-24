@@ -8,13 +8,16 @@
     "watch": "nodemon server.js",
     "lint": "eslint *.js --fix",
     "test": "jest",
-    "test-watch": "set NODE_ENV=test jest --watch"
+    "test-watch": "set NODE_ENV=test&&jest --watch",
+    "testdata": "set NODE_ENV=test&&node test/generate_sightdata.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": ["./test/set_up.js"],
+    "forceExit": true
   },
   "dependencies": {
     "@arcgis/core": "^4.23.7",

@@ -1,9 +1,13 @@
 const {  pool, queryPromise } = require('../../utils/mysql');
 
 const createSailingInfo = async (sailingInfoData) => {
-    let sqlcreateSailingInfo = 'INSERT INTO sailing_info SET ?'
-    const data = await queryPromise(sqlcreateSailingInfo, sailingInfoData)  
-    return data
+    try {
+        let sqlcreateSailingInfo = 'INSERT INTO sailing_info SET ?'
+        const data = await queryPromise(sqlcreateSailingInfo, sailingInfoData)  
+        return data
+    } catch (error) {
+        return error
+    }
 };
 
 const createObv = async (obvGPS, obvApproach, obvDetail, obvInteraction, image) => {
@@ -109,6 +113,8 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
                 let dataSailingInfo = {
                     sailing_id: sailingInfoData.sailing_id[i],
                     sighting_id: sailingInfoData.sighting_id[i],
+                    mix: obvDetail.mix[i],
+                    dolphin_type: obvDetail.dolphin_type[i],
                     year: sailingInfoData.year[i],
                     month: sailingInfoData.month[i],
                     day: sailingInfoData.day[i],
@@ -280,7 +286,7 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
         // const dataQuery = 
         // `UPDATE ${table} SET (sailing_id, sighting_id, mix, dolphin_type, year, month, day, period, departure, arrival, boat_size, sighting, gps_no, guide, recorder, observations, weather, wind_direction, wave_condition, current) = WHERE ()`;  
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -297,17 +303,6 @@ const getDataMap = async (pageSize, paging = 0, requirement = {}) => {
         condition.sql = "WHERE sailing_info.dolphin_type = ?"
         condition.binding = [requirement.type]
     }
-    // } else if (requirement.month !=null) {
-    //     condition.sql = 'WHERE year = ? AND month = ?'
-    //     condition.binding = [requirement.year, requirement.month]
-    // } else if (requirement.year != null) {
-    //     condition.sql = 'WHERE year = ?'
-    //     condition.binding = [requirement.year]
-    // }
-    // const limit = {
-    //     sql: 'LIMIT ?, ?',
-    //     binding: [pageSize * paging, pageSize]
-    // };
     const dataQuery = 
     'SELECT sailing_info.id, SUBSTRING(sailing_id, 1, 8) AS date, year, month, day, period, dolphin_info.name, dolphin_img.img, weather, wind_direction, current, latitude, latitude_min, latitude_sec, longitude, longitude_min, longitude_sec, sailing_info.dolphin_type, dorsal_fin, exhalation, splash, exhibition FROM sailing_info ' + 
     `INNER JOIN obv_gps 

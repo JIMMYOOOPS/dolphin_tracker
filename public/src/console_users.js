@@ -79,7 +79,7 @@
             text: '基金會同仁'
           }).appendTo(`#role_id-${i}`);
           const role3 = $(`<option></option>`, {
-            value: 1,
+            value: 2,
             text: '志工夥伴'
           }).appendTo(`#role_id-${i}`);
           const lastSeen = $('<div></div>', {
@@ -146,10 +146,10 @@ async function updateSubmit() {
       let rawUpdateDataResponse = await fetch(url, options);
       let updateDataResponse = await rawUpdateDataResponse.json();
       if (updateDataResponse.success) {
-          alert('update user successful!');
+          alert(updateDataResponse.success);
           window.location.href = "/console_users.html";
       } else {
-          alert('the user has not been updated.')
+          alert(updateDataResponse.error)
       }
   } catch(err) {
       console.log('Error', err )

@@ -71,7 +71,7 @@ const userLogin = async (email, password) => {
         user.access_expired = TOKEN_EXPIRE;
         return user;
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -127,10 +127,11 @@ const getUser = async (email) => {
 
 const updateUsers = async (email, role_id) => {
     try {
+        console.log(role_id);
         let user = await queryPromise('UPDATE user SET role_id = ? WHERE email = ?', [role_id, email]);
         return user;
     } catch (error) {
-        
+        return error
     }
 }
 

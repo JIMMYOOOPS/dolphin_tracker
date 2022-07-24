@@ -17,7 +17,7 @@
     <sidebar-component></sidebar-component>
     <main>
         <div class = "content">
-          <form id="form-sighting" action="/admin/console/sighting" method="post" enctype="multipart/form-data">
+          <form id="form-sighting" enctype="multipart/form-data">
             <ul id="progressbar">
               <li class="active" id ="sailing-info">航次基本資料</li>
               <li id="GPS-location">GPS定位</li>
@@ -61,8 +61,8 @@
                 <label for="boat_size"> 船隻
                   <input list="boat_size" name="boat_size" value="-"></input>
                   <datalist id="boat_size">
-                    <option value="大多"></option>
-                    <option value="小多"></option>
+                    <option value="大">大多</option>
+                    <option value="小">小多</option>
                     <option value="其他"></option>
                   </datalist>
                 </label><br>
