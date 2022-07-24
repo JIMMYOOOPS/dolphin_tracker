@@ -81,8 +81,9 @@ $('input.timepicker').timepicker({
 });
 
 // Default Value for Check boxes
-$("form").on('submit', function (event) {
+$("form").on('submit', async function (event) {
   let thisForm = $(this);
+  event.preventDefault();
   thisForm.find('input[type="checkbox"]').each( function () {
       //Set unchecked values as 0
       let thisCheckbox = $(this);
@@ -92,39 +93,21 @@ $("form").on('submit', function (event) {
         thisCheckbox.prop('checked',true);    
         thisCheckbox.attr('value','0');
       }
-  })
-})
-
-// Images upload
-function readURL(input) {
-  if (input.files && input.files[0]) {
-
-    let reader = new FileReader();
-
-    reader.onload = function(e) {
-      $('.image-upload-wrap').hide();
-
-      $('.file-upload-image').attr('src', e.target.result);
-      $('.file-upload-content').show();
-
-      $('.image-title').html(input.files[0].name);
-    };
-
-    reader.readAsDataURL(input.files[0]);
-
-  } else {
-    removeUpload();
-  }
-}
-
-function removeUpload() {
-  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-  $('.file-upload-content').hide();
-  $('.image-upload-wrap').show();
-}
-$('.image-upload-wrap').bind('dragover', function () {
-    $('.image-upload-wrap').addClass('image-dropping');
   });
-  $('.image-upload-wrap').bind('dragleave', function () {
-    $('.image-upload-wrap').removeClass('image-dropping');
-});
+
+ const form =  document.getElementsByTagName("form")[0]
+  const formData = new FormData(form)
+  let url = '/admin/console/sighting'
+  let options = {
+    method: 'POST',
+    body: formData,
+  }
+
+  let result = await fetch(url, options)
+  if (result.status === 200) {
+    alert('Files have been uploaded')
+    window.location = '/console_sighting.html'
+  } else {
+    alert('Upload has failed')
+  }
+})

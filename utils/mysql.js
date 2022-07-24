@@ -32,7 +32,8 @@ async function createInBulk (sql, params) {
 };
 
 async function poolConnection () {
-    await pool.getConnection()
+    const conn = await pool.getConnection();
+    return conn;
 }
 
 async function poolRelease () {
