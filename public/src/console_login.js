@@ -23,8 +23,8 @@ async function signin() {
             window.location.href = "/console.html";
             alert('You have successfully loggedin.')
         }
-    } catch(err) {
-        console.log('Error', err )
+    } catch(error) {
+        console.log('Error', error )
     }
 }
 
@@ -76,14 +76,16 @@ async function signup() {
     }
     let rawSignupResponse = await fetch(url, options);
     let signupResponse = await rawSignupResponse.json();
-    console.log(signupResponse)
+    if(signupResponse.error) {
+        alert(signupResponse.error)
+    }
     localStorage.setItem("access_token", signupResponse.access_token);
     if (signupResponse.access_token) {
         window.location.href = "/console.html";
         alert('You have successfully signedup.')
     }
-    } catch(err) {
-        console.log('Error', err )
+    } catch(error) {
+        console.log('Error', error)
     }
 }
 

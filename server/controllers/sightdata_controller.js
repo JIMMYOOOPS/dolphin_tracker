@@ -18,8 +18,8 @@ const createData = async (req, res) => {
         const sailingInfoData = {
             sailing_id: sailing_id,
             sighting_id: data.sighting_id,
-            // mix: data.mix,
-            // dolphin_type: data.dolphin_type,
+            mix: data.mix,
+            dolphin_type: data.dolphin_type,
             year: year,
             month: month,
             day: day,
@@ -110,22 +110,27 @@ const createData = async (req, res) => {
                 other: data.other[i]
             }
         }
-        // For table image
-        const imagePath = Util.getImagePath(req.protocol, req.hostname, sailingInfo.insertId);
-        const main_image = req.files.main_image ? req.files.main_image[0].filename : null;
-        const images = req.files.other_images ? req.files.other_images.map(
-            img => ([img.filename])
-        ) : null
-        let location = sailingInfo.insertId
-        let file = JSON.parse(JSON.stringify(req.files));
-        let uploadResponse = await Util.uploadS3(file, location);
-        const image = {
-            obv_id: sailingInfo.insertId,
-            main_image: main_image,
-            images: images
+        let image = {
+            obv_id: null,
+            main_image: null,
+            images: null
         }
-        await Data.createObv(obvGPS, obvApproach, obvDetail, obvInteraction, image);
+        // For table image
+        if(req.files) {
+            const imagePath = Util.getImagePath(req.protocol, req.hostname, sailingInfo.insertId);
+            const main_image = req.files.main_image ? req.files.main_image[0].originalname : null;
+            const images = req.files.other_images ? req.files.other_images[0].originalname : null;
+            let location = sailingInfo.insertId
+            let file = JSON.parse(JSON.stringify(req.files));
+            let uploadResponse = await Util.uploadS3(file, location);
+            image = {
+                obv_id: location,
+                main_image: main_image,
+                images: images
+            }
 
+            await Data.createObv(obvGPS, obvApproach, obvDetail, obvInteraction, image);
+        }
         //Recieved POST from body next step insert to DB
         let result = {
             sailing_info: sailingInfoData,
@@ -136,7 +141,9 @@ const createData = async (req, res) => {
             image: image
         }
         if (result) {
-            res.status(200).redirect('/console_sighting.html') 
+            res.status(200).json({
+                Success: "Successfully added to database"
+            }) 
         } else {
             res.status(400).json({
                 message: 'Please complete the form before submitting.'
@@ -184,6 +191,8 @@ const updateData = async (req, res) => {
         id: data.id,
         sailing_id: data.sailing_id,
         sighting_id: data.sighting_id,
+        mix: data.mix,
+        dolphin_type: data.dolphin_type,
         year: data.year,
         month: data.month,
         day: data.day,
@@ -201,7 +210,6 @@ const updateData = async (req, res) => {
         wave_condition: data.wave_condition,
         current: data.current
     };
-
     // For table obv_GPS
     const obvGPS = {
         latitude: data.latitude,
@@ -211,7 +219,6 @@ const updateData = async (req, res) => {
         longitude_min: data.longitude_min,
         longitude_sec: data.longitude_sec
     }
-
     // For table obv_approach
     const obvApproach = {
         approach_time: data.approach_time,
@@ -239,7 +246,6 @@ const updateData = async (req, res) => {
         mix: data.mix,
         mix_type: data.mix_type
     }
-
     // For table obv_interaction
     const obvInteraction = {
         time1: data.time1,
@@ -331,9 +337,9 @@ const getDataMap = async (req, res) => {
                     return Data.getDataMap()
                 case 'date': {
                     // Gets date in range format (2016. 01. 01. - 2020. 12. 31.)
+                    // Amend date format to YYYYMMDD
                     const range = req.body.range.split('. ');
                     const type = req.body.type;
-                    // Amend date format to 20160101
                     const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
                     let endDayArr = rawEndDay.split('.');
                     let endDay = endDayArr[0];
@@ -353,7 +359,6 @@ const getDataMap = async (req, res) => {
         result = {
             data: await findSightData(category)
         }
-        
         result["data"].forEach(e => {
             // Create function to add dolphin actions
             // Amend GPS convert function
@@ -653,14 +658,12 @@ const getDownload = async (req, res) => {
       let stream = Readable.from(buffer)
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=' + currentDate + '-dolphinsighting.xlsx');
-      stream.pipe(res);      
+      stream.pipe(res);
   } catch (error) {
       console.log(error);
       res.status(500).json(error.message)
   }
 }
-
-
 
 module.exports = {
     createData,

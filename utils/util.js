@@ -11,19 +11,6 @@ const {PORT, AWS_BUCKET_NAME, TOKEN_SECRET} = process.env;
 // Upload files to local
 const upload = multer({
     storage: multer.memoryStorage({
-        // destination: (req, file, cb) => {
-        //     const data = req.body;
-        //     let date = data.datepicker.split('/')
-        //     let [year, month, day] = date;
-        //     let boat_time = data.boat_time.replace(/:/g, '')
-        //     let sailing_id = year + month + day + boat_time
-        //     const imageId = sailing_id;
-        //     const imagePath = path.join(__dirname, `../public/assets/${imageId}`);
-        //     if (!fs.existsSync(imagePath)) {
-        //         fs.mkdirSync(imagePath);
-        //     }
-        //     cb(null, imagePath);
-        // },
         filename: (req, file, cb) => {
             const fileName = Date.now() + '_' + file.originalname;
             cb(null, fileName);
@@ -108,7 +95,6 @@ const authentication = (roleId) => {
         }
     }
 }
-
 
 module.exports = {
     upload,
