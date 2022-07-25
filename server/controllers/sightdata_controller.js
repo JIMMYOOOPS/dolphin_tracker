@@ -120,14 +120,16 @@ const createData = async (req, res) => {
                 main_image: null,
                 images: null
             }
-            if(req.files) {
+            if(req.files.main_image) {
                 let location = sailingInfo.insertId
                 let file = JSON.parse(JSON.stringify(req.files));
                 let uploadResponse = await Util.uploadS3(file, location);
+                let main_imageLocation = uploadResponse[0] ? uploadResponse[0].Location : null;
+                let imagesLocation = uploadResponse[1] ? uploadResponse[1].Location : null;
                 image = {
                     obv_id: location,
-                    main_image: uploadResponse[0].Location,
-                    images: uploadResponse[1].Location
+                    main_image: main_imageLocation,
+                    images: imagesLocation
                 }
             }
             return image;
@@ -149,26 +151,6 @@ const createData = async (req, res) => {
             }) 
         }
     } catch (error) {
-        if(!obvGPS) {
-            res.status(400).json({
-                error: 'Please complete obvGPS before submitting.'
-            })
-        }
-        else if(!obvApproach) {
-            res.status(400).json({
-                error: 'Please complete obvApproach before submitting.'
-            })
-        }
-        else if(!obvDetail) {
-            res.status(400).json({
-                error: 'Please complete obvDetail before submitting.'
-            })
-        }
-        else if(!obvInteraction) {
-            res.status(400).json({
-                error: 'Please complete obvInteraction before submitting.'
-            })
-        }
         throw error
     }
 }
