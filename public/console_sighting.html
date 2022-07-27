@@ -45,17 +45,16 @@
                 </label><br>
                 <label for="period"> 上午/下午
                   <select name="period" required>
-                    <option value="-">-</option>
                     <option value="1">上午</option>
                     <option value="2">下午</option>
                   </select>
                 </label><br>
                 <label for="departure">
-                  出港時間：
+                  出港時間：<span><br>*時間"分"可以進行編輯</span>
                   <input class="timepicker" name="departure" value="00:00" required>
                 </label>
                 <label for="arrival">
-                  進港時間：
+                  進港時間：<span><br>*時間"分"可以進行編輯</span>
                   <input class="timepicker" name="arrival" value="00:00" required>
                 </label><br>
                 <label for="boat_size"> 船隻
@@ -71,7 +70,7 @@
                   <input type="number" name="gps_no" class="gps_no" placeholder="number" min="1" max="10" value="1"></input> 
                 </label><br>
                 <label for="解說員">
-                  解說員：
+                  解說員：<span><br>*請輸入中文全名</span>
                 <input placeholder="解說員" type="text" name="guide" class="guide" value="-" required>
                 </label>
                 <label for="攝影者" class="recorder">
@@ -80,7 +79,6 @@
                 </label><br>
                 <label for="sighting">目擊紀錄 <span><br>*本航次是否有目擊鯨豚</span>
                   <select name="sighting" required>
-                    <option value="-">-</option>
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
@@ -320,9 +318,7 @@
                 <h3>鯨豚與我船互動</h3>
                 <h4>靠近鯨豚的第0-10分鐘</h4>
                 <label for="time">與我船互動
-                  <select name="time">
-                    <option value="0-10">第0~10分鐘</option>
-                  </select>
+                  <input type="text" name="time" value="0-10" readonly></input>
                 </label><br>
                 <label for="boat_interaction">與我船互動
                   <select name="boat_interaction">
@@ -334,7 +330,7 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺 (賞鯨船長度約為20公尺)</span>
                   <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
                 <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>
@@ -378,7 +374,7 @@
                 <h5>行為</h5>
                 <div class="bahaviour">
                   <label for="foraging_maybe">
-                    可能覓食：
+                    可能覓食：<span><br>*覓食請可能/確定擇一勾選，不要一次勾兩個。</span></h5>
                     <input type="checkbox" class="checkbox" name="foraging_maybe" value="1" id="foraging_maybe">
                   </label>
                   <label for="foraging_sure">
@@ -442,9 +438,7 @@
                 <h3>鯨豚與我船互動</h3>
                 <h4>靠近鯨豚的第11~20分鐘</h4>
                 <label for="time">與我船互動
-                  <select name="time">
-                    <option value="11-20">第11~20分鐘</option>
-                  </select>
+                  <input type="text" name="time" value="11-20" readonly></input>
                 </label><br>
                 <label for="boat_interaction">與我船互動
                   <select name="boat_interaction">
@@ -456,7 +450,7 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺 (賞鯨船長度約為20公尺 )</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺 (賞鯨船長度約為20公尺)</span>
                   <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
                 <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>
@@ -564,9 +558,7 @@
                 <h3>鯨豚與我船互動</h3>
                 <h4>靠近鯨豚的第21~30分鐘</h4>
                 <label for="time">與我船互動
-                  <select name="time">
-                    <option value="21-30">第21~30分鐘</option>
-                  </select>
+                  <input type="text" name="time" value="21-30" readonly></input>
                 </label><br>
                 <label for="boat_interaction">與我船互動
                   <select name="boat_interaction">
@@ -578,7 +570,7 @@
                   </select>
                 </label><br>
                 <label for="boat_distance">
-                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺</span>
+                  鯨豚與我船最近距離：<span><br>*記錄方式採公尺 (賞鯨船長度約為20公尺)</span>
                   <input placeholder="公尺" name="boat_distance" type="number" class="boat_distance" min="0" value="-">
                 </label><br>
                 <h5>鯨豚間距離<span><br>*以整群鯨豚個體之間的距離來判定，此題為單選</span></h5>

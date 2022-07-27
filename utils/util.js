@@ -96,9 +96,59 @@ const authentication = (roleId) => {
     }
 }
 
+function GPSConvert(result) {
+    result["data"].forEach(e => {
+        // Create function to add dolphin actions
+        // Amend GPS convert function
+        // GPS convert for 1998 - 2020
+        if (e.latitude < 23 || e.longitude !== 121)  {
+            e.latitude = null;
+            e.latitude_min = null;
+            e.latitude_sec = null;
+            e.longitude = null;
+            e.longitude_min = null;
+            e.longitude_sec = null;
+        } else {
+            e.latitude = (e.latitude + (e.latitude_min + e.latitude_sec/1000)/60).toFixed(6);
+            e.longitude = (e.longitude + (e.longitude_min + e.longitude_sec/1000)/60).toFixed(6);
+            if(e.latitude > 24.68 || e.longitude < 121.61) {
+                e.latitude = null;
+                e.latitude_min = null;
+                e.latitude_sec = null;
+                e.longitude = null;
+                e.longitude_min = null;
+                e.longitude_sec = null;
+            } else if (e.latitude > 23.9828 && e.latitude < 23.9855 && e.longitude > 121.6120 && e.longitude < 121.623 ) {
+                e.latitude = null;
+                e.latitude_min = null;
+                e.latitude_sec = null;
+                e.longitude = null;
+                e.longitude_min = null;
+                e.longitude_sec = null;
+            } else if (e.latitude > 23.99 && e.latitude < 24.01 && e.longitude > 121.633 && e.longitude < 121.6393 ) {
+                e.latitude = null;
+                e.latitude_min = null;
+                e.latitude_sec = null;
+                e.longitude = null;
+                e.longitude_min = null;
+                e.longitude_sec = null;
+            } else if (e.latitude > 24.23 && e.latitude < 24.2321 && e.longitude > 121.698349 && e.longitude < 121.698351 ) {
+                e.latitude = null;
+                e.latitude_min = null;
+                e.latitude_sec = null;
+                e.longitude = null;
+                e.longitude_min = null;
+                e.longitude_sec = null;
+            }
+        }
+    })
+    return result;
+}
+
 module.exports = {
     upload,
     uploadS3,
     getImagePath,
-    authentication
+    authentication,
+    GPSConvert
 };

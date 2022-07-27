@@ -35,13 +35,16 @@ async function userSignup (req, res) {
         }
         if(!name || !email || !password ) {
             res.status(400).send({error:'Request Error: Missing fields in name, email or password.'});
+            return;
         }
         function validateUserInfo (userInfo) {
             if (!validator.matches(userInfo, '^[a-zA-Z0-9]*$')) {
                 res.status(400).send({error:'Username or Password includes invalid characters'});
+                return;
             } 
             if (!validator.isLength(userInfo, {min:4, max: 12})) {
                 res.status(400).send({error:'Username or Password length should be between 4 to 12 letters'});
+                return;
             }
         }
         validateUserInfo(name);
@@ -51,7 +54,8 @@ async function userSignup (req, res) {
         res.status(200).json(result);
     } catch (error) {
         if (error.code === 'ER_DUP_ENTRY') {
-            res.status(403).json('The email has been registered!')
+            res.status(403).json('The email has been registered!');
+            return;
         }
     }
 }
@@ -60,11 +64,13 @@ async function userLogin (req, res) {
     let {email, password} = req.body
     if(!email || !password){
         res.status(400).json({error: 'Request Error: email and password are required.'});
+        return;
     }
     try {
         let user = await Console.userLogin(email, password);
         if (user == null) {
             res.status(400).json({error: 'Account does not exist.'});
+            return;
         }
         let data = {};
         data = {
@@ -88,17 +94,17 @@ async function userLogin (req, res) {
 async function updateUsers (req, res) {
     try {
         let {email, role_id} = req.body;
-        console.log(role_id);
         let result = await Console.updateUsers(email, role_id);
-        console.log(result)
         if (result.changedRows === 0) {
             res.status(400).json({
                 error: 'User information has NOT been updated.'
-            });    
+            });
+            return; 
         } else {
             res.status(200).json({
                 success: 'User information is updated.'
             });
+            return;
         }
     } catch (error) {
         throw error
@@ -136,24 +142,27 @@ async function getUsers (req, res) {
 
 async function getUser (req, res) {
     try {
-        let accessToken = req.get('Authorization')
-        accessToken = accessToken.replace('Bearer ', '');
-        const user = await new Promise(
-            function (resolve,reject) {
-                jwt.verify(accessToken, TOKEN_SECRET, (err, user) =>{
-                    if (err) {
-                        reject(err);
-                    } 
-                    resolve(user);
-                });
-            }
-        )
-        req.user = user;
+        async function verifyUserToken () {
+            let accessToken = req.get('Authorization')
+            accessToken = accessToken.replace('Bearer ', '');
+            return await new Promise(
+                (resolve,reject) => {
+                    jwt.verify(accessToken, TOKEN_SECRET, (err, user) =>{
+                        if (err) {
+                            reject(err);
+                        } 
+                        resolve(user);
+                    });
+                }
+            )
+        }
+        let user = verifyUserToken();
         let result = await Console.getUser(user.email);
         res.status(200).json(result); 
     } catch(error) {
-        if (!accessToken) {
+        if (!user) {
             res.status(403).json({message: 'You are Forbidden to enter this page'});
+            return;
         }
         throw error
     }
@@ -164,8 +173,8 @@ async function deleteUsers (req, res) {
         let {email} = req.body;
         let result = await Console.deleteUsers(email);
         if (result.affectedRows === 0) {
-            res.status(200).json({
-                fail: 'User information has NOT been deleted.'
+            res.status(400).json({
+                error: 'User information has NOT been deleted.'
             });    
         } else {
             res.status(200).json({
@@ -173,10 +182,7 @@ async function deleteUsers (req, res) {
             });
         }
     } catch (error) {
-        res.status(500).json({
-            error: console.log(error),
-            message: 'An error has occured on the server'
-        })
+        throw error
     }
 }
 

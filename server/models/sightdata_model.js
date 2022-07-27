@@ -106,6 +106,47 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
         const sailingId = Object.values(sailingInfoData.id);
         try {
             await conn.query('START TRANSACTION');
+            // Update table sailing_info with Promise.all
+            // console.log('here1')
+            // let sailingInfoArray = [];
+            // for (i=0; i < sailingId.length; i++) {
+            //     let dataSailingInfo = {
+            //         sailing_id: sailingInfoData.sailing_id[i],
+            //         sighting_id: sailingInfoData.sighting_id[i],
+            //         mix: obvDetail.mix[i],
+            //         dolphin_type: obvDetail.dolphin_type[i],
+            //         year: sailingInfoData.year[i],
+            //         month: sailingInfoData.month[i],
+            //         day: sailingInfoData.day[i],
+            //         period: sailingInfoData.period[i],
+            //         departure: sailingInfoData.departure[i],
+            //         arrival: sailingInfoData.arrival[i],
+            //         boat_size: sailingInfoData.boat_size[i],
+            //         sighting: sailingInfoData.sighting[i],
+            //         gps_no: sailingInfoData.gps_no[i],
+            //         guide: sailingInfoData.guide[i],
+            //         recorder: sailingInfoData.recorder[i],
+            //         observations: sailingInfoData.observations[i],
+            //         weather: sailingInfoData.weather[i],
+            //         wind_direction: sailingInfoData.wind_direction[i],
+            //         wave_condition: sailingInfoData.wave_condition[i],
+            //         current: sailingInfoData.current[i]
+            //     };
+            //     sailingInfoArray.push(dataSailingInfo);
+            // }
+            // let result = await Promise.all(sailingInfoArray.map(async item => {
+            //     return new Promise((resolve, reject) => {
+            //         conn.query(`UPDATE sailing_info SET ? WHERE id = ?`, [item ,[item.sailing_id]], (error, results) => {
+            //             if(error) {
+            //                 reject (error) 
+            //             } else {
+            //                 resolve(results)
+            //             }
+
+            //         })
+            //     }) 
+            // }))
+            // console.log('123', result);
             // Update to table sailing_info
             for (i=0; i < sailingId.length; i++) {
                 const sqlUpdateQuery = 
@@ -180,7 +221,7 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
                 }
                 await conn.query('UPDATE obv_detail SET ? WHERE obv_id = ?', [dataObvDetail ,[sailingId[i]]]);
             }   
-
+            // Update to table obv_interaction
             for (i=0; i < sailingId.length; i++) {
                 let dataObvInteraction = {
                     time: obvInteraction.time1[i],
@@ -283,8 +324,6 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
         } finally {
             await conn.release();
         }
-        // const dataQuery = 
-        // `UPDATE ${table} SET (sailing_id, sighting_id, mix, dolphin_type, year, month, day, period, departure, arrival, boat_size, sighting, gps_no, guide, recorder, observations, weather, wind_direction, wave_condition, current) = WHERE ()`;  
     } catch (error) {
         return error
     }
