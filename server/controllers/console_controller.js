@@ -140,7 +140,7 @@ async function getUsers (req, res) {
     }
 }
 
-async function getUser (req, res) {
+async function validateUserLogin (req, res) {
     try {
         async function verifyUserToken () {
             let accessToken = req.get('Authorization')
@@ -157,7 +157,7 @@ async function getUser (req, res) {
             )
         }
         let user = verifyUserToken();
-        let result = await Console.getUser(user.email);
+        let result = await Console.validateUserLogin(user.email);
         res.status(200).json(result); 
     } catch(error) {
         if (!user) {
@@ -195,7 +195,7 @@ module.exports = {
     userLogin,
     getUsersPage,
     getUsers,
-    getUser,
+    validateUserLogin,
     updateUsers,
     deleteUsers
 }
