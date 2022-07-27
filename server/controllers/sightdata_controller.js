@@ -82,7 +82,7 @@ const createData = async (req, res) => {
         }
 
         let obvInteraction = {}
-        // For table obv_interaction
+        // For table obv_interaction(0-10, 11-20, 21-30)
         for(i = 0; i<data.time.length; i++) {
             obvInteraction[i] = {
                 obv_id: sailingInfo.insertId,
