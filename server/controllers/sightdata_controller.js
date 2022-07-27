@@ -139,7 +139,7 @@ const createData = async (req, res) => {
             image: image
         }
         if (result) {
-            res.status(200).json({
+            res.status(201).json({
                 Success: "Successfully added to database"
             }) 
         }
