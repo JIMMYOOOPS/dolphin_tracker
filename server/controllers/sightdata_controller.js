@@ -115,22 +115,15 @@ const createData = async (req, res) => {
         }
         // For table image
         async function uploadImage () {
+            let location = sailingInfo.insertId
+            let file = req.files;
+            let uploadResponse = await Util.uploadS3(file, location);
+            let main_imageLocation = uploadResponse[0] ? uploadResponse[0].Location : null;
+            let imagesLocation = uploadResponse[1] ? uploadResponse[1].Location : null;
             let image = {
-                obv_id: null,
-                main_image: null,
-                images: null
-            }
-            if(req.files.main_image) {
-                let location = sailingInfo.insertId
-                let file = JSON.parse(JSON.stringify(req.files));
-                let uploadResponse = await Util.uploadS3(file, location);
-                let main_imageLocation = uploadResponse[0] ? uploadResponse[0].Location : null;
-                let imagesLocation = uploadResponse[1] ? uploadResponse[1].Location : null;
-                image = {
-                    obv_id: location,
-                    main_image: main_imageLocation,
-                    images: imagesLocation
-                }
+                obv_id: location,
+                main_image: main_imageLocation,
+                images: imagesLocation
             }
             return image;
         }
