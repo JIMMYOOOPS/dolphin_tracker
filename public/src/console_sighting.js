@@ -104,7 +104,7 @@ $("form").on('submit', async function (event) {
   }
 
   let result = await fetch(url, options)
-  if (result.status === 200) {
+  if (result.status === 201) {
     alert('Files have been uploaded')
     window.location = '/console_sighting.html'
   } else {
