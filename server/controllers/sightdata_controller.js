@@ -12,8 +12,11 @@ const createData = async (req, res) => {
         const data = req.body;
         let date = data.date.split('-')
         let [year, month, day] = date;
-        let boat_time = data.boat_time.replace(/:/g, '')
-        let sailing_id = year + month + day + boat_time
+        function getBoatTime () {
+            let boat_time = data.boat_time.replace(/:/g, '')
+            return year + month + day + boat_time
+        }
+        let sailing_id = getBoatTime ()
         // For table sailing_info
         const sailingInfoData = {
             sailing_id: sailing_id,
@@ -79,7 +82,7 @@ const createData = async (req, res) => {
         }
 
         let obvInteraction = {}
-        // For table obv_interaction
+        // For table obv_interaction(0-10, 11-20, 21-30)
         for(i = 0; i<data.time.length; i++) {
             obvInteraction[i] = {
                 obv_id: sailingInfo.insertId,
@@ -110,27 +113,22 @@ const createData = async (req, res) => {
                 other: data.other[i]
             }
         }
-        let image = {
-            obv_id: null,
-            main_image: null,
-            images: null
-        }
         // For table image
-        if(req.files) {
-            const imagePath = Util.getImagePath(req.protocol, req.hostname, sailingInfo.insertId);
-            const main_image = req.files.main_image ? req.files.main_image[0].originalname : null;
-            const images = req.files.other_images ? req.files.other_images[0].originalname : null;
+        async function uploadImage () {
             let location = sailingInfo.insertId
-            let file = JSON.parse(JSON.stringify(req.files));
+            let file = req.files;
             let uploadResponse = await Util.uploadS3(file, location);
-            image = {
+            let main_imageLocation = uploadResponse[0] ? uploadResponse[0].Location : null;
+            let imagesLocation = uploadResponse[1] ? uploadResponse[1].Location : null;
+            let image = {
                 obv_id: location,
-                main_image: main_image,
-                images: images
+                main_image: main_imageLocation,
+                images: imagesLocation
             }
-
-            await Data.createObv(obvGPS, obvApproach, obvDetail, obvInteraction, image);
+            return image;
         }
+        let image = await uploadImage ()
+        await Data.createObv(obvGPS, obvApproach, obvDetail, obvInteraction, image);
         //Recieved POST from body next step insert to DB
         let result = {
             sailing_info: sailingInfoData,
@@ -141,16 +139,12 @@ const createData = async (req, res) => {
             image: image
         }
         if (result) {
-            res.status(200).json({
+            res.status(201).json({
                 Success: "Successfully added to database"
             }) 
-        } else {
-            res.status(400).json({
-                message: 'Please complete the form before submitting.'
-            })
         }
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 
@@ -186,6 +180,7 @@ const getDataAll = async (req, res) => {
 
 const updateData = async (req, res) => {
     const data = req.body;
+    try {
     // For table sailing_info
     const sailingInfoData = { 
         id: data.id,
@@ -326,6 +321,9 @@ const updateData = async (req, res) => {
     }
     let result = await Data.updateData(sailingInfoData, obvGPS, obvApproach, obvDetail, obvInteraction);
     res.status(200).json(result)
+    } catch (error) {
+        throw error
+    }
 }
 
 const getDataMap = async (req, res) => {
@@ -355,66 +353,13 @@ const getDataMap = async (req, res) => {
                 };
             };
         };
-        let result = {}
-        result = {
+        let result = {
             data: await findSightData(category)
         }
-        result["data"].forEach(e => {
-            // Create function to add dolphin actions
-            // Amend GPS convert function
-            // GPS convert for 1998 - 2020
-            if (e.latitude < 23 || e.longitude !== 121)  {
-                e.latitude = null;
-                e.latitude_min = null;
-                e.latitude_sec = null;
-                e.longitude = null;
-                e.longitude_min = null;
-                e.longitude_sec = null;
-            } else {
-                e.latitude = (e.latitude + (e.latitude_min + e.latitude_sec/1000)/60).toFixed(6);
-                e.longitude = (e.longitude + (e.longitude_min + e.longitude_sec/1000)/60).toFixed(6);
-                if(e.latitude > 24.68 || e.longitude < 121.61) {
-                    e.latitude = null;
-                    e.latitude_min = null;
-                    e.latitude_sec = null;
-                    e.longitude = null;
-                    e.longitude_min = null;
-                    e.longitude_sec = null;
-                } else if (e.latitude > 23.9828 && e.latitude < 23.9855 && e.longitude > 121.6120 && e.longitude < 121.623 ) {
-                    e.latitude = null;
-                    e.latitude_min = null;
-                    e.latitude_sec = null;
-                    e.longitude = null;
-                    e.longitude_min = null;
-                    e.longitude_sec = null;
-                } else if (e.latitude > 23.99 && e.latitude < 24.01 && e.longitude > 121.633 && e.longitude < 121.6393 ) {
-                    e.latitude = null;
-                    e.latitude_min = null;
-                    e.latitude_sec = null;
-                    e.longitude = null;
-                    e.longitude_min = null;
-                    e.longitude_sec = null;
-                } else if (e.latitude > 24.23 && e.latitude < 24.2321 && e.longitude > 121.698349 && e.longitude < 121.698351 ) {
-                    e.latitude = null;
-                    e.latitude_min = null;
-                    e.latitude_sec = null;
-                    e.longitude = null;
-                    e.longitude_min = null;
-                    e.longitude_sec = null;
-                }
-            }
-            // GPS convert for 2021 to now
-            // e.latitude_min = e.latitude_min/60;
-            // e.latitude_sec = e.latitude_sec/3600;
-            // e.latitude = e.latitude + e.latitude_min + e.latitude_sec;
-            // e.longitude_min = e.longitude_min/60;
-            // e.longitude_sec = e.longitude_sec/3600;
-            // e.longitude = e.longitude + e.longitude_min + e.longitude_sec;
-        })
+        result = Util.GPSConvert(result)
         res.status(200).json(result)
     } catch (error) {
-        console.log(error)
-        res.status(500).json(error.message)
+        throw error
     }
 };
 
@@ -450,218 +395,212 @@ const getDataDolphin = async (req, res) => {
 };
 
 const getDownload = async (req, res) => {
-  try {
-      const columnName = [
-          "航次編號",  
-          "年", 
-          "月", 
-          "日", 
-          "上午/下午", 
-          "出港時間", 
-          "進港時間", 
-          "船隻大小", 
-          "GPS編號", 
-          "看到鯨豚", 
-          "解說員", 
-          "攝影者", 
-          "特殊觀察與記錄", 
-          "目擊記錄編號",
-          "鯨豚群次", 
-          "鯨豚種數", 
-          "天氣", 
-          "風向", 
-          "浪況", 
-          "海流", 
-          "發現方式",
-          "線索背鰭", 
-          "線索噴氣", 
-          "線索水花", 
-          "線索展示",
-          "靠近時間", 
-          "靠近時GPS編號", 
-          "離開時間", 
-          "離開時GPS編號", 
-          "離開方式", 
-          "鯨豚緯度", 
-          "鯨豚緯分", 
-          "鯨豚緯秒", 
-          "鯨豚經度", 
-          "鯨豚經分", 
-          "鯨豚經秒", 
-          "船隻編號",
-          "鯨豚種類", 
-          "鯨豚確認", 
-          "母子對", 
-          "母子對數", 
-          "群量至少", 
-          "群量可能", 
-          "群量最多",
-          "混群", 
-          "混群種類", 
-          "船隻互動 一", 
-          "最近距離 一", 
-          "群體一般 一", 
-          "群體零散 一", 
-          "群體緊密 一", 
-          "行進中慢 一", 
-          "行進中平 一", 
-          "行進中急 一", 
-          "休息 一", 
-          "兜圈 一", 
-          "拍打水面 一", 
-          "浮窺 一", 
-          "飆船 一", 
-          "空中展示 一", 
-          "人為衝浪 一", 
-          "自然衝浪 一", 
-          "可能覓食 一", 
-          "確定覓食 一", 
-          "舉尾 一", 
-          "交配 一", 
-          "身體觸碰 一", 
-          "仰泳 一", 
-          "船數量 一", 
-          "補充說明 一",
-          "船隻互動 二", 
-          "最近距離 二", 
-          "群體二般 二", 
-          "群體零散 二", 
-          "群體緊密 二", 
-          "行進中慢 二", 
-          "行進中平 二", 
-          "行進中急 二", 
-          "休息 二", 
-          "兜圈 二", 
-          "拍打水面 二", 
-          "浮窺 二", 
-          "飆船 二", 
-          "空中展示 二", 
-          "人為衝浪 二", 
-          "自然衝浪 二", 
-          "可能覓食 二", 
-          "確定覓食 二", 
-          "舉尾 二", 
-          "交配 二", 
-          "身體觸碰 二", 
-          "仰泳 二", 
-          "船數量 二", 
-          "補充說明 二",
-          "船隻互動 三", 
-          "最近距離 三", 
-          "群體三般 三", 
-          "群體零散 三", 
-          "群體緊密 三", 
-          "行進中慢 三", 
-          "行進中平 三", 
-          "行進中急 三", 
-          "休息 三", 
-          "兜圈 三", 
-          "拍打水面 三", 
-          "浮窺 三", 
-          "飆船 三", 
-          "空中展示 三", 
-          "人為衝浪 三", 
-          "自然衝浪 三", 
-          "可能覓食 三", 
-          "確定覓食 三", 
-          "舉尾 三", 
-          "交配 三", 
-          "身體觸碰 三", 
-          "仰泳 三", 
-          "船數量 三", 
-          "補充說明 三"
-      ];
-      const data = await Data.getDownload();
-      let dataAll = {};
-      dataResult = []
-      for(i=0; i<data.all.length; i++) {
-          dataAll = {
-              sailing_id: data.all[i].sailing_id,
-              year: data.all[i].year,
-              month: data.all[i].month,
-              day: data.all[i].day,
-              period: data.all[i].period,
-              departure: data.all[i].departure,
-              arrival: data.all[i].arrival,
-              boat_size: data.all[i].boat_size,
-              gps_no: data.all[i].gps_no,
-              sighting: data.all[i].sighting,
-              guide: data.all[i].guide,
-              recorder: data.all[i].recorder,
-              observatios: data.all[i].observatios,
-              sighting_id: data.all[i].sighting_id,
-              dolphin_group_no: data.all[i].dolphin_group_no,
-              dolphin_type_no: data.all[i].dolphin_type_no,
-              weather: data.all[i].weather,
-              wind_direction: data.all[i].wind_direction,
-              wave_condition: data.all[i].wave_condition,
-              current: data.all[i].current,
-              sighting_method: data.all[i].sighting_method,
-              dorsal_fin: data.all[i].dorsal_fin,
-              exhalation: data.all[i].exhalation,
-              splash: data.all[i].splash,
-              exhibition: data.all[i].exhibition,
-              approach_time: data.all[i].approach_time,
-              approach_gps_no: data.all[i].approach_gps_no,
-              leaving_time: data.all[i].leaving_time,
-              leaving_gps_no: data.all[i].leaving_gps_no,
-              leaving_method: data.all[i].leaving_method,
-              latitude: data.all[i].latitude,
-              latitude_min: data.all[i].latitude_min,
-              latitude_sec: data.all[i].latitude_sec,
-              longitude: data.all[i].longitude,
-              longitude_min: data.all[i].longitude_min,
-              longitude_sec: data.all[i].longitude_sec,
-              boat_number: data.all[i].boat_number,
-              dolphin_type: data.all[i].dolphin_type,
-              type_confirmation: data.all[i].type_confirmation,
-              mother_child: data.all[i].mother_child,
-              mother_child_no: data.all[i].mother_child_no,
-              group_size_lowest: data.all[i].group_size_lowest,
-              group_size_probable: data.all[i].group_size_probable,
-              group_size_highest: data.all[i].group_size_highest,
-              mix: data.all[i].mix,
-              mix_type: data.all[i].mix_type 
-          }
-          dataResult.push(dataAll)
-      }
-      let obvInteraction10 = data.obvInteraction10;
-      let obvInteraction20 = data.obvInteraction20;
-      let obvInteraction30 = data.obvInteraction30;
-      let dataArray = [];
-      let obvInteraction10Array = [];
-      let obvInteraction20Array = [];
-      let obvInteraction30Array = []; 
-      dataResult.forEach(ele => {
-          dataArray.push(Object.values(ele))   
-      });
-      obvInteraction10.forEach(ele => {
-          delete ele.obv_id
-          obvInteraction10Array.push(Object.values(ele))
-      });
-      obvInteraction20.forEach(ele => {
-          delete ele.obv_id
-          obvInteraction20Array.push(Object.values(ele))   
-      });
-      obvInteraction30.forEach(ele => {
-          delete ele.obv_id
-          obvInteraction30Array.push(Object.values(ele))   
-      });
-      let result = [];
-      for (i = 0; i < dataArray.length; i++) {
-          result.push(dataArray[i].concat(obvInteraction10Array[i], obvInteraction20Array[i], obvInteraction30Array[i]))
-      }
-      result.unshift(columnName);
+    try {
+        const columnName = [
+            "航次編號",  
+            "年", 
+            "月", 
+            "日", 
+            "上午/下午", 
+            "出港時間", 
+            "進港時間", 
+            "船隻大小", 
+            "GPS編號", 
+            "看到鯨豚", 
+            "解說員", 
+            "攝影者", 
+            "特殊觀察與記錄", 
+            "目擊記錄編號",
+            "鯨豚群次", 
+            "鯨豚種數", 
+            "天氣", 
+            "風向", 
+            "浪況", 
+            "海流", 
+            "發現方式",
+            "線索背鰭", 
+            "線索噴氣", 
+            "線索水花", 
+            "線索展示",
+            "靠近時間", 
+            "靠近時GPS編號", 
+            "離開時間", 
+            "離開時GPS編號", 
+            "離開方式", 
+            "鯨豚緯度", 
+            "鯨豚緯分", 
+            "鯨豚緯秒", 
+            "鯨豚經度", 
+            "鯨豚經分", 
+            "鯨豚經秒", 
+            "船隻編號",
+            "鯨豚種類", 
+            "鯨豚確認", 
+            "母子對", 
+            "母子對數", 
+            "群量至少", 
+            "群量可能", 
+            "群量最多",
+            "混群", 
+            "混群種類", 
+            "船隻互動 一", 
+            "最近距離 一", 
+            "群體一般 一", 
+            "群體零散 一", 
+            "群體緊密 一", 
+            "行進中慢 一", 
+            "行進中平 一", 
+            "行進中急 一", 
+            "休息 一", 
+            "兜圈 一", 
+            "拍打水面 一", 
+            "浮窺 一", 
+            "飆船 一", 
+            "空中展示 一", 
+            "人為衝浪 一", 
+            "自然衝浪 一", 
+            "可能覓食 一", 
+            "確定覓食 一", 
+            "舉尾 一", 
+            "交配 一", 
+            "身體觸碰 一", 
+            "仰泳 一", 
+            "船數量 一", 
+            "補充說明 一",
+            "船隻互動 二", 
+            "最近距離 二", 
+            "群體二般 二", 
+            "群體零散 二", 
+            "群體緊密 二", 
+            "行進中慢 二", 
+            "行進中平 二", 
+            "行進中急 二", 
+            "休息 二", 
+            "兜圈 二", 
+            "拍打水面 二", 
+            "浮窺 二", 
+            "飆船 二", 
+            "空中展示 二", 
+            "人為衝浪 二", 
+            "自然衝浪 二", 
+            "可能覓食 二", 
+            "確定覓食 二", 
+            "舉尾 二", 
+            "交配 二", 
+            "身體觸碰 二", 
+            "仰泳 二", 
+            "船數量 二", 
+            "補充說明 二",
+            "船隻互動 三", 
+            "最近距離 三", 
+            "群體三般 三", 
+            "群體零散 三", 
+            "群體緊密 三", 
+            "行進中慢 三", 
+            "行進中平 三", 
+            "行進中急 三", 
+            "休息 三", 
+            "兜圈 三", 
+            "拍打水面 三", 
+            "浮窺 三", 
+            "飆船 三", 
+            "空中展示 三", 
+            "人為衝浪 三", 
+            "自然衝浪 三", 
+            "可能覓食 三", 
+            "確定覓食 三", 
+            "舉尾 三", 
+            "交配 三", 
+            "身體觸碰 三", 
+            "仰泳 三", 
+            "船數量 三", 
+            "補充說明 三"
+        ];
+        const data = await Data.getDownload();
+        let dataAll = {};
+        dataResult = []
+        for(i=0; i<data.all.length; i++) {
+            dataAll = {
+                sailing_id: data.all[i].sailing_id,
+                year: data.all[i].year,
+                month: data.all[i].month,
+                day: data.all[i].day,
+                period: data.all[i].period,
+                departure: data.all[i].departure,
+                arrival: data.all[i].arrival,
+                boat_size: data.all[i].boat_size,
+                gps_no: data.all[i].gps_no,
+                sighting: data.all[i].sighting,
+                guide: data.all[i].guide,
+                recorder: data.all[i].recorder,
+                observatios: data.all[i].observatios,
+                sighting_id: data.all[i].sighting_id,
+                dolphin_group_no: data.all[i].dolphin_group_no,
+                dolphin_type_no: data.all[i].dolphin_type_no,
+                weather: data.all[i].weather,
+                wind_direction: data.all[i].wind_direction,
+                wave_condition: data.all[i].wave_condition,
+                current: data.all[i].current,
+                sighting_method: data.all[i].sighting_method,
+                dorsal_fin: data.all[i].dorsal_fin,
+                exhalation: data.all[i].exhalation,
+                splash: data.all[i].splash,
+                exhibition: data.all[i].exhibition,
+                approach_time: data.all[i].approach_time,
+                approach_gps_no: data.all[i].approach_gps_no,
+                leaving_time: data.all[i].leaving_time,
+                leaving_gps_no: data.all[i].leaving_gps_no,
+                leaving_method: data.all[i].leaving_method,
+                latitude: data.all[i].latitude,
+                latitude_min: data.all[i].latitude_min,
+                latitude_sec: data.all[i].latitude_sec,
+                longitude: data.all[i].longitude,
+                longitude_min: data.all[i].longitude_min,
+                longitude_sec: data.all[i].longitude_sec,
+                boat_number: data.all[i].boat_number,
+                dolphin_type: data.all[i].dolphin_type,
+                type_confirmation: data.all[i].type_confirmation,
+                mother_child: data.all[i].mother_child,
+                mother_child_no: data.all[i].mother_child_no,
+                group_size_lowest: data.all[i].group_size_lowest,
+                group_size_probable: data.all[i].group_size_probable,
+                group_size_highest: data.all[i].group_size_highest,
+                mix: data.all[i].mix,
+                mix_type: data.all[i].mix_type 
+            }
+            dataResult.push(dataAll)
+        }
+        let dataArray = [];
+        dataResult.forEach(ele => {
+        dataArray.push(Object.values(ele))   
+        });
+        let obvInteraction10Array = [];
+        let obvInteraction20Array = [];
+        let obvInteraction30Array = []; 
+        function dataToArray(data, dataArray) {
+        data.forEach(ele => {
+            delete ele.obv_id
+            dataArray.push(Object.values(ele))
+        })
+        }
+        dataToArray(data.obvInteraction10, obvInteraction10Array);
+        dataToArray(data.obvInteraction20, obvInteraction20Array);
+        dataToArray(data.obvInteraction30, obvInteraction30Array);
 
-      let currentDate = new Date().toISOString().split('T')[0];
-      let buffer = xlsx.build([{name: `${currentDate}_dolphin_sighting`, data: result}]);
-      let stream = Readable.from(buffer)
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', 'attachment; filename=' + currentDate + '-dolphinsighting.xlsx');
-      stream.pipe(res);
-  } catch (error) {
-      console.log(error);
-      res.status(500).json(error.message)
+        let result = [];
+        for (i = 0; i < dataArray.length; i++) {
+            result.push(dataArray[i].concat(obvInteraction10Array[i], obvInteraction20Array[i], obvInteraction30Array[i]))
+        }
+        result.unshift(columnName);
+
+        let currentDate = new Date().toISOString().split('T')[0];
+        let buffer = xlsx.build([{name: `${currentDate}_dolphin_sighting`, data: result}]);
+        let stream = Readable.from(buffer)
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=' + currentDate + '-dolphinsighting.xlsx');
+        stream.pipe(res);
+    } catch (error) {
+        throw error
   }
 }
 

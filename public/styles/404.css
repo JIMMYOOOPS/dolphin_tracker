@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+  height: 100%;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+body {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'cwTeXKai', 'Raleway',sans-serif;
+  font-size: 100%;
+  font-weight: 100;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  background-image: url("../assets/undersurface.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #6C8DA8;
+  /* padding: 0 20px; */
+  margin: 0 auto;
+  min-height: 90vh;
+}
+
+#status {
+  color: #fff;
+  font-weight: bold;
+  font-size: 25vh;
+}
+
+#slogan {
+  color: #fff;
+  font-size: 10vh;
+  margin: auto 0;
+  padding: 0 30px;
+  font-family: 'lost_fishregular', 'sans-serif';
+  height: 20vh;
+}

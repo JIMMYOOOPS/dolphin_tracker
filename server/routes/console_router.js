@@ -16,7 +16,7 @@ const {
     userLogin,
     getUsers,
     updateUsers,
-    getUser,
+    validateUserLogin,
     deleteUsers
 } = require('../controllers/console_controller');
 
@@ -39,7 +39,7 @@ dataBasePageRouter.put('/database', updateData);
 usersRouter.get('/users', authentication(USER_ROLE.ADMIN), getUsers);
 usersRouter.put('/users', authentication(USER_ROLE.ADMIN), updateUsers);
 usersRouter.delete('/users', authentication(USER_ROLE.ADMIN), deleteUsers);
-usersRouter.get('/users/login', getUser);
+usersRouter.get('/users/login', validateUserLogin);
 webConsoleRouter.get('/', webConsole);
 userLoginRouter.get('/login', webConsolePage);
 userLoginRouter.post('/login', userLogin);

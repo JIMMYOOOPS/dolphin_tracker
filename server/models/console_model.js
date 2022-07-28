@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
-const got = require('got'); //??
 const { queryPromise } = require('../../utils/mysql');
 const salt = parseInt(process.env.BCRYPT_SALT);
-const {TOKEN_EXPIRE, TOKEN_SECRET} = process.env; // 30 days by seconds
+const {TOKEN_EXPIRE, TOKEN_SECRET} = process.env;
 const jwt = require('jsonwebtoken');
 
 const USER_ROLE = {
@@ -55,8 +54,7 @@ const userLogin = async (email, password) => {
             return {error: 'Password is wrong'};
         }
 
-        //Track user previous login time
-        const loginAt = new Date();
+        const loginAt = new Date(); //Track user previous login time
         const accessToken = jwt.sign({
             role_id: user.role_id,
             name: user.name,
@@ -116,7 +114,7 @@ const getUsers = async () => {
     }
 }
 
-const getUser = async (email) => {
+const validateUserLogin = async (email) => {
     try {
         let result = await queryPromise('SELECT * FROM user WHERE email = ?', [email])
         return result;
@@ -150,7 +148,7 @@ module.exports = {
     userLogin,
     getUserDetail,
     getUsers,
-    getUser,
+    validateUserLogin,
     updateUsers,
     deleteUsers
 }

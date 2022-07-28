@@ -180,7 +180,7 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
                 }
                 await conn.query('UPDATE obv_detail SET ? WHERE obv_id = ?', [dataObvDetail ,[sailingId[i]]]);
             }   
-
+            // Update to table obv_interaction
             for (i=0; i < sailingId.length; i++) {
                 let dataObvInteraction = {
                     time: obvInteraction.time1[i],
@@ -283,8 +283,6 @@ const updateData = async (sailingInfoData, obvGPS, obvApproach, obvDetail, obvIn
         } finally {
             await conn.release();
         }
-        // const dataQuery = 
-        // `UPDATE ${table} SET (sailing_id, sighting_id, mix, dolphin_type, year, month, day, period, departure, arrival, boat_size, sighting, gps_no, guide, recorder, observations, weather, wind_direction, wave_condition, current) = WHERE ()`;  
     } catch (error) {
         return error
     }

@@ -1,7 +1,7 @@
 require('dotenv').config()
 const path = require('path')
 const cors = require('cors')
-const { PORT } = process.env
+const { PORT, NODE_ENV } = process.env
 
 // Express Initialization
 const express = require('express')
@@ -16,6 +16,11 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/', api)
 
+// Page not found
+app.use(function (req, res, next) {
+  res.status(404).sendFile(path.join(__dirname, './public', '404.html'));
+});
+
 // Error handling
 app.use(function (err, req, res, next) {
   console.log(err)
@@ -23,10 +28,10 @@ app.use(function (err, req, res, next) {
 })
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './', 'index.html'))
+  res.sendFile(path.join(__dirname, './public', 'index.html'))
 })
 
-if (process.env.NODE_ENV !== 'test') {
+if (NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`)
   })
