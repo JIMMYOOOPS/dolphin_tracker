@@ -19,12 +19,22 @@ Note: the testing account will not be allowed to export the database.
 
 ![System structure image](/readme_assets/system_structure_0728.png)
 
-## Database Design
+## Database Schema
 ![Database design image](/readme_assets/database_design_0728.png)
 
 
+## Technologies
+- Front-End: JavaScript, HTML, CSS, Jquery   
+- Back-End: Node.js, Express.js, Linux, Nginx, cheerio
+- Database: MySQL
+- Cloud Service(AWS): EC2, RDS, S3, CloudFront
+- Third Party API: Esri ArcGIS API
+- CI/CD: GitHub Actions
+- Test: Jest, Supertest
+- Container: Docker
+
 ## Features
-- Front end 
+- Front-End 
     - Search for digitized dolphin and whale sight records 
         - Users can filter according to date and type of dolphin and whales
         - Users can click on data points to view sighting records
@@ -48,6 +58,7 @@ Note: the testing account will not be allowed to export the database.
     - View, update and export database records
     - User privilage management 
 
+    ![content management system video](readme_assets/content_management_system_0728.gif)
 
 ## Running the project 
 Set GitHub Action environment secrets according to .env file, easingthemes/ssh-deploy@main and appleboy/ssh-action@master guideance and setup database according to SQL dump file. 
