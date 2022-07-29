@@ -33,7 +33,7 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-  background-image: url("../assets/sea.jpg");
+  background-image: url("https://d1h1kjqdrbfuwo.cloudfront.net/assets/sea.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

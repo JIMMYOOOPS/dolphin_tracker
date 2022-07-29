@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const { Readable } = require('stream');
 let pageSize = 4;
+let imageHost = 'https://d1h1kjqdrbfuwo.cloudfront.net/';
 
 const createData = async (req, res) => {
     try {
@@ -118,13 +119,14 @@ const createData = async (req, res) => {
             let location = sailingInfo.insertId
             let file = req.files;
             let uploadResponse = await Util.uploadS3(file, location);
-            let main_imageLocation = uploadResponse[0] ? uploadResponse[0].Location : null;
-            let imagesLocation = uploadResponse[1] ? uploadResponse[1].Location : null;
+            let main_imageLocation = uploadResponse[0] ? imageHost + uploadResponse[0].key : null;
+            let imagesLocation = uploadResponse[1] ? imageHost + uploadResponse[1].key : null;
             let image = {
                 obv_id: location,
                 main_image: main_imageLocation,
                 images: imagesLocation
             }
+            console.log(image)
             return image;
         }
         let image = await uploadImage ()

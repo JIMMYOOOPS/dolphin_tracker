@@ -34,7 +34,7 @@ try {
         let currentDate = new Date().toISOString().split('T')[0];
         return {
             Bucket: AWS_BUCKET_NAME,
-            Key: `images/${location}/${currentDate + '_' + item[0].fieldname}`,
+            Key: `images/${location}/${currentDate + '_' + item[0].originalname}`,
             Body: base64data
           };
     })
