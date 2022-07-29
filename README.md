@@ -43,7 +43,7 @@ Note: the testing account will not be allowed to export the database.
 Set GitHub Action environment secrets according to .env file, easingthemes/ssh-deploy@main and appleboy/ssh-action@master guidance and setup database according to SQL dump file. 
 
 ## Sighting records data pipeline  
-Sighting Documents should be converted to utf 16 encoded csv files running node ./utils/createsightdata.js which 
+Sighting Documents should be converted to utf 16 encoded csv files running "node ./utils/createsightdata.js" which 
 saves the results in the database.
 
 ## Technologies
