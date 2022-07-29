@@ -30,7 +30,7 @@ Note: the testing account will not be allowed to export the database.
         - Users can click on data points to view sighting records
 
     ![search sight record video](readme_assets/search_sighting_records_0728.gif)
-    - Viewing common dolphins and whalesin Taiwan 
+    - Viewing common dolphins and whales in Taiwan 
 
 - Content Management System
     - Create sighting records including images
