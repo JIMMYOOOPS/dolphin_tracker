@@ -1,3 +1,31 @@
+(async function validateAccessToken() {
+  try {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+        alert('Please Sign In')
+        return window.location.href = '/console_login.html'
+        } else {
+            const url = '/admin/console/sighting';
+            const options = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        };
+        let rawSightingResponse = await fetch(url, options);
+        if (rawSightingResponse.status !== 200) {
+          alert('You are forbidden to enter this page.')
+          return window.location.href = '/console_login.html';
+        }
+    }
+  } catch(error) {
+    throw error
+  }
+})()
+
+
 // Toggle sidebar
 document.querySelector('sidebar-component').shadowRoot.querySelector('.sidebar-toggle').addEventListener('click', function close(event) {
   $('#form-sighting').addClass("hide");

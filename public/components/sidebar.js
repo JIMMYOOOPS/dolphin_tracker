@@ -154,88 +154,15 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('.sidebar-t
 });
 
 document.querySelector('sidebar-component').shadowRoot.querySelector('#sighting').addEventListener('click', async function(event) {
-    try {
-        const accessToken = localStorage.getItem('access_token');
-
-        if (!accessToken) {
-            alert('Please Sign In')
-            return window.location.href = '/console_login.html'
-            } else {
-                const url = '/admin/console/sighting';
-                const options = {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + accessToken
-                }
-            };
-            let rawSightingResponse = await fetch(url, options);
-            if (rawSightingResponse.status == 200) {
-                window.location.href = '/console_sighting.html';
-            } else {
-                alert('You are forbidden to enter this page.')
-            }
-        }
-    } catch(error) {
-        console.log(error);
-    }
+    window.location.href = '/console_sighting.html';
 });
 
 document.querySelector('sidebar-component').shadowRoot.querySelector('#database').addEventListener('click', async function(event) {
-    try {
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            alert('Please Sign In')
-            return window.location.href = '/console_login.html'
-            } else {
-                const url = '/admin/console/database';
-                const options = {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + accessToken
-                }
-            };
-            let rawDatabaseResponse = await fetch(url, options);
-            if (rawDatabaseResponse.status == 200) {
-                window.location.href = '/console_db.html';
-            } else {
-                alert('You are forbidden to enter this page.')
-            }
-        }
-    } catch(error) {
-        console.log(error);
-    }
+    window.location.href = '/console_db.html';
 });
 
 document.querySelector('sidebar-component').shadowRoot.querySelector('#users').addEventListener('click', async function(event) {
-    try {
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            alert('Please Sign In')
-            return window.location.href = '/console_users.html'
-            } else {
-                const url = '/admin/console/database';
-                const options = {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + accessToken
-                }
-            };
-            let rawDatabaseResponse = await fetch(url, options);
-            if (rawDatabaseResponse.status == 200) {
-                window.location.href = '/console_users.html';
-            } else {
-                alert('You are forbidden to enter this page.')
-            }
-        }
-    } catch(error) {
-        console.log(error);
-    }
+    window.location.href = '/console_users.html';
 });
 
 
