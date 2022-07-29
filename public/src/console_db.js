@@ -554,14 +554,20 @@ async function updateSubmit() {
 
 async function download() {
     try {
+        const accessToken = localStorage.getItem('access_token');
         let url = `${window.location.origin}/api/1.0/data/download`
         let options = {
-            method: 'get',
+            method: 'GET',
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + accessToken
             },
         }
-        let response = await fetch(url, options);
+        let rawResponse = await fetch(url, options);
+        let response = await rawResponse.json();
+        if(response.error) {
+            alert(response.error);
+        }
         let filenameArr = response.headers.get('Content-Disposition').split('=') 
         let filename = filenameArr[1]
         const reader = response.body.getReader();

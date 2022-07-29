@@ -50,7 +50,8 @@ const userLogin = async (email, password) => {
             return null
         }
         let user = result;
-        if (!bcrypt.compare(password, user.password)){
+        let passwordCompare = await bcrypt.compare(password, user.password);
+        if (!passwordCompare){
             return {error: 'Password is wrong'};
         }
 

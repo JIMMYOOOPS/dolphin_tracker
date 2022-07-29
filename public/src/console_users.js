@@ -186,7 +186,7 @@ async function deleteSubmit() {
           alert('delete user successful!');
           window.location.href = "/console_users.html";
       } else {
-          alert('the user has not been deleted.')
+          alert(updateDataResponse.error)
       }
     } else {
       window.location.href = "/console_users.html"

@@ -1,5 +1,5 @@
 const express = require('express');
-const { upload, authentication } = require('../../utils/util');
+const { upload, authentication, testAccountAuthenticate } = require('../../utils/util');
 const { USER_ROLE } =require('../models/console_model')
 
 const cdUpload = upload.fields([
@@ -37,8 +37,8 @@ createDataRouter.get('/sighting', authentication(USER_ROLE.RECORDERS), sightingP
 dataBasePageRouter.get('/database', authentication(USER_ROLE.KUROSHIO), dataBasePage);
 dataBasePageRouter.put('/database', updateData);
 usersRouter.get('/users', authentication(USER_ROLE.ADMIN), getUsers);
-usersRouter.put('/users', authentication(USER_ROLE.ADMIN), updateUsers);
-usersRouter.delete('/users', authentication(USER_ROLE.ADMIN), deleteUsers);
+usersRouter.put('/users', authentication(USER_ROLE.ADMIN), testAccountAuthenticate(), updateUsers);
+usersRouter.delete('/users', authentication(USER_ROLE.ADMIN), testAccountAuthenticate(), deleteUsers);
 usersRouter.get('/users/login', validateUserLogin);
 webConsoleRouter.get('/', webConsole);
 userLoginRouter.get('/login', webConsolePage);

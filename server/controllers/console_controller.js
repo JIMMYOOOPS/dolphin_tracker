@@ -68,8 +68,12 @@ async function userLogin (req, res) {
     }
     try {
         let user = await Console.userLogin(email, password);
+        console.log(user);
         if (user == null) {
             res.status(400).json({error: 'Account does not exist.'});
+            return;
+        } else if (user.error) {
+            res.status(400).json({error: user.error});
             return;
         }
         let data = {};

@@ -1,5 +1,6 @@
 const express = require('express');
 
+const { testAccountAuthenticate } = require('../../utils/util')
 const {
   getDataAll,
   getDataMap,
@@ -16,7 +17,7 @@ getDataAllRouter.get('/:category', getDataAll);
 getDataMapRouter.get('/map/:category', getDataMap);
 getDataMapRouter.post('/map/:category', getDataMap);
 getDataDolphinRouter.get('/dolphins/:category', getDataDolphin);
-getDownloadRouter.get('/download', getDownload);
+getDownloadRouter.get('/download', testAccountAuthenticate(), getDownload);
 
 
 module.exports = {
