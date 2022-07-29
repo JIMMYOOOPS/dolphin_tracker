@@ -71,6 +71,9 @@ async function userLogin (req, res) {
         if (user == null) {
             res.status(400).json({error: 'Account does not exist.'});
             return;
+        } else if (user.error) {
+            res.status(400).json({error: user.error});
+            return;
         }
         let data = {};
         data = {
@@ -144,7 +147,13 @@ async function validateUserLogin (req, res) {
     try {
         async function verifyUserToken () {
             let accessToken = req.get('Authorization')
+            if(!accessToken) {
+                return {error: 'Please login before entering this page.'};
+            }
             accessToken = accessToken.replace('Bearer ', '');
+            if (accessToken == 'null') {
+                return {error: 'Please login before entering this page.'};
+            }
             return await new Promise(
                 (resolve,reject) => {
                     jwt.verify(accessToken, TOKEN_SECRET, (err, user) =>{
@@ -160,8 +169,8 @@ async function validateUserLogin (req, res) {
         let result = await Console.validateUserLogin(user.email);
         res.status(200).json(result); 
     } catch(error) {
-        if (!user) {
-            res.status(403).json({message: 'You are Forbidden to enter this page'});
+        if (user.error) {
+            res.status(403).json(user.error);
             return;
         }
         throw error

@@ -13,7 +13,7 @@ Testing account
 - Testing account: test@email.com
 - Password: test
 
-Note: the testing account will not be allowed to export the database. 
+Note: the testing account will not be allowed to export the database or update user roles. 
 
 ## System Structure
 

@@ -38,7 +38,7 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  background-image: url("../assets/sea.jpg");
+  background-image: url("https://d1h1kjqdrbfuwo.cloudfront.net/assets/sea.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -108,11 +108,11 @@ iframe{
 }
 
 #species-logo {
-  background-image: url("../assets/dolphin.png");
+  background-image: url("https://d1h1kjqdrbfuwo.cloudfront.net/assets/dolphin.png");
 }
 
 #tracker-logo {
-  background-image: url("../assets/whale.png");
+  background-image: url("https://d1h1kjqdrbfuwo.cloudfront.net/assets/whale.png");
 }
 
 .species-btn {

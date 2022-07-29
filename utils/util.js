@@ -34,7 +34,7 @@ try {
         let currentDate = new Date().toISOString().split('T')[0];
         return {
             Bucket: AWS_BUCKET_NAME,
-            Key: `images/${location}/${currentDate + '_' + item[0].fieldname}`,
+            Key: `images/${location}/${currentDate + '_' + item[0].originalname}`,
             Body: base64data
           };
     })
@@ -96,6 +96,35 @@ const authentication = (roleId) => {
     }
 }
 
+const testAccountAuthenticate = () => {
+    return async function (req, res, next) {
+        let accessToken = req.get('Authorization')
+        accessToken = accessToken.replace('Bearer ', '');
+        try {
+            const user = await new Promise(
+                function (resolve,reject) {
+                    jwt.verify(accessToken, TOKEN_SECRET, (err, user) =>{
+                        if (err) {
+                            reject(err);
+                        } 
+                        resolve(user);
+                    });
+                }
+            )
+            req.user = user;
+            if (req.user.email === 'test@email.com') {
+                res.status(403).json({error: 'Test account may not export database or update role privilages'});
+                return;
+            } else {
+                next();
+            }
+            return req.user;
+        } catch(error) {
+                throw error
+        }
+    }
+}
+
 function GPSConvert(result) {
     result["data"].forEach(e => {
         // Create function to add dolphin actions
@@ -150,5 +179,6 @@ module.exports = {
     uploadS3,
     getImagePath,
     authentication,
-    GPSConvert
+    GPSConvert,
+    testAccountAuthenticate
 };
