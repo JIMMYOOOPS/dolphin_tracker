@@ -1,5 +1,11 @@
 (async () => {
     try {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            alert('Please Sign In')
+            return window.location.href = '/console_login.html'
+        }
+
         let url =`${window.location.origin}/api/1.0/data/database`
         let options = {
             method: 'GET',

@@ -1,6 +1,10 @@
 (async () => {
   try {
       const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+          alert('Please Sign In')
+          return window.location.href = '/console_login.html'
+      }
       let url =`/admin/console/users`
       let options = {
           method: 'GET',
