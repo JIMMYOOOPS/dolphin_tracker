@@ -25,7 +25,7 @@ Note: the testing account will not be allowed to export the database or update u
 ## Features
 - Front-End 
     - Search for digitized dolphin and whale sight records 
-    Sighting records are conducted by Kuroshio Ocean Education Foundation, where recorders aboard a whale watching tour boats and departure from Port of Hualien.
+    Sighting records are conducted by Kuroshio Ocean Education Foundation, where recorders aboard a whale watching tour boat and departure from Port of Hualien.
         - Users can filter according to the date and type of dolphin and whales
         - Users can click on data points to view sighting records
 
@@ -40,7 +40,7 @@ Note: the testing account will not be allowed to export the database or update u
     ![content management system video](readme_assets/content_management_system_0728.gif)
 
 ## Running the project 
-Set GitHub Action environment secrets according to .env file, easingthemes/ssh-deploy@main and appleboy/ssh-action@master guidance and setup database according to SQL dump file. 
+Set GitHub Action environment secrets according to .env file, easingthemes/ssh-deploy@main and appleboy/ssh-action@master guidance and setup database according to SQL dump file.
 
 ## Sighting records data pipeline  
 Sighting Documents should be converted to utf 16 encoded csv files running "node ./utils/createsightdata.js" which 
