@@ -114,22 +114,22 @@ const createData = async (req, res) => {
                 other: data.other[i]
             }
         }
+        let location = sailingInfo.insertId
+        let file = req.files;
         // For table image
-        async function uploadImage () {
-            let location = sailingInfo.insertId
-            let file = req.files;
-            let uploadResponse = await Util.uploadS3(file, location);
-            let main_imageLocation = uploadResponse[0] ? imageHost + uploadResponse[0].key : null;
-            let imagesLocation = uploadResponse[1] ? imageHost + uploadResponse[1].key : null;
-            let image = {
-                obv_id: location,
-                main_image: main_imageLocation,
-                images: imagesLocation
+        async function uploadImage (file, location) {
+        let uploadResponse = await Util.uploadS3(file, location);
+        let main_imageLocation = uploadResponse[0] ? imageHost + uploadResponse[0].key : null;
+        let imagesLocation = uploadResponse[1] ? imageHost + uploadResponse[1].key : null;
+        let image = {
+            obv_id: location,
+            main_image: main_imageLocation,
+            images: imagesLocation
             }
             console.log(image)
             return image;
         }
-        let image = await uploadImage ()
+        let image = await uploadImage (file, location)
         await Data.createObv(obvGPS, obvApproach, obvDetail, obvInteraction, image);
         //Recieved POST from body next step insert to DB
         let result = {

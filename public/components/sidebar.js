@@ -188,9 +188,8 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#users').a
             }
         };
     let result = await getData(url, options)
-    let userData = result[0]
-    document.querySelector('sidebar-component').shadowRoot.querySelector('.user-name').innerText = userData.name
-    document.querySelector('sidebar-component').shadowRoot.querySelector('.user-admin').innerText = userData.role_id
+    // document.querySelector('sidebar-component').shadowRoot.querySelector('.user-name').innerText = result.name
+    // document.querySelector('sidebar-component').shadowRoot.querySelector('.user-admin').innerText = result.role_id
     } catch (err) {
         console.log(err);
     }
