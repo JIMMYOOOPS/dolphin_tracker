@@ -1,11 +1,11 @@
 const express = require('express');
 
-const { testAccountAuthenticate } = require('../../utils/util')
+const {testAccountAuthenticate} = require('../../utils/util');
 const {
   getDataAll,
   getDataMap,
   getDataDolphin,
-  getDownload
+  getDownload,
 } = require('../controllers/sightdata_controller');
 
 const getDataAllRouter = express.Router();
@@ -24,5 +24,5 @@ module.exports = {
   getDataAllRouter,
   getDataMapRouter,
   getDataDolphinRouter,
-  getDownloadRouter
+  getDownloadRouter,
 };

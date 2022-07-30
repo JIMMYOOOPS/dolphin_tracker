@@ -1,7 +1,7 @@
-const express = require('express')
+const express = require('express');
 
 const {
-    species
+  species,
 } = require('../controllers/species_controller');
 
 const speciesRouter = express.Router();
@@ -9,5 +9,5 @@ const speciesRouter = express.Router();
 speciesRouter.get('/:category', species);
 
 module.exports = {
-    speciesRouter
-}
+  speciesRouter,
+};

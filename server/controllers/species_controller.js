@@ -1,9 +1,9 @@
-const path = require('path')
+const path = require('path');
 
-function species (req, res) {
-    res.sendFile(path.join(__dirname, '../../', 'public', 'species_detail.html'))
+function species(req, res) {
+  res.sendFile(path.join(__dirname, '../../', 'public', 'species_detail.html'));
 }
 
 module.exports = {
-    species
-}
+  species,
+};

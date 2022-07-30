@@ -1,36 +1,36 @@
 async function signin() {
-    try{ 
-        const userEmail = $('.email').val();
-        const userPassword = $('.password').val();
-        const body = {
-            email: userEmail,
-            password: userPassword,
-        };
-        let url = `/admin/console/login`
-        let options = {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-        let rawSigninResponse = await fetch(url, options);
-        let signinResponse = await rawSigninResponse.json();
-        localStorage.setItem("access_token", signinResponse.access_token);
-        if (signinResponse.error) {
-            alert('User account does not exist!')
-        } else {
-            window.location.href = "/console.html";
-            alert('You have successfully loggedin.')
-        }
-    } catch(error) {
-        console.log('Error', error )
+  try {
+    const userEmail = $('.email').val();
+    const userPassword = $('.password').val();
+    const body = {
+      email: userEmail,
+      password: userPassword,
+    };
+    const url = `/admin/console/login`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const rawSigninResponse = await fetch(url, options);
+    const signinResponse = await rawSigninResponse.json();
+    localStorage.setItem('access_token', signinResponse.access_token);
+    if (signinResponse.error) {
+      alert('User account does not exist!');
+    } else {
+      window.location.href = '/console.html';
+      alert('You have successfully loggedin.');
     }
+  } catch (error) {
+    console.log('Error', error );
+  }
 }
 
 function createSignup() {
-        $('.signin').html(
-            `<div>
+  $('.signin').html(
+      `<div>
                 <div class = 'signup_title'>
                 <h1>建立帳號</h1>
                 </div>
@@ -52,48 +52,48 @@ function createSignup() {
                     </div>
                     <button type="button" class="signup-submit" onclick="signup()">建立帳號</button>
                 </div>
-            </div>`
-            )
+            </div>`,
+  );
 }
 
 async function signup() {
-    try{
-        const userName = $('.name').val();
-        const userEmail = $('.email').val();
-        const userPassword = $('.password').val();
-        const body = {
-            name: userName,
-            email: userEmail,
-            password: userPassword,
-        };
-    let url = `/admin/console/signup`
-    let options = {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  try {
+    const userName = $('.name').val();
+    const userEmail = $('.email').val();
+    const userPassword = $('.password').val();
+    const body = {
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+    };
+    const url = `/admin/console/signup`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const rawSignupResponse = await fetch(url, options);
+    const signupResponse = await rawSignupResponse.json();
+    if (signupResponse.error) {
+      alert(signupResponse.error);
     }
-    let rawSignupResponse = await fetch(url, options);
-    let signupResponse = await rawSignupResponse.json();
-    if(signupResponse.error) {
-        alert(signupResponse.error)
-    }
-    localStorage.setItem("access_token", signupResponse.access_token);
+    localStorage.setItem('access_token', signupResponse.access_token);
     if (signupResponse.access_token) {
-        window.location.href = "/console.html";
-        alert('You have successfully signedup.')
+      window.location.href = '/console.html';
+      alert('You have successfully signedup.');
     }
-    } catch(error) {
-        console.log('Error', error)
-    }
+  } catch (error) {
+    console.log('Error', error);
+  }
 }
 
 $('.toggle-button-hide').on('click', () => {
-    $('.util').toggleClass('hide');
-})
+  $('.util').toggleClass('hide');
+});
 
 $('.toggle-button-show').on('click', () => {
-    console.log('click')
-    $('.util').removeClass('hide');
-})
+  console.log('click');
+  $('.util').removeClass('hide');
+});

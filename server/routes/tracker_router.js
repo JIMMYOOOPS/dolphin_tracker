@@ -1,7 +1,7 @@
-const express = require('express')
+const express = require('express');
 
 const {
-    tracker
+  tracker,
 } = require('../controllers/tracker_controller');
 
 const trackerRouter = express.Router();
@@ -9,5 +9,5 @@ const trackerRouter = express.Router();
 trackerRouter.get('/', tracker);
 
 module.exports = {
-    trackerRouter
-}
+  trackerRouter,
+};

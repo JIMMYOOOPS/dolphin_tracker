@@ -1,4 +1,4 @@
-/*!
+/* !
  * Infinite Scroll v4.0.1
  * Automatically add next page
  *
@@ -22,7 +22,6 @@
         require('./status'),
     );
   }
-
 } )( window, function factory( InfiniteScroll ) {
   return InfiniteScroll;
 } );
