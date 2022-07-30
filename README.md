@@ -25,6 +25,7 @@ Note: the testing account will not be allowed to export the database or update u
 ## Features
 - Front-End 
     - Search for digitized dolphin and whale sight records 
+    
     Sighting records are conducted by Kuroshio Ocean Education Foundation, where recorders aboard a whale watching tour boat and departure from Port of Hualien.
         - Users can filter according to the date and type of dolphin and whales
         - Users can click on data points to view sighting records
