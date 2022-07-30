@@ -147,7 +147,7 @@ button:hover {
   </sidebar>
 `;
 
-let script = document.createElement('script')
+const script = document.createElement('script');
 script.textContent = `
 document.querySelector('sidebar-component').shadowRoot.querySelector('.sidebar-toggle').addEventListener('click', function close(event) {
     document.querySelector('sidebar-component').shadowRoot.querySelector('.util').classList.toggle("hide");
@@ -199,7 +199,7 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#button-lo
     localStorage.removeItem('access_token')
     window.location.href = '/admin/console'
   });
-`
+`;
 
 class Sidebar extends HTMLElement {
   constructor() {
@@ -207,7 +207,7 @@ class Sidebar extends HTMLElement {
   }
 
   connectedCallback() {
-    const shadowRoot = this.attachShadow({ mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.appendChild(sidebarTemplate.content);
     shadowRoot.appendChild(script);
   }
