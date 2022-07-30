@@ -21,7 +21,6 @@
         };
 
         result = await getData(url, options)
-        console.log('here', result);
         let dolphinData = result['data']
         function createInfoCard(numInfos, pageSize) {
                 for (i= numInfos ; i < numInfos + pageSize; i++) {
@@ -71,9 +70,7 @@
             $('.intro').on( 'load.infiniteScroll', function( event, response ) {
                 if (infScroll.pageIndex < 7) {
                     dolphinData = response['data'];
-                    pageNum = infScroll.pageIndex;
-                    console.log('here2', response);
-                    console.log(pageNum);
+                    pageNum = infScroll.pageIndex;                 
                     pageSize = 4;
                     let numInfos = pageNum * pageSize;
                     createInfoCard(numInfos, pageSize);

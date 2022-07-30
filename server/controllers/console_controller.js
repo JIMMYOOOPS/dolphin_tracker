@@ -165,9 +165,9 @@ async function validateUserLogin (req, res) {
                 }
             )
         }
-        let user = verifyUserToken();
-        let result = await Console.validateUserLogin(user.email);
-        res.status(200).json(result); 
+        let user = await verifyUserToken();
+        console.log(user)
+        res.status(200).json(user); 
     } catch(error) {
         if (user.error) {
             res.status(403).json(user.error);
