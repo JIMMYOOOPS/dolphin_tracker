@@ -1,23 +1,23 @@
 const redis = require('redis');
-const { redisConfig } = require('./config')
+const {redisConfig} = require('./config');
 
 const redisClient = redis.createClient(redisConfig);
 
 redisClient.ready = false;
 
 redisClient.on('ready', () => {
-    redisClient.ready = true;
-    console.log('Redis is ready');
+  redisClient.ready = true;
+  console.log('Redis is ready');
 });
 
 redisClient.on('error', (err) => {
-    redisClient.ready = false;
-    console.log('Error in Redis', err);
+  redisClient.ready = false;
+  console.log('Error in Redis', err);
 });
 
 redisClient.on('end', () => {
-    redisClient.ready = false;
-    console.log('Redis is disconnected');
+  redisClient.ready = false;
+  console.log('Redis is disconnected');
 });
 
 // Test Connection
@@ -27,5 +27,5 @@ redisClient.on('end', () => {
 
 
 module.exports = {
-    redisClient
+  redisClient,
 };

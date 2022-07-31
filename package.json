@@ -16,7 +16,9 @@
   "license": "ISC",
   "jest": {
     "testEnvironment": "node",
-    "setupFilesAfterEnv": ["./test/set_up.js"],
+    "setupFilesAfterEnv": [
+      "./test/set_up.js"
+    ],
     "forceExit": true
   },
   "dependencies": {
@@ -41,7 +43,8 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.11",
-    "eslint": "^8.19.0",
+    "eslint": "^8.20.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",

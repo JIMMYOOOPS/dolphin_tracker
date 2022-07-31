@@ -1,29 +1,29 @@
 const express = require('express');
-const { upload, authentication, testAccountAuthenticate } = require('../../utils/util');
-const { USER_ROLE } =require('../models/console_model')
+const {upload, authentication, testAccountAuthenticate} = require('../../utils/util');
+const {USER_ROLE} =require('../models/console_model');
 
 const cdUpload = upload.fields([
-    { name: 'main_image', maxCount: 1 },
-    { name: 'other_images', maxCount: 3 }
+  {name: 'main_image', maxCount: 1},
+  {name: 'other_images', maxCount: 3},
 ]);
 
 const {
-    dataBasePage,
-    sightingPage,
-    webConsole,
-    webConsolePage,
-    userSignup,
-    userLogin,
-    getUsers,
-    updateUsers,
-    validateUserLogin,
-    deleteUsers
+  dataBasePage,
+  sightingPage,
+  webConsole,
+  webConsolePage,
+  userSignup,
+  userLogin,
+  getUsers,
+  updateUsers,
+  validateUserLogin,
+  deleteUsers,
 } = require('../controllers/console_controller');
 
 const {
-    createData,
-    updateData
-  } = require('../controllers/sightdata_controller');
+  createData,
+  updateData,
+} = require('../controllers/sightdata_controller');
 
 const createDataRouter = express.Router();
 const dataBasePageRouter = express.Router();
@@ -47,10 +47,10 @@ userSignupRouter.post('/signup', userSignup);
 
 
 module.exports = {
-    createDataRouter,
-    dataBasePageRouter,
-    webConsoleRouter,
-    userSignupRouter,
-    userLoginRouter,
-    usersRouter
-}
+  createDataRouter,
+  dataBasePageRouter,
+  webConsoleRouter,
+  userSignupRouter,
+  userLoginRouter,
+  usersRouter,
+};

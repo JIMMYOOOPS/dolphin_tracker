@@ -147,7 +147,7 @@ button:hover {
   </sidebar>
 `;
 
-let script = document.createElement('script')
+const script = document.createElement('script');
 script.textContent = `
 document.querySelector('sidebar-component').shadowRoot.querySelector('.sidebar-toggle').addEventListener('click', function close(event) {
     document.querySelector('sidebar-component').shadowRoot.querySelector('.util').classList.toggle("hide");
@@ -188,9 +188,8 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#users').a
             }
         };
     let result = await getData(url, options)
-    let userData = result[0]
-    document.querySelector('sidebar-component').shadowRoot.querySelector('.user-name').innerText = userData.name
-    document.querySelector('sidebar-component').shadowRoot.querySelector('.user-admin').innerText = userData.role_id
+    // document.querySelector('sidebar-component').shadowRoot.querySelector('.user-name').innerText = result.name
+    // document.querySelector('sidebar-component').shadowRoot.querySelector('.user-admin').innerText = result.role_id
     } catch (err) {
         console.log(err);
     }
@@ -200,7 +199,7 @@ document.querySelector('sidebar-component').shadowRoot.querySelector('#button-lo
     localStorage.removeItem('access_token')
     window.location.href = '/admin/console'
   });
-`
+`;
 
 class Sidebar extends HTMLElement {
   constructor() {
@@ -208,7 +207,7 @@ class Sidebar extends HTMLElement {
   }
 
   connectedCallback() {
-    const shadowRoot = this.attachShadow({ mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.appendChild(sidebarTemplate.content);
     shadowRoot.appendChild(script);
   }
