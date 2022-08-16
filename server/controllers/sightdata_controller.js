@@ -173,7 +173,7 @@ const getDataAll = async (req, res) => {
       res.status(200).json(result);
     }
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -321,7 +321,7 @@ const updateData = async (req, res) => {
     const result = await Data.updateData(sailingInfoData, obvGPS, obvApproach, obvDetail, obvInteraction);
     res.status(200).json(result);
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -358,7 +358,7 @@ const getDataMap = async (req, res) => {
     result = Util.GPSConvert(result);
     res.status(200).json(result);
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -388,8 +388,8 @@ const getDataDolphin = async (req, res) => {
     }
     res.status(200).json(result);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error.message);
+    return error;
+    
   }
 };
 
@@ -599,7 +599,7 @@ const getDownload = async (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename=' + currentDate + '-dolphinsighting.xlsx');
     stream.pipe(res);
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 

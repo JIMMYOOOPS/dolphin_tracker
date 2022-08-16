@@ -139,7 +139,7 @@ const deleteUsers = async (email) => {
     const user = await queryPromise('DELETE FROM user WHERE email = ?', [email]);
     return user;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
