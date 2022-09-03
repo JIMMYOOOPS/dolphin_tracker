@@ -2,19 +2,21 @@ const path = require('path');
 const validator = require('validator');
 const Console = require('../models/console_model');
 const jwt = require('jsonwebtoken');
-const {TOKEN_SECRET} = process.env;
+const { TOKEN_SECRET } = process.env;
 require('dotenv').config();
 
 function webConsole(req, res) {
   res.sendFile(path.join(__dirname, '../../', 'public', 'console_login.html'));
-};
+}
 
 function webConsolePage(req, res) {
   res.sendFile(path.join(__dirname, '../../', 'public', 'console.html'));
-};
+}
 
 function sightingPage(req, res) {
-  res.sendFile(path.join(__dirname, '../../', 'public', 'console_sighting.html'));
+  res.sendFile(
+    path.join(__dirname, '../../', 'public', 'console_sighting.html')
+  );
 }
 
 function dataBasePage(req, res) {
@@ -27,23 +29,30 @@ function getUsersPage(req, res) {
 
 async function userSignup(req, res) {
   try {
-    const {name, email, password} = req.body;
+    const { name, email, password } = req.body;
     // Validate user info
     if (!validator.isEmail(email)) {
-      res.status(400).send({error: 'Request Error: Invalid email format'});
+      res.status(400).send({ error: 'Request Error: Invalid email format' });
       return;
     }
-    if (!name || !email || !password ) {
-      res.status(400).send({error: 'Request Error: Missing fields in name, email or password.'});
+    if (!name || !email || !password) {
+      res.status(400).send({
+        error: 'Request Error: Missing fields in name, email or password.',
+      });
       return;
     }
     function validateUserInfo(userInfo) {
       if (!validator.matches(userInfo, '^[a-zA-Z0-9]*$')) {
-        res.status(400).send({error: 'Username or Password includes invalid characters'});
+        res
+          .status(400)
+          .send({ error: 'Username or Password includes invalid characters' });
         return;
       }
-      if (!validator.isLength(userInfo, {min: 4, max: 12})) {
-        res.status(400).send({error: 'Username or Password length should be between 4 to 12 letters'});
+      if (!validator.isLength(userInfo, { min: 4, max: 12 })) {
+        res.status(400).send({
+          error:
+            'Username or Password length should be between 4 to 12 letters',
+        });
         return;
       }
     }
@@ -61,18 +70,20 @@ async function userSignup(req, res) {
 }
 
 async function userLogin(req, res) {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400).json({error: 'Request Error: email and password are required.'});
+    res
+      .status(400)
+      .json({ error: 'Request Error: email and password are required.' });
     return;
   }
   try {
     const user = await Console.userLogin(email, password);
     if (user == null) {
-      res.status(400).json({error: 'Account does not exist.'});
+      res.status(400).json({ error: 'Account does not exist.' });
       return;
     } else if (user.error) {
-      res.status(400).json({error: user.error});
+      res.status(400).json({ error: user.error });
       return;
     }
     let data = {};
@@ -96,7 +107,7 @@ async function userLogin(req, res) {
 
 async function updateUsers(req, res) {
   try {
-    const {email, role_id} = req.body;
+    const { email, role_id } = req.body;
     const result = await Console.updateUsers(email, role_id);
     if (result.changedRows === 0) {
       res.status(400).json({
@@ -120,7 +131,7 @@ async function getUsers(req, res) {
     let result = {};
     function validateLastLoginDate(data) {
       const loginAt = [];
-      for (i=0; i<data.length; i++) {
+      for (i = 0; i < data.length; i++) {
         if (data[i].login_at == null) {
           loginAt.push('未登入過');
         } else {
@@ -128,7 +139,7 @@ async function getUsers(req, res) {
           loginAt.push(loginAtArray[0]);
         }
       }
-      for (i=0; i<loginAt.length; i++) {
+      for (i = 0; i < loginAt.length; i++) {
         data[i].login_at = loginAt[i];
       }
       return data;
@@ -148,22 +159,20 @@ async function validateUserLogin(req, res) {
     async function verifyUserToken() {
       let accessToken = req.get('Authorization');
       if (!accessToken) {
-        return {error: 'Please login before entering this page.'};
+        return { error: 'Please login before entering this page.' };
       }
       accessToken = accessToken.replace('Bearer ', '');
       if (accessToken == 'null') {
-        return {error: 'Please login before entering this page.'};
+        return { error: 'Please login before entering this page.' };
       }
-      return await new Promise(
-          (resolve, reject) => {
-            jwt.verify(accessToken, TOKEN_SECRET, (err, user) =>{
-              if (err) {
-                reject(err);
-              }
-              resolve(user);
-            });
-          },
-      );
+      return await new Promise((resolve, reject) => {
+        jwt.verify(accessToken, TOKEN_SECRET, (err, user) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(user);
+        });
+      });
     }
     const user = await verifyUserToken();
     res.status(200).json(user);
@@ -178,7 +187,7 @@ async function validateUserLogin(req, res) {
 
 async function deleteUsers(req, res) {
   try {
-    const {email} = req.body;
+    const { email } = req.body;
     const result = await Console.deleteUsers(email);
     if (result.affectedRows === 0) {
       res.status(400).json({
