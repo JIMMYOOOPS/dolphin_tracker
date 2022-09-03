@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
-const {queryPromise} = require('../../utils/mysql');
+const { queryPromise } = require('../../utils/mysql');
 const salt = parseInt(process.env.BCRYPT_SALT);
-const {TOKEN_EXPIRE, TOKEN_SECRET} = process.env;
+const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 
 const USER_ROLE = {
@@ -22,12 +22,15 @@ const userSignup = async (name, roleId, email, password) => {
       access_expired: TOKEN_EXPIRE,
       signup_at: signupDate,
     };
-    const accessToken = jwt.sign({
-      role_id: user.role_id,
-      name: user.name,
-      email: user.email,
-      picture: user.picture,
-    }, TOKEN_SECRET);
+    const accessToken = jwt.sign(
+      {
+        role_id: user.role_id,
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+      },
+      TOKEN_SECRET
+    );
     user.access_token = accessToken;
 
     const sqlCreateUser = 'INSERT INTO user SET ?';
@@ -52,19 +55,28 @@ const userLogin = async (email, password) => {
     const user = result;
     const passwordCompare = await bcrypt.compare(password, user.password);
     if (!passwordCompare) {
-      return {error: 'Password is wrong'};
+      return { error: 'Password is wrong' };
     }
 
     const loginAt = new Date(); // Track user previous login time
-    const accessToken = jwt.sign({
-      role_id: user.role_id,
-      name: user.name,
-      email: user.email,
-      picture: user.picture,
-    }, TOKEN_SECRET);
+    const accessToken = jwt.sign(
+      {
+        role_id: user.role_id,
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+      },
+      TOKEN_SECRET
+    );
 
-    const sqlLoginStatus = 'UPDATE user SET access_token = ?, access_expired = ?, login_at = ? WHERE id = ?';
-    await queryPromise(sqlLoginStatus, [accessToken, TOKEN_EXPIRE, loginAt, user.id]);
+    const sqlLoginStatus =
+      'UPDATE user SET access_token = ?, access_expired = ?, login_at = ? WHERE id = ?';
+    await queryPromise(sqlLoginStatus, [
+      accessToken,
+      TOKEN_EXPIRE,
+      loginAt,
+      user.id,
+    ]);
     user.access_token = accessToken;
     user.login_at = loginAt;
     user.access_expired = TOKEN_EXPIRE;
@@ -78,26 +90,44 @@ const getUserDetail = async (email, roleId, userRoleId) => {
   try {
     if (roleId == USER_ROLE.ADMIN) {
       if (userRoleId == USER_ROLE.ADMIN) {
-        const user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+        const user = await queryPromise(
+          'SELECT * FROM user WHERE email = ? AND role_id = ?',
+          [email, roleId]
+        );
         return user;
       }
     } else if (roleId == USER_ROLE.KUROSHIO) {
       if (userRoleId == USER_ROLE.ADMIN) {
-        const user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, userRoleId]);
+        const user = await queryPromise(
+          'SELECT * FROM user WHERE email = ? AND role_id = ?',
+          [email, userRoleId]
+        );
         return user;
       } else {
-        const user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+        const user = await queryPromise(
+          'SELECT * FROM user WHERE email = ? AND role_id = ?',
+          [email, roleId]
+        );
         return user;
       }
     } else if (roleId == USER_ROLE.RECORDERS) {
       if (userRoleId == USER_ROLE.ADMIN) {
-        const user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, userRoleId]);
+        const user = await queryPromise(
+          'SELECT * FROM user WHERE email = ? AND role_id = ?',
+          [email, userRoleId]
+        );
         return user;
       } else if (userRoleId == USER_ROLE.KUROSHIO) {
-        const user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, userRoleId]);
+        const user = await queryPromise(
+          'SELECT * FROM user WHERE email = ? AND role_id = ?',
+          [email, userRoleId]
+        );
         return user;
       } else {
-        const user = await queryPromise('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+        const user = await queryPromise(
+          'SELECT * FROM user WHERE email = ? AND role_id = ?',
+          [email, roleId]
+        );
         return user;
       }
     }
@@ -108,7 +138,9 @@ const getUserDetail = async (email, roleId, userRoleId) => {
 
 const getUsers = async () => {
   try {
-    const result = await queryPromise('SELECT name, email, role_id, picture, login_at FROM user');
+    const result = await queryPromise(
+      'SELECT name, email, role_id, picture, login_at FROM user'
+    );
     return result;
   } catch (error) {
     return error;
@@ -117,7 +149,9 @@ const getUsers = async () => {
 
 const validateUserLogin = async (email) => {
   try {
-    const result = await queryPromise('SELECT * FROM user WHERE email = ?', [email]);
+    const result = await queryPromise('SELECT * FROM user WHERE email = ?', [
+      email,
+    ]);
     return result;
   } catch (error) {
     return error;
@@ -126,8 +160,10 @@ const validateUserLogin = async (email) => {
 
 const updateUsers = async (email, role_id) => {
   try {
-    console.log(role_id);
-    const user = await queryPromise('UPDATE user SET role_id = ? WHERE email = ?', [role_id, email]);
+    const user = await queryPromise(
+      'UPDATE user SET role_id = ? WHERE email = ?',
+      [role_id, email]
+    );
     return user;
   } catch (error) {
     return error;
@@ -136,7 +172,9 @@ const updateUsers = async (email, role_id) => {
 
 const deleteUsers = async (email) => {
   try {
-    const user = await queryPromise('DELETE FROM user WHERE email = ?', [email]);
+    const user = await queryPromise('DELETE FROM user WHERE email = ?', [
+      email,
+    ]);
     return user;
   } catch (error) {
     return error;

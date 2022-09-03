@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
-const {mysqlConfig} = require('./config');
-require('dotenv').config({path: __dirname+'/../.env'});
-const {NODE_ENV} = process.env;
+const { mysqlConfig } = require('./config');
+require('dotenv').config({ path: __dirname + '/../.env' });
+const { NODE_ENV } = process.env;
 
 const pool = mysql.createPool(mysqlConfig[NODE_ENV]);
 console.log('Mysql is connected');
@@ -25,11 +25,11 @@ async function createInBulk(sql, params) {
   } catch (error) {
     await conn.query('ROLLBACK');
     console.log(error);
-    return {error};
+    return { error };
   } finally {
     conn.release();
   }
-};
+}
 
 async function poolConnection() {
   const conn = await pool.getConnection();

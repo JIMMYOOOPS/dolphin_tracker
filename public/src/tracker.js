@@ -26,7 +26,7 @@ async function searchSelection() {
       },
     };
     const rawDataSelect = await fetch(url, options);
-    dataSelect = await rawDataSelect.json();
+    const dataSelect = await rawDataSelect.json();
     if (dataSelect) {
       require([
         'esri/config',
@@ -36,17 +36,17 @@ async function searchSelection() {
         'esri/layers/GraphicsLayer',
         'esri/geometry/support/webMercatorUtils',
         'esri/PopupTemplate',
-      ], function(
-          esriConfig,
-          Map,
-          MapView,
-          Graphic,
-          GraphicsLayer,
-          webMercatorUtils,
-          PopupTemplate,
+      ], function (
+        esriConfig,
+        Map,
+        MapView,
+        Graphic,
+        GraphicsLayer,
+        webMercatorUtils,
+        PopupTemplate
       ) {
         esriConfig.apiKey =
-            'AAPK14e8b1a8eb1f48beaad47d28c4d335221_c7Doo9zFS2Pv17AUrtadlnzRey-jAZlzq9N_1oIp8MD9Bzg_b_mjsW-xVbx2z3';
+          'AAPK14e8b1a8eb1f48beaad47d28c4d335221_c7Doo9zFS2Pv17AUrtadlnzRey-jAZlzq9N_1oIp8MD9Bzg_b_mjsW-xVbx2z3';
         const map = new Map({
           basemap: 'topo-vector', // Basemap layer service
         });
@@ -82,8 +82,8 @@ async function searchSelection() {
             content:
               `<p>日期：${e.year + '.' + e.month + '.' + e.day}</p>` +
               `<p>鯨豚種類：${e.name}</p>` +
-              `<p>經度：${e.longitude} 緯度：${e.latitude}</p>` +
-              `<img src='${e.img}'></img>`,
+              `<p>經度：${e.longitude} 緯度：${e.latitude}</p>`,
+            // `<img src='${e.img}'></img>`,
           };
 
           const simpleMarkerSymbol = {
@@ -109,10 +109,9 @@ async function searchSelection() {
       console.log('No data recieved');
     }
   } catch (err) {
-    console.log('Error', err );
+    console.log('Error', err);
   }
 }
-
 
 (async () => {
   try {
@@ -123,7 +122,7 @@ async function searchSelection() {
         const options = {
           method: 'GET',
           headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
           },
         };
@@ -146,14 +145,14 @@ async function searchSelection() {
     'esri/layers/GraphicsLayer',
     'esri/geometry/support/webMercatorUtils',
     'esri/PopupTemplate',
-  ], function(
-      esriConfig,
-      Map,
-      MapView,
-      Graphic,
-      GraphicsLayer,
-      webMercatorUtils,
-      PopupTemplate,
+  ], function (
+    esriConfig,
+    Map,
+    MapView,
+    Graphic,
+    GraphicsLayer,
+    webMercatorUtils,
+    PopupTemplate
   ) {
     esriConfig.apiKey =
       'AAPK14e8b1a8eb1f48beaad47d28c4d335221_c7Doo9zFS2Pv17AUrtadlnzRey-jAZlzq9N_1oIp8MD9Bzg_b_mjsW-xVbx2z3';
@@ -190,10 +189,10 @@ async function searchSelection() {
       const template = {
         title: '鯨豚目擊',
         content:
-        `<p>日期：${e.year + '.' + e.month + '.' + e.day}</p>` +
-        `<p>鯨豚種類：${e.name}</p>` +
-        `<p>經度：${e.longitude} 緯度：${e.latitude}</p>` +
-        `<img src='${e.img}'></img>`,
+          `<p>日期：${e.year + '.' + e.month + '.' + e.day}</p>` +
+          `<p>鯨豚種類：${e.name}</p>` +
+          `<p>經度：${e.longitude} 緯度：${e.latitude}</p>`,
+        // `<img src='${e.img}'></img>`,
       };
 
       const simpleMarkerSymbol = {
@@ -217,22 +216,32 @@ async function searchSelection() {
   });
 })();
 
-$(function() {
+$(function () {
   const formatDate = new Intl.DateTimeFormat('ko-KR', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   });
-  $( '#slider-range' ).slider({
+  $('#slider-range').slider({
     range: true,
-    min: new Date('2016, 01, 01').getTime() / 1000,
-    max: new Date('2020, 12, 31').getTime() / 1000,
+    min: new Date('1998, 01, 01').getTime() / 1000,
+    max: new Date('2021, 12, 31').getTime() / 1000,
     step: 86400,
-    values: [new Date('2016, 01, 01').getTime() / 1000, new Date('2020, 12, 31').getTime() / 1000],
-    slide: function( event, ui ) {
-      $( '#amount' ).val( (formatDate.format(new Date(ui.values[0] *1000))) + ' - ' + (formatDate.format(new Date(ui.values[1] *1000))));
+    values: [
+      new Date('1998, 01, 01').getTime() / 1000,
+      new Date('2021, 12, 31').getTime() / 1000,
+    ],
+    slide: function (event, ui) {
+      $('#amount').val(
+        formatDate.format(new Date(ui.values[0] * 1000)) +
+          ' - ' +
+          formatDate.format(new Date(ui.values[1] * 1000))
+      );
     },
   });
-  $( '#amount' ).val( (formatDate.format(new Date($( '#slider-range' ).slider( 'values', 0 )*1000))) +
-    ' - ' + (formatDate.format(new Date($( '#slider-range' ).slider( 'values', 1 )*1000))));
+  $('#amount').val(
+    formatDate.format(new Date($('#slider-range').slider('values', 0) * 1000)) +
+      ' - ' +
+      formatDate.format(new Date($('#slider-range').slider('values', 1) * 1000))
+  );
 });
