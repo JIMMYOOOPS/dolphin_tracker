@@ -3,14 +3,14 @@
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       alert('Please Sign In');
-      return window.location.href = '/console_login.html';
+      return (window.location.href = '/console_login.html');
     }
 
-    const url =`${window.location.origin}/api/1.0/data/database`;
+    const url = `${window.location.origin}/api/1.0/data/database`;
     const options = {
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
       },
     };
@@ -23,140 +23,141 @@
       } catch (err) {
         console.log(err.message);
       }
-    };
+    }
     result = await getData(url, options);
     const databaseData = result['data'];
     const databaseData2 = result['obvInteraction20mins'];
     const databaseData3 = result['obvInteraction30mins'];
     function createTableRow(numInfos, pageSize) {
-      for (i= numInfos; i < numInfos -1 + pageSize; i++) {
-        const dataRow = '<tr>' +
-                `<td data-label=id-${i} id=id-${i}>${databaseData[i].id}</td>` +
-                `<td data-label=sailing_id-${i} id=sailing_id-${i} contenteditable="true">${databaseData[i].sailing_id}</td>` +
-                `<td data-label=sighting_id-${i} id=sighting_id-${i} contenteditable="true">${databaseData[i].sighting_id}</td>` +
-                `<td data-label=mix-${i} id=mix-${i} contenteditable="true">${databaseData[i].mix}</td>` +
-                `<td data-label=dolphin_type-${i} id=dolphin_type-${i} contenteditable="true">${databaseData[i].dolphin_type}</td>` +
-                `<td data-label=year-${i} id=year-${i} contenteditable="true">${databaseData[i].year}</td>` +
-                `<td data-label=month-${i} id=month-${i} contenteditable="true">${databaseData[i].month}</td>` +
-                `<td data-label=day-${i} id=day-${i} contenteditable="true">${databaseData[i].day}</td>` +
-                `<td data-label=period-${i} id=period-${i} contenteditable="true">${databaseData[i].period}</td>` +
-                `<td data-label=departure-${i} id=departure-${i} contenteditable="true">${databaseData[i].departure}</td>` +
-                `<td data-label=arrival-${i} id=arrival-${i} contenteditable="true">${databaseData[i].arrival}</td>` +
-                `<td data-label=boat_size-${i} id=boat_size-${i} contenteditable="true">${databaseData[i].boat_size}</td>` +
-                `<td data-label=sighting-${i} id=sighting-${i} contenteditable="true">${databaseData[i].sighting}</td>` +
-                `<td data-label=gps_no-${i} id=gps_no-${i} contenteditable="true">${databaseData[i].gps_no}</td>` +
-                `<td data-label=guide-${i} id=guide-${i} contenteditable="true">${databaseData[i].guide}</td>` +
-                `<td data-label=recorder-${i} id=recorder-${i} contenteditable="true">${databaseData[i].recorder}</td>` +
-                `<td data-label=observations-${i} id=observations-${i} contenteditable="true">${databaseData[i].observations}</td>` +
-                `<td data-label=weather-${i} id=weather-${i} contenteditable="true">${databaseData[i].weather}</td>` +
-                `<td data-label=wind_direction-${i} id=wind_direction-${i} contenteditable="true">${databaseData[i].wind_direction}</td>` +
-                `<td data-label=wave_condition-${i} id=wave_condition-${i} contenteditable="true">${databaseData[i].wave_condition}</td>` +
-                `<td data-label=current-${i} id=current-${i} contenteditable="true">${databaseData[i].current}</td>` +
-                `<td data-label=latitude-${i} id=latitude-${i} contenteditable="true">${databaseData[i].latitude}</td>` +
-                `<td data-label=latitude_min-${i} id=latitude_min-${i} contenteditable="true">${databaseData[i].latitude_min}</td>` +
-                `<td data-label=latitude_sec-${i} id=latitude_sec-${i} contenteditable="true">${databaseData[i].latitude_sec}</td>` +
-                `<td data-label=longitude-${i} id=longitude-${i} contenteditable="true">${databaseData[i].longitude}</td>` +
-                `<td data-label=longitude_min-${i} id=longitude_min-${i} contenteditable="true">${databaseData[i].longitude_min}</td>` +
-                `<td data-label=longitude_sec-${i} id=longitude_sec-${i} contenteditable="true">${databaseData[i].longitude_sec}</td>` +
-                `<td data-label=approach_time-${i} id=approach_time-${i} contenteditable="true">${databaseData[i].approach_time}</td>` +
-                `<td data-label=approach_gps_no-${i} id=approach_gps_no-${i} contenteditable="true">${databaseData[i].approach_gps_no}</td>` +
-                `<td data-label=leaving_time-${i} id=leaving_time-${i} contenteditable="true">${databaseData[i].leaving_time}</td>` +
-                `<td data-label=leaving_gps_no-${i} id=leaving_gps_no-${i} contenteditable="true">${databaseData[i].leaving_gps_no}</td>` +
-                `<td data-label=leaving_method-${i} id=leaving_method-${i} contenteditable="true">${databaseData[i].leaving_method}</td>` +
-                `<td data-label=sighting_method-${i} id=sighting_method-${i} contenteditable="true">${databaseData[i].sighting_method}</td>` +
-                `<td data-label=type_confirmation-${i} id=type_confirmation-${i} contenteditable="true">${databaseData[i].type_confirmation}</td>` +
-                `<td data-label=dolphin_group_no-${i} id=dolphin_group_no-${i} contenteditable="true">${databaseData[i].dolphin_group_no}</td>` +
-                `<td data-label=dolphin_type_no-${i} id=dolphin_type_no-${i} contenteditable="true">${databaseData[i].dolphin_type_no}</td>` +
-                `<td data-label=dorsal_fin-${i} id=dorsal_fin-${i} contenteditable="true">${databaseData[i].dorsal_fin}</td>` +
-                `<td data-label=exhalation-${i} id=exhalation-${i} contenteditable="true">${databaseData[i].exhalation}</td>` +
-                `<td data-label=splash-${i} id=splash-${i} contenteditable="true">${databaseData[i].splash}</td>` +
-                `<td data-label=exhibition-${i} id=exhibition-${i} contenteditable="true">${databaseData[i].exhibition}</td>` +
-                `<td data-label=mother_child-${i} id=mother_child-${i} contenteditable="true">${databaseData[i].mother_child}</td>` +
-                `<td data-label=mother_child_no-${i} id=mother_child_no-${i} contenteditable="true">${databaseData[i].mother_child_no}</td>` +
-                `<td data-label=group_size_lowest-${i} id=group_size_lowest-${i} contenteditable="true">${databaseData[i].group_size_lowest}</td>` +
-                `<td data-label=group_size_probable-${i} id=group_size_probable-${i} contenteditable="true">${databaseData[i].group_size_probable}</td>` +
-                `<td data-label=group_size_highest-${i} id=group_size_highest-${i} contenteditable="true">${databaseData[i].group_size_highest}</td>` +
-                `<td data-label=mix-${i} id=mix-${i} contenteditable="true">${databaseData[i].mix}</td>` +
-                `<td data-label=time1-${i} id=time1-${i} contenteditable="true">${databaseData[i].time}</td>` +
-                `<td data-label=boat_interaction1-${i} id=boat_interaction1-${i} contenteditable="true">${databaseData[i].boat_interaction}</td>` +
-                `<td data-label=boat_distance1-${i} id=boat_distance1-${i} contenteditable="true">${databaseData[i].boat_distance}</td>` +
-                `<td data-label=group_closeness_normal1-${i} id=group_closeness_normal1-${i} contenteditable="true">${databaseData[i].group_closeness_normal}</td>` +
-                `<td data-label=group_closeness_spreaded1-${i} id=group_closeness_spreaded1-${i} contenteditable="true">${databaseData[i].group_closeness_spreaded}</td>` +
-                `<td data-label=group_closeness_close1-${i} id=group_closeness_close1-${i} contenteditable="true">${databaseData[i].group_closeness_close}</td>` +
-                `<td data-label=speed_slow1-${i} id=speed_slow1-${i} contenteditable="true">${databaseData[i].speed_slow}</td>` +
-                `<td data-label=speed_moderate1-${i} id=speed_moderate1-${i} contenteditable="true">${databaseData[i].speed_moderate}</td>` +
-                `<td data-label=speed_fast1-${i} id=speed_fast1-${i} contenteditable="true">${databaseData[i].speed_fast}</td>` +
-                `<td data-label=speed_resting1-${i} id=speed_resting1-${i} contenteditable="true">${databaseData[i].speed_resting}</td>` +
-                `<td data-label=speed_circling1-${i} id=speed_circling1-${i} contenteditable="true">${databaseData[i].speed_circling}</td>` +
-                `<td data-label=foraging_maybe1-${i} id=foraging_maybe1-${i} contenteditable="true">${databaseData[i].foraging_maybe}</td>` +
-                `<td data-label=foraging_sure1-${i} id=foraging_sure1-${i} contenteditable="true">${databaseData[i].foraging_sure}</td>` +
-                `<td data-label=mating1-${i} id=mating1-${i} contenteditable="true">${databaseData[i].mating}</td>` +
-                `<td data-label=splash_interaction1-${i} id=splash_interaction1-${i} contenteditable="true">${databaseData[i].splash_interaction}</td>` +
-                `<td data-label=snorkel1-${i} id=snorkel1-${i} contenteditable="true">${databaseData[i].snorkel}</td>` +
-                `<td data-label=racing1-${i} id=racing1-${i} contenteditable="true">${databaseData[i].racing}</td>` +
-                `<td data-label=jump1-${i} id=jump1-${i} contenteditable="true">${databaseData[i].jump}</td>` +
-                `<td data-label=surfing_artificial1-${i} id=surfing_artificial1-${i} contenteditable="true">${databaseData[i].surfing_artificial}</td>` +
-                `<td data-label=surfing1-${i} id=surfing1-${i} contenteditable="true">${databaseData[i].surfing}</td>` +
-                `<td data-label=tail_lift1-${i} id=tail_lift1-${i} contenteditable="true">${databaseData[i].tail_lift}</td>` +
-                `<td data-label=contact1-${i} id=contact1-${i} contenteditable="true">${databaseData[i].contact}</td>` +
-                `<td data-label=backstroke1-${i} id=backstroke1-${i} contenteditable="true">${databaseData[i].backstroke}</td>` +
-                `<td data-label=boat_no1-${i} id=boat_no1-${i} contenteditable="true">${databaseData[i].boat_no}</td>` +
-                `<td data-label=other1-${i} id=other1-${i} contenteditable="true">${databaseData[i].other}</td>` +
-                `<td data-label=time2-${i} id=time2-${i} contenteditable="true">${databaseData2[i].time}</td>` +
-                `<td data-label=boat_interaction2-${i} id=boat_interaction2-${i} contenteditable="true">${databaseData2[i].boat_interaction}</td>` +
-                `<td data-label=boat_distance2-${i} id=boat_distance2-${i} contenteditable="true">${databaseData2[i].boat_distance}</td>` +
-                `<td data-label=group_closeness_normal2-${i} id=group_closeness_normal2-${i} contenteditable="true">${databaseData2[i].group_closeness_normal}</td>` +
-                `<td data-label=group_closeness_spreaded2-${i} id=group_closeness_spreaded2-${i} contenteditable="true">${databaseData2[i].group_closeness_spreaded}</td>` +
-                `<td data-label=group_closeness_close2-${i} id=group_closeness_close2-${i} contenteditable="true">${databaseData2[i].group_closeness_close}</td>` +
-                `<td data-label=speed_slow2-${i} id=speed_slow2-${i} contenteditable="true">${databaseData2[i].speed_slow}</td>` +
-                `<td data-label=speed_moderate2-${i} id=speed_moderate2-${i} contenteditable="true">${databaseData2[i].speed_moderate}</td>` +
-                `<td data-label=speed_fast2-${i} id=speed_fast2-${i} contenteditable="true">${databaseData2[i].speed_fast}</td>` +
-                `<td data-label=speed_resting2-${i} id=speed_resting2-${i} contenteditable="true">${databaseData2[i].speed_resting}</td>` +
-                `<td data-label=speed_circling2-${i} id=speed_circling2-${i} contenteditable="true">${databaseData2[i].speed_circling}</td>` +
-                `<td data-label=foraging_maybe2-${i} id=foraging_maybe2-${i} contenteditable="true">${databaseData2[i].foraging_maybe}</td>` +
-                `<td data-label=foraging_sure2-${i} id=foraging_sure2-${i} contenteditable="true">${databaseData2[i].foraging_sure}</td>` +
-                `<td data-label=mating2-${i} id=mating2-${i} contenteditable="true">${databaseData2[i].mating}</td>` +
-                `<td data-label=splash_interaction2-${i} id=splash_interaction2-${i} contenteditable="true">${databaseData2[i].splash_interaction}</td>` +
-                `<td data-label=snorkel2-${i} id=snorkel2-${i} contenteditable="true">${databaseData2[i].snorkel}</td>` +
-                `<td data-label=racing2-${i} id=racing2-${i} contenteditable="true">${databaseData2[i].racing}</td>` +
-                `<td data-label=jump2-${i} id=jump2-${i} contenteditable="true">${databaseData2[i].jump}</td>` +
-                `<td data-label=surfing_artificial2-${i} id=surfing_artificial2-${i} contenteditable="true">${databaseData2[i].surfing_artificial}</td>` +
-                `<td data-label=surfing2-${i} id=surfing2-${i} contenteditable="true">${databaseData2[i].surfing}</td>` +
-                `<td data-label=tail_lift2-${i} id=tail_lift2-${i} contenteditable="true">${databaseData2[i].tail_lift}</td>` +
-                `<td data-label=contact2-${i} id=contact2-${i} contenteditable="true">${databaseData2[i].contact}</td>` +
-                `<td data-label=backstroke2-${i} id=backstroke2-${i} contenteditable="true">${databaseData2[i].backstroke}</td>` +
-                `<td data-label=boat_no2-${i} id=boat_no2-${i} contenteditable="true">${databaseData2[i].boat_no}</td>` +
-                `<td data-label=other2-${i} id=other2-${i} contenteditable="true">${databaseData2[i].other}</td>` +
-                `<td data-label=time3-${i} id=time3-${i} contenteditable="true">${databaseData3[i].time}</td>` +
-                `<td data-label=boat_interaction3-${i} id=boat_interaction3-${i} contenteditable="true">${databaseData3[i].boat_interaction}</td>` +
-                `<td data-label=boat_distance3-${i} id=boat_distance3-${i} contenteditable="true">${databaseData3[i].boat_distance}</td>` +
-                `<td data-label=group_closeness_normal3-${i} id=group_closeness_normal3-${i} contenteditable="true">${databaseData3[i].group_closeness_normal}</td>` +
-                `<td data-label=group_closeness_spreaded3-${i} id=group_closeness_spreaded3-${i} contenteditable="true">${databaseData3[i].group_closeness_spreaded}</td>` +
-                `<td data-label=group_closeness_close3-${i} id=group_closeness_close3-${i} contenteditable="true">${databaseData3[i].group_closeness_close}</td>` +
-                `<td data-label=speed_slow3-${i} id=speed_slow3-${i} contenteditable="true">${databaseData3[i].speed_slow}</td>` +
-                `<td data-label=speed_moderate3-${i} id=speed_moderate3-${i} contenteditable="true">${databaseData3[i].speed_moderate}</td>` +
-                `<td data-label=speed_fast3-${i} id=speed_fast3-${i} contenteditable="true">${databaseData3[i].speed_fast}</td>` +
-                `<td data-label=speed_resting3-${i} id=speed_resting3-${i} contenteditable="true">${databaseData3[i].speed_resting}</td>` +
-                `<td data-label=speed_circling3-${i} id=speed_circling3-${i} contenteditable="true">${databaseData3[i].speed_circling}</td>` +
-                `<td data-label=foraging_maybe3-${i} id=foraging_maybe3-${i} contenteditable="true">${databaseData3[i].foraging_maybe}</td>` +
-                `<td data-label=foraging_sure3-${i} id=foraging_sure3-${i} contenteditable="true">${databaseData3[i].foraging_sure}</td>` +
-                `<td data-label=mating3-${i} id=mating3-${i} contenteditable="true">${databaseData3[i].mating}</td>` +
-                `<td data-label=splash_interaction3-${i} id=splash_interaction3-${i} contenteditable="true">${databaseData3[i].splash_interaction}</td>` +
-                `<td data-label=snorkel3-${i} id=snorkel3-${i} contenteditable="true">${databaseData3[i].snorkel}</td>` +
-                `<td data-label=racing3-${i} id=racing3-${i} contenteditable="true">${databaseData3[i].racing}</td>` +
-                `<td data-label=jump3-${i} id=jump3-${i} contenteditable="true">${databaseData3[i].jump}</td>` +
-                `<td data-label=surfing_artificial3-${i} id=surfing_artificial3-${i} contenteditable="true">${databaseData3[i].surfing_artificial}</td>` +
-                `<td data-label=surfing3-${i} id=surfing3-${i} contenteditable="true">${databaseData3[i].surfing}</td>` +
-                `<td data-label=tail_lift3-${i} id=tail_lift3-${i} contenteditable="true">${databaseData3[i].tail_lift}</td>` +
-                `<td data-label=contact3-${i} id=contact3-${i} contenteditable="true">${databaseData3[i].contact}</td>` +
-                `<td data-label=backstroke3-${i} id=backstroke3-${i} contenteditable="true">${databaseData3[i].backstroke}</td>` +
-                `<td data-label=boat_no3-${i} id=boat_no3-${i} contenteditable="true">${databaseData3[i].boat_no}</td>` +
-                `<td data-label=other3-${i} id=other3-${i} contenteditable="true">${databaseData3[i].other}</td>`;
-        '</tr>';
+      for (i = numInfos; i < numInfos - 1 + pageSize; i++) {
+        const dataRow =
+          '<tr>' +
+          `<td data-label=id-${i} id=id-${i}>${databaseData[i].id}</td>` +
+          `<td data-label=sailing_id-${i} id=sailing_id-${i} contenteditable="true">${databaseData[i].sailing_id}</td>` +
+          `<td data-label=sighting_id-${i} id=sighting_id-${i} contenteditable="true">${databaseData[i].sighting_id}</td>` +
+          `<td data-label=mix-${i} id=mix-${i} contenteditable="true">${databaseData[i].mix}</td>` +
+          `<td data-label=dolphin_type-${i} id=dolphin_type-${i} contenteditable="true">${databaseData[i].dolphin_type}</td>` +
+          `<td data-label=year-${i} id=year-${i} contenteditable="true">${databaseData[i].year}</td>` +
+          `<td data-label=month-${i} id=month-${i} contenteditable="true">${databaseData[i].month}</td>` +
+          `<td data-label=day-${i} id=day-${i} contenteditable="true">${databaseData[i].day}</td>` +
+          `<td data-label=period-${i} id=period-${i} contenteditable="true">${databaseData[i].period}</td>` +
+          `<td data-label=departure-${i} id=departure-${i} contenteditable="true">${databaseData[i].departure}</td>` +
+          `<td data-label=arrival-${i} id=arrival-${i} contenteditable="true">${databaseData[i].arrival}</td>` +
+          `<td data-label=boat_size-${i} id=boat_size-${i} contenteditable="true">${databaseData[i].boat_size}</td>` +
+          `<td data-label=sighting-${i} id=sighting-${i} contenteditable="true">${databaseData[i].sighting}</td>` +
+          `<td data-label=gps_no-${i} id=gps_no-${i} contenteditable="true">${databaseData[i].gps_no}</td>` +
+          `<td data-label=guide-${i} id=guide-${i} contenteditable="true">${databaseData[i].guide}</td>` +
+          `<td data-label=recorder-${i} id=recorder-${i} contenteditable="true">${databaseData[i].recorder}</td>` +
+          `<td data-label=observations-${i} id=observations-${i} contenteditable="true">${databaseData[i].observations}</td>` +
+          `<td data-label=weather-${i} id=weather-${i} contenteditable="true">${databaseData[i].weather}</td>` +
+          `<td data-label=wind_direction-${i} id=wind_direction-${i} contenteditable="true">${databaseData[i].wind_direction}</td>` +
+          `<td data-label=wave_condition-${i} id=wave_condition-${i} contenteditable="true">${databaseData[i].wave_condition}</td>` +
+          `<td data-label=current-${i} id=current-${i} contenteditable="true">${databaseData[i].current}</td>` +
+          `<td data-label=latitude-${i} id=latitude-${i} contenteditable="true">${databaseData[i].latitude}</td>` +
+          `<td data-label=latitude_min-${i} id=latitude_min-${i} contenteditable="true">${databaseData[i].latitude_min}</td>` +
+          `<td data-label=latitude_sec-${i} id=latitude_sec-${i} contenteditable="true">${databaseData[i].latitude_sec}</td>` +
+          `<td data-label=longitude-${i} id=longitude-${i} contenteditable="true">${databaseData[i].longitude}</td>` +
+          `<td data-label=longitude_min-${i} id=longitude_min-${i} contenteditable="true">${databaseData[i].longitude_min}</td>` +
+          `<td data-label=longitude_sec-${i} id=longitude_sec-${i} contenteditable="true">${databaseData[i].longitude_sec}</td>` +
+          `<td data-label=approach_time-${i} id=approach_time-${i} contenteditable="true">${databaseData[i].approach_time}</td>` +
+          `<td data-label=approach_gps_no-${i} id=approach_gps_no-${i} contenteditable="true">${databaseData[i].approach_gps_no}</td>` +
+          `<td data-label=leaving_time-${i} id=leaving_time-${i} contenteditable="true">${databaseData[i].leaving_time}</td>` +
+          `<td data-label=leaving_gps_no-${i} id=leaving_gps_no-${i} contenteditable="true">${databaseData[i].leaving_gps_no}</td>` +
+          `<td data-label=leaving_method-${i} id=leaving_method-${i} contenteditable="true">${databaseData[i].leaving_method}</td>` +
+          `<td data-label=sighting_method-${i} id=sighting_method-${i} contenteditable="true">${databaseData[i].sighting_method}</td>` +
+          `<td data-label=type_confirmation-${i} id=type_confirmation-${i} contenteditable="true">${databaseData[i].type_confirmation}</td>` +
+          `<td data-label=dolphin_group_no-${i} id=dolphin_group_no-${i} contenteditable="true">${databaseData[i].dolphin_group_no}</td>` +
+          `<td data-label=dolphin_type_no-${i} id=dolphin_type_no-${i} contenteditable="true">${databaseData[i].dolphin_type_no}</td>` +
+          `<td data-label=dorsal_fin-${i} id=dorsal_fin-${i} contenteditable="true">${databaseData[i].dorsal_fin}</td>` +
+          `<td data-label=exhalation-${i} id=exhalation-${i} contenteditable="true">${databaseData[i].exhalation}</td>` +
+          `<td data-label=splash-${i} id=splash-${i} contenteditable="true">${databaseData[i].splash}</td>` +
+          `<td data-label=exhibition-${i} id=exhibition-${i} contenteditable="true">${databaseData[i].exhibition}</td>` +
+          `<td data-label=mother_child-${i} id=mother_child-${i} contenteditable="true">${databaseData[i].mother_child}</td>` +
+          `<td data-label=mother_child_no-${i} id=mother_child_no-${i} contenteditable="true">${databaseData[i].mother_child_no}</td>` +
+          `<td data-label=group_size_lowest-${i} id=group_size_lowest-${i} contenteditable="true">${databaseData[i].group_size_lowest}</td>` +
+          `<td data-label=group_size_probable-${i} id=group_size_probable-${i} contenteditable="true">${databaseData[i].group_size_probable}</td>` +
+          `<td data-label=group_size_highest-${i} id=group_size_highest-${i} contenteditable="true">${databaseData[i].group_size_highest}</td>` +
+          `<td data-label=mix-${i} id=mix-${i} contenteditable="true">${databaseData[i].mix}</td>` +
+          `<td data-label=time1-${i} id=time1-${i} contenteditable="true">${databaseData[i].time}</td>` +
+          `<td data-label=boat_interaction1-${i} id=boat_interaction1-${i} contenteditable="true">${databaseData[i].boat_interaction}</td>` +
+          `<td data-label=boat_distance1-${i} id=boat_distance1-${i} contenteditable="true">${databaseData[i].boat_distance}</td>` +
+          `<td data-label=group_closeness_normal1-${i} id=group_closeness_normal1-${i} contenteditable="true">${databaseData[i].group_closeness_normal}</td>` +
+          `<td data-label=group_closeness_spreaded1-${i} id=group_closeness_spreaded1-${i} contenteditable="true">${databaseData[i].group_closeness_spreaded}</td>` +
+          `<td data-label=group_closeness_close1-${i} id=group_closeness_close1-${i} contenteditable="true">${databaseData[i].group_closeness_close}</td>` +
+          `<td data-label=speed_slow1-${i} id=speed_slow1-${i} contenteditable="true">${databaseData[i].speed_slow}</td>` +
+          `<td data-label=speed_moderate1-${i} id=speed_moderate1-${i} contenteditable="true">${databaseData[i].speed_moderate}</td>` +
+          `<td data-label=speed_fast1-${i} id=speed_fast1-${i} contenteditable="true">${databaseData[i].speed_fast}</td>` +
+          `<td data-label=speed_resting1-${i} id=speed_resting1-${i} contenteditable="true">${databaseData[i].speed_resting}</td>` +
+          `<td data-label=speed_circling1-${i} id=speed_circling1-${i} contenteditable="true">${databaseData[i].speed_circling}</td>` +
+          `<td data-label=foraging_maybe1-${i} id=foraging_maybe1-${i} contenteditable="true">${databaseData[i].foraging_maybe}</td>` +
+          `<td data-label=foraging_sure1-${i} id=foraging_sure1-${i} contenteditable="true">${databaseData[i].foraging_sure}</td>` +
+          `<td data-label=mating1-${i} id=mating1-${i} contenteditable="true">${databaseData[i].mating}</td>` +
+          `<td data-label=splash_interaction1-${i} id=splash_interaction1-${i} contenteditable="true">${databaseData[i].splash_interaction}</td>` +
+          `<td data-label=snorkel1-${i} id=snorkel1-${i} contenteditable="true">${databaseData[i].snorkel}</td>` +
+          `<td data-label=racing1-${i} id=racing1-${i} contenteditable="true">${databaseData[i].racing}</td>` +
+          `<td data-label=jump1-${i} id=jump1-${i} contenteditable="true">${databaseData[i].jump}</td>` +
+          `<td data-label=surfing_artificial1-${i} id=surfing_artificial1-${i} contenteditable="true">${databaseData[i].surfing_artificial}</td>` +
+          `<td data-label=surfing1-${i} id=surfing1-${i} contenteditable="true">${databaseData[i].surfing}</td>` +
+          `<td data-label=tail_lift1-${i} id=tail_lift1-${i} contenteditable="true">${databaseData[i].tail_lift}</td>` +
+          `<td data-label=contact1-${i} id=contact1-${i} contenteditable="true">${databaseData[i].contact}</td>` +
+          `<td data-label=backstroke1-${i} id=backstroke1-${i} contenteditable="true">${databaseData[i].backstroke}</td>` +
+          `<td data-label=boat_no1-${i} id=boat_no1-${i} contenteditable="true">${databaseData[i].boat_no}</td>` +
+          `<td data-label=other1-${i} id=other1-${i} contenteditable="true">${databaseData[i].other}</td>` +
+          `<td data-label=time2-${i} id=time2-${i} contenteditable="true">${databaseData2[i].time}</td>` +
+          `<td data-label=boat_interaction2-${i} id=boat_interaction2-${i} contenteditable="true">${databaseData2[i].boat_interaction}</td>` +
+          `<td data-label=boat_distance2-${i} id=boat_distance2-${i} contenteditable="true">${databaseData2[i].boat_distance}</td>` +
+          `<td data-label=group_closeness_normal2-${i} id=group_closeness_normal2-${i} contenteditable="true">${databaseData2[i].group_closeness_normal}</td>` +
+          `<td data-label=group_closeness_spreaded2-${i} id=group_closeness_spreaded2-${i} contenteditable="true">${databaseData2[i].group_closeness_spreaded}</td>` +
+          `<td data-label=group_closeness_close2-${i} id=group_closeness_close2-${i} contenteditable="true">${databaseData2[i].group_closeness_close}</td>` +
+          `<td data-label=speed_slow2-${i} id=speed_slow2-${i} contenteditable="true">${databaseData2[i].speed_slow}</td>` +
+          `<td data-label=speed_moderate2-${i} id=speed_moderate2-${i} contenteditable="true">${databaseData2[i].speed_moderate}</td>` +
+          `<td data-label=speed_fast2-${i} id=speed_fast2-${i} contenteditable="true">${databaseData2[i].speed_fast}</td>` +
+          `<td data-label=speed_resting2-${i} id=speed_resting2-${i} contenteditable="true">${databaseData2[i].speed_resting}</td>` +
+          `<td data-label=speed_circling2-${i} id=speed_circling2-${i} contenteditable="true">${databaseData2[i].speed_circling}</td>` +
+          `<td data-label=foraging_maybe2-${i} id=foraging_maybe2-${i} contenteditable="true">${databaseData2[i].foraging_maybe}</td>` +
+          `<td data-label=foraging_sure2-${i} id=foraging_sure2-${i} contenteditable="true">${databaseData2[i].foraging_sure}</td>` +
+          `<td data-label=mating2-${i} id=mating2-${i} contenteditable="true">${databaseData2[i].mating}</td>` +
+          `<td data-label=splash_interaction2-${i} id=splash_interaction2-${i} contenteditable="true">${databaseData2[i].splash_interaction}</td>` +
+          `<td data-label=snorkel2-${i} id=snorkel2-${i} contenteditable="true">${databaseData2[i].snorkel}</td>` +
+          `<td data-label=racing2-${i} id=racing2-${i} contenteditable="true">${databaseData2[i].racing}</td>` +
+          `<td data-label=jump2-${i} id=jump2-${i} contenteditable="true">${databaseData2[i].jump}</td>` +
+          `<td data-label=surfing_artificial2-${i} id=surfing_artificial2-${i} contenteditable="true">${databaseData2[i].surfing_artificial}</td>` +
+          `<td data-label=surfing2-${i} id=surfing2-${i} contenteditable="true">${databaseData2[i].surfing}</td>` +
+          `<td data-label=tail_lift2-${i} id=tail_lift2-${i} contenteditable="true">${databaseData2[i].tail_lift}</td>` +
+          `<td data-label=contact2-${i} id=contact2-${i} contenteditable="true">${databaseData2[i].contact}</td>` +
+          `<td data-label=backstroke2-${i} id=backstroke2-${i} contenteditable="true">${databaseData2[i].backstroke}</td>` +
+          `<td data-label=boat_no2-${i} id=boat_no2-${i} contenteditable="true">${databaseData2[i].boat_no}</td>` +
+          `<td data-label=other2-${i} id=other2-${i} contenteditable="true">${databaseData2[i].other}</td>` +
+          `<td data-label=time3-${i} id=time3-${i} contenteditable="true">${databaseData3[i].time}</td>` +
+          `<td data-label=boat_interaction3-${i} id=boat_interaction3-${i} contenteditable="true">${databaseData3[i].boat_interaction}</td>` +
+          `<td data-label=boat_distance3-${i} id=boat_distance3-${i} contenteditable="true">${databaseData3[i].boat_distance}</td>` +
+          `<td data-label=group_closeness_normal3-${i} id=group_closeness_normal3-${i} contenteditable="true">${databaseData3[i].group_closeness_normal}</td>` +
+          `<td data-label=group_closeness_spreaded3-${i} id=group_closeness_spreaded3-${i} contenteditable="true">${databaseData3[i].group_closeness_spreaded}</td>` +
+          `<td data-label=group_closeness_close3-${i} id=group_closeness_close3-${i} contenteditable="true">${databaseData3[i].group_closeness_close}</td>` +
+          `<td data-label=speed_slow3-${i} id=speed_slow3-${i} contenteditable="true">${databaseData3[i].speed_slow}</td>` +
+          `<td data-label=speed_moderate3-${i} id=speed_moderate3-${i} contenteditable="true">${databaseData3[i].speed_moderate}</td>` +
+          `<td data-label=speed_fast3-${i} id=speed_fast3-${i} contenteditable="true">${databaseData3[i].speed_fast}</td>` +
+          `<td data-label=speed_resting3-${i} id=speed_resting3-${i} contenteditable="true">${databaseData3[i].speed_resting}</td>` +
+          `<td data-label=speed_circling3-${i} id=speed_circling3-${i} contenteditable="true">${databaseData3[i].speed_circling}</td>` +
+          `<td data-label=foraging_maybe3-${i} id=foraging_maybe3-${i} contenteditable="true">${databaseData3[i].foraging_maybe}</td>` +
+          `<td data-label=foraging_sure3-${i} id=foraging_sure3-${i} contenteditable="true">${databaseData3[i].foraging_sure}</td>` +
+          `<td data-label=mating3-${i} id=mating3-${i} contenteditable="true">${databaseData3[i].mating}</td>` +
+          `<td data-label=splash_interaction3-${i} id=splash_interaction3-${i} contenteditable="true">${databaseData3[i].splash_interaction}</td>` +
+          `<td data-label=snorkel3-${i} id=snorkel3-${i} contenteditable="true">${databaseData3[i].snorkel}</td>` +
+          `<td data-label=racing3-${i} id=racing3-${i} contenteditable="true">${databaseData3[i].racing}</td>` +
+          `<td data-label=jump3-${i} id=jump3-${i} contenteditable="true">${databaseData3[i].jump}</td>` +
+          `<td data-label=surfing_artificial3-${i} id=surfing_artificial3-${i} contenteditable="true">${databaseData3[i].surfing_artificial}</td>` +
+          `<td data-label=surfing3-${i} id=surfing3-${i} contenteditable="true">${databaseData3[i].surfing}</td>` +
+          `<td data-label=tail_lift3-${i} id=tail_lift3-${i} contenteditable="true">${databaseData3[i].tail_lift}</td>` +
+          `<td data-label=contact3-${i} id=contact3-${i} contenteditable="true">${databaseData3[i].contact}</td>` +
+          `<td data-label=backstroke3-${i} id=backstroke3-${i} contenteditable="true">${databaseData3[i].backstroke}</td>` +
+          `<td data-label=boat_no3-${i} id=boat_no3-${i} contenteditable="true">${databaseData3[i].boat_no}</td>` +
+          `<td data-label=other3-${i} id=other3-${i} contenteditable="true">${databaseData3[i].other}</td>`;
+        ('</tr>');
         $('thead').append(dataRow);
       }
     }
-    pageNum = result.next_paging -1;
+    pageNum = result.next_paging - 1;
     pageSize = 10;
     const numInfos = pageNum * pageSize;
     createTableRow(numInfos, pageSize);
@@ -168,7 +169,7 @@
 async function updateSubmit() {
   try {
     pageSize = 10;
-    const id =[];
+    const id = [];
     const sailing_id = [];
     const sighting_id = [];
     const mix = [];
@@ -290,8 +291,7 @@ async function updateSubmit() {
     const boat_no3 = [];
     const other3 = [];
 
-
-    for (i=0; i < pageSize; i++) {
+    for (i = 0; i < pageSize; i++) {
       id.push($(`#id-${i}`).text());
       sailing_id.push($(`#sailing_id-${i}`).text());
       sighting_id.push($(`#sighting_id-${i}`).text());
@@ -342,7 +342,9 @@ async function updateSubmit() {
       boat_interaction1.push($(`#boat_interaction1-${i}`).text());
       boat_distance1.push($(`#boat_distance1-${i}`).text());
       group_closeness_normal1.push($(`#group_closeness_normal1-${i}`).text());
-      group_closeness_spreaded1.push($(`#group_closeness_spreaded1-${i}`).text());
+      group_closeness_spreaded1.push(
+        $(`#group_closeness_spreaded1-${i}`).text()
+      );
       group_closeness_close1.push($(`#group_closeness_close1-${i}`).text());
       speed_slow1.push($(`#speed_slow1-${i}`).text());
       speed_moderate1.push($(`#speed_moderate1-${i}`).text());
@@ -367,7 +369,9 @@ async function updateSubmit() {
       boat_interaction2.push($(`#boat_interaction2-${i}`).text());
       boat_distance2.push($(`#boat_distance2-${i}`).text());
       group_closeness_normal2.push($(`#group_closeness_normal2-${i}`).text());
-      group_closeness_spreaded2.push($(`#group_closeness_spreaded2-${i}`).text());
+      group_closeness_spreaded2.push(
+        $(`#group_closeness_spreaded2-${i}`).text()
+      );
       group_closeness_close2.push($(`#group_closeness_close2-${i}`).text());
       speed_slow2.push($(`#speed_slow2-${i}`).text());
       speed_moderate2.push($(`#speed_moderate2-${i}`).text());
@@ -392,7 +396,9 @@ async function updateSubmit() {
       boat_interaction3.push($(`#boat_interaction3-${i}`).text());
       boat_distance3.push($(`#boat_distance3-${i}`).text());
       group_closeness_normal3.push($(`#group_closeness_normal3-${i}`).text());
-      group_closeness_spreaded3.push($(`#group_closeness_spreaded3-${i}`).text());
+      group_closeness_spreaded3.push(
+        $(`#group_closeness_spreaded3-${i}`).text()
+      );
       group_closeness_close3.push($(`#group_closeness_close3-${i}`).text());
       speed_slow3.push($(`#speed_slow3-${i}`).text());
       speed_moderate3.push($(`#speed_moderate3-${i}`).text());
@@ -554,7 +560,7 @@ async function updateSubmit() {
       alert('the table has not been updated.');
     }
   } catch (err) {
-    console.log('Error', err );
+    console.log('Error', err);
   }
 }
 
@@ -566,11 +572,12 @@ async function download() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken,
+        Authorization: 'Bearer ' + accessToken,
       },
     };
-    const rawResponse = await fetch(url, options);
-    const response = await rawResponse.json();
+    // const rawResponse = await fetch(url, options);
+    // const response = await rawResponse.json();
+    const response = await fetch(url, options);
     if (response.error) {
       alert(response.error);
     }
@@ -580,7 +587,7 @@ async function download() {
     let receivedLength = 0;
     const chunks = [];
     while (true) {
-      const {done, value} = await reader.read();
+      const { done, value } = await reader.read();
       if (done) {
         break;
       }
@@ -598,11 +605,13 @@ async function download() {
     link.parentNode.removeChild(link);
     window.URL.revokeObjectURL(blobUrl);
   } catch (err) {
-    console.log('Error', err );
+    console.log('Error', err);
   }
 }
 
 $('.toggle-button').on('click', () => {
-  document.querySelector('sidebar-component').shadowRoot.querySelector('.util')
-      .classList.remove('hide');
+  document
+    .querySelector('sidebar-component')
+    .shadowRoot.querySelector('.util')
+    .classList.remove('hide');
 });
