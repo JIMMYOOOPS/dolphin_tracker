@@ -1,7 +1,7 @@
 const Data = require('../models/sightdata_model');
 const Util = require('../../utils/util');
 const xlsx = require('node-xlsx');
-const {Readable} = require('stream');
+const { Readable } = require('stream');
 let pageSize = 4;
 const imageHost = 'https://d1h1kjqdrbfuwo.cloudfront.net/';
 
@@ -81,7 +81,7 @@ const createData = async (req, res) => {
 
     const obvInteraction = {};
     // For table obv_interaction(0-10, 11-20, 21-30)
-    for (i = 0; i<data.time.length; i++) {
+    for (i = 0; i < data.time.length; i++) {
       obvInteraction[i] = {
         obv_id: sailingInfo.insertId,
         time: data.time[i],
@@ -116,8 +116,12 @@ const createData = async (req, res) => {
     // For table image
     async function uploadImage(file, location) {
       const uploadResponse = await Util.uploadS3(file, location);
-      const main_imageLocation = uploadResponse[0] ? imageHost + uploadResponse[0].key : null;
-      const imagesLocation = uploadResponse[1] ? imageHost + uploadResponse[1].key : null;
+      const main_imageLocation = uploadResponse[0]
+        ? imageHost + uploadResponse[0].key
+        : null;
+      const imagesLocation = uploadResponse[1]
+        ? imageHost + uploadResponse[1].key
+        : null;
       const image = {
         obv_id: location,
         main_image: main_imageLocation,
@@ -154,7 +158,7 @@ const getDataAll = async (req, res) => {
     let result = {};
     if (category == 'all') {
       const getDataAll = await Data.getDataAll(null, null);
-      result = {data: getDataAll.data};
+      result = { data: getDataAll.data };
       res.status(200).json(result);
     } else if (category == 'database') {
       pageSize = 10;
@@ -162,14 +166,17 @@ const getDataAll = async (req, res) => {
       const obvInteraction20mins = getDataAll.obvInteraction20mins;
       const obvInteraction30mins = getDataAll.obvInteraction30mins;
 
-      result = (getDataAll.dataCount > (paging + 1) * pageSize) ? {
-        data: getDataAll.data,
-        obvInteraction20mins: obvInteraction20mins,
-        obvInteraction30mins: obvInteraction30mins,
-        next_paging: paging + 1,
-      } : {
-        data: getDataAll.data,
-      };
+      result =
+        getDataAll.dataCount > (paging + 1) * pageSize
+          ? {
+              data: getDataAll.data,
+              obvInteraction20mins: obvInteraction20mins,
+              obvInteraction30mins: obvInteraction30mins,
+              next_paging: paging + 1,
+            }
+          : {
+              data: getDataAll.data,
+            };
       res.status(200).json(result);
     }
   } catch (error) {
@@ -318,7 +325,13 @@ const updateData = async (req, res) => {
       boat_no3: data.boat_no3,
       other3: data.other3,
     };
-    const result = await Data.updateData(sailingInfoData, obvGPS, obvApproach, obvDetail, obvInteraction);
+    const result = await Data.updateData(
+      sailingInfoData,
+      obvGPS,
+      obvApproach,
+      obvDetail,
+      obvInteraction
+    );
     res.status(200).json(result);
   } catch (error) {
     return error;
@@ -337,7 +350,14 @@ const getDataMap = async (req, res) => {
           // Amend date format to YYYYMMDD
           const range = req.body.range.split('. ');
           const type = req.body.type;
-          const [startYear, startMonth, startDay, rawEndYear, endMonth, rawEndDay] = range;
+          const [
+            startYear,
+            startMonth,
+            startDay,
+            rawEndYear,
+            endMonth,
+            rawEndDay,
+          ] = range;
           const endDayArr = rawEndDay.split('.');
           const endDay = endDayArr[0];
           const endYearArr = rawEndYear.split('- ');
@@ -345,13 +365,17 @@ const getDataMap = async (req, res) => {
           const startDate = startYear + startMonth + startDay;
           const endDate = endYear + endMonth + endDay;
           if (range && type) {
-            return await Data.getDataMap(null, null, {startDate, endDate, type});
+            return await Data.getDataMap(null, null, {
+              startDate,
+              endDate,
+              type,
+            });
           } else if (range) {
-            return await Data.getDataMap(null, null, {startDate, endDate});
-          };
-        };
-      };
-    };
+            return await Data.getDataMap(null, null, { startDate, endDate });
+          }
+        }
+      }
+    }
     let result = {
       data: await findSightData(category),
     };
@@ -370,26 +394,30 @@ const getDataDolphin = async (req, res) => {
     switch (category) {
       case 'all':
         const getDataDolphin = await Data.getDataDolphin(pageSize, paging);
-        result = (getDataDolphin.dataCount > (paging + 1) * pageSize) ? {
-          data: getDataDolphin.data,
-          next_paging: paging + 1,
-        } : {
-          data: getDataDolphin.data,
-        };
+        result =
+          getDataDolphin.dataCount > (paging + 1) * pageSize
+            ? {
+                data: getDataDolphin.data,
+                next_paging: paging + 1,
+              }
+            : {
+                data: getDataDolphin.data,
+              };
       case 'details': {
         const id = parseInt(req.query.id);
         if (Number.isInteger(id)) {
-          const getDataDolphin = await Data.getDataDolphin(pageSize, paging, {id});
+          const getDataDolphin = await Data.getDataDolphin(pageSize, paging, {
+            id,
+          });
           result = {
             data: getDataDolphin.data,
           };
-        };
+        }
       }
     }
     res.status(200).json(result);
   } catch (error) {
     return error;
-    
   }
 };
 
@@ -518,7 +546,7 @@ const getDownload = async (req, res) => {
     const data = await Data.getDownload();
     let dataAll = {};
     dataResult = [];
-    for (i=0; i<data.all.length; i++) {
+    for (i = 0; i < data.all.length; i++) {
       dataAll = {
         sailing_id: data.all[i].sailing_id,
         year: data.all[i].year,
@@ -588,15 +616,29 @@ const getDownload = async (req, res) => {
 
     const result = [];
     for (i = 0; i < dataArray.length; i++) {
-      result.push(dataArray[i].concat(obvInteraction10Array[i], obvInteraction20Array[i], obvInteraction30Array[i]));
+      result.push(
+        dataArray[i].concat(
+          obvInteraction10Array[i],
+          obvInteraction20Array[i],
+          obvInteraction30Array[i]
+        )
+      );
     }
     result.unshift(columnName);
 
     const currentDate = new Date().toISOString().split('T')[0];
-    const buffer = xlsx.build([{name: `${currentDate}_dolphin_sighting`, data: result}]);
+    const buffer = xlsx.build([
+      { name: `${currentDate}_dolphin_sighting`, data: result },
+    ]);
     const stream = Readable.from(buffer);
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + currentDate + '-dolphinsighting.xlsx');
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=' + currentDate + '-dolphinsighting.xlsx'
+    );
     stream.pipe(res);
   } catch (error) {
     return error;
@@ -611,4 +653,3 @@ module.exports = {
   getDataDolphin,
   getDownload,
 };
-
