@@ -1,73 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dolphin Tracker</title>
     <script src="https://js.arcgis.com/4.23/"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"
+    />
     <link href="/styles/tracker.css" rel="stylesheet" />
-    <link rel="icon" href="https://d1h1kjqdrbfuwo.cloudfront.net/assets/favicon.ico" type="image/x-icon">
+    <link
+      rel="icon"
+      href="https://d1h1kjqdrbfuwo.cloudfront.net/assets/favicon.ico"
+      type="image/x-icon"
+    />
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script src="/components/header.js" type="text/javascript" defer></script>
     <script src="/components/footer.js" type="text/javascript" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <header-component></header-component>
     <main>
-        <div id="about">
-            <div id="about-title"><h1>花東鯨豚<br>調查紀錄</h1></div>
-            <div id="about-body">從1996年起，台大生演所的周蓮香教授與助理楊世主、海洋作家廖鴻基、花蓮在地船長潘進龍等人成立「福爾摩沙尋鯨小組」，開始在鯨豚發現率較高的東部海域、墾丁海域進行海上鯨豚資源調查的工作，對台灣海域出現的鯨豚種類做初期盤點、紀錄，並啟動「黑潮海洋文教基金會」，成立的契機。並於1998年成立黑潮文教基金會，透過與賞鯨業者合作，每年培訓海上解說員在船上進行解說教育工作，並在每一趟船班上進行調查，並已累積逾萬筆的鯨豚調查記錄，期透過數據呈現花蓮海域的鯨豚及族群分布狀況。</div>
+      <div id="about">
+        <div id="about-title">
+          <h1>花東鯨豚<br />調查紀錄</h1>
         </div>
-        <div id="content">
-            <div class="selection">
-                <div class="title">篩選條件</div>
-                <div class="date-box">
-                    <label for="amount">選擇日期:</label>
-                    <div class="line"></div>
-                    <input type="text" id="amount" name="amount"/>
-                    <div id="slider-range"></div>
-                </div>
-                <div class="type-box">
-                <label for="type-select">種類:</label>
-                    <div class="line"></div>
-                    <select name="type-select" class="type-select">
-                        <option value="">select</option>
-                        <option value="Be">布氏鯨</option>
-                        <option value="Bo">大村鯨</option>
-                        <option value="Dc">長吻真海豚</option>
-                        <option value="Fa">小虎鯨</option>
-                        <option value="Gg">偽虎鯨</option>
-                        <option value="Gm">短肢領航鯨</option>
-                        <option value="Lh">弗氏海豚</option>
-                        <option value="Mn">大翅鯨</option>
-                        <option value="Oo">虎鯨</option>
-                        <option value="Pc">偽虎鯨</option>
-                        <option value="Pe">瓜頭鯨</option>
-                        <option value="Pm">抹香鯨</option>
-                        <option value="Sa">熱帶斑海豚</option>
-                        <option value="Sb">糙齒海豚</option>
-                        <option value="Sl">長吻飛旋海豚</option>
-                        <option value="Tt">真瓶鼻海豚</option>
-                        <option value="Zc">柯氏喙鯨</option>
-                    </select>
-                </div>
-                <button type="button" class="search-submit" onclick=" searchSelection()">搜尋</button>
-            </div>
+        <div id="about-body">
+          從1996年起，台大生演所的周蓮香教授與助理楊世主、海洋作家廖鴻基、花蓮在地船長潘進龍等人成立「福爾摩沙尋鯨小組」，開始在鯨豚發現率較高的東部海域、墾丁海域進行海上鯨豚資源調查的工作，對台灣海域出現的鯨豚種類做初期盤點、紀錄，並啟動「黑潮海洋文教基金會」，成立的契機。並於1998年成立黑潮文教基金會，透過與賞鯨業者合作，每年培訓海上解說員在船上進行解說教育工作，並在每一趟船班上進行調查，並已累積逾萬筆的鯨豚調查記錄，期透過數據呈現花蓮海域的鯨豚及族群分布狀況。
+        </div>
+      </div>
+      <div id="content">
+        <div class="selection">
+          <div class="title">篩選條件</div>
+          <div class="date-box">
+            <label for="amount">選擇日期:</label>
+            <div class="line"></div>
+            <input type="text" id="amount" name="amount" />
+            <div id="slider-range"></div>
+          </div>
+          <div class="type-box">
+            <label for="type-select">種類:</label>
+            <div class="line"></div>
+            <select name="type-select" class="type-select">
+              <option value="">select</option>
+              <option value="Be">布氏鯨</option>
+              <option value="Bo">大村鯨</option>
+              <option value="Dc">長吻真海豚</option>
+              <option value="Fa">小虎鯨</option>
+              <option value="Gg">瑞士海豚</option>
+              <option value="Gm">短肢領航鯨</option>
+              <option value="Lh">弗氏海豚</option>
+              <option value="Lh">弗氏海豚</option>
+              <option value="Mn">大翅鯨</option>
+              <option value="Oo">虎鯨</option>
+              <option value="Pc">偽虎鯨</option>
+              <option value="Pe">瓜頭鯨</option>
+              <option value="Pm">抹香鯨</option>
+              <option value="Sa">熱帶斑海豚</option>
+              <option value="Sb">糙齒海豚</option>
+              <option value="Sl">長吻飛旋海豚</option>
+              <option value="Tt">真瓶鼻海豚</option>
+              <option value="Zc">柯氏喙鯨</option>
+            </select>
+          </div>
+          <button
+            type="button"
+            class="search-submit"
+            onclick=" searchSelection()"
+          >
+            搜尋
+          </button>
+        </div>
 
-            <div id="viewDiv">            
-                <div class="legend">
-                    <div class="legend-name">圖例</div>
-                    <div class="legend-dolphin">海豚<span class="circle-dolphin"></span></div>
-                    <div class="legend-whale">鯨魚<span class="circle-whale"></span></div>
-                </div>
+        <div id="viewDiv">
+          <div class="legend">
+            <div class="legend-name">圖例</div>
+            <div class="legend-dolphin">
+              海豚<span class="circle-dolphin"></span>
             </div>
+            <div class="legend-whale">
+              鯨魚<span class="circle-whale"></span>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
     <footer-component></footer-component>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/dark/main.css">
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.23/esri/themes/dark/main.css"
+    />
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
     <script type="text/javascript" src="/src/tracker.js" defer></script>
-</body>
+  </body>
 </html>
