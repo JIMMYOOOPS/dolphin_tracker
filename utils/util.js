@@ -200,6 +200,18 @@ function GPSConvert(result) {
         e.longitude = null;
         e.longitude_min = null;
         e.longitude_sec = null;
+      } else if (
+        e.latitude > 24.245 &&
+        e.latitude < 24.342779 &&
+        e.longitude > 121.726 &&
+        e.longitude < 121.771
+      ) {
+        e.latitude = null;
+        e.latitude_min = null;
+        e.latitude_sec = null;
+        e.longitude = null;
+        e.longitude_min = null;
+        e.longitude_sec = null;
       }
     }
   });
