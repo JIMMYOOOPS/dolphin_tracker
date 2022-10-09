@@ -67,6 +67,7 @@ headerTemplate.innerHTML = `
         </li>
         <li><a href="/tracker.html">追蹤鯨豚</a></li>
         <li><a href="/species.html">認識鯨豚</a></li>
+        <li><a href="/console_login.html">進入後台</a></li>
       </ul>
     </nav>
   </header>
@@ -78,7 +79,7 @@ class Header extends HTMLElement {
   }
 
   connectedCallback() {
-    const shadowRoot = this.attachShadow({mode: 'closed'});
+    const shadowRoot = this.attachShadow({ mode: 'closed' });
     shadowRoot.appendChild(headerTemplate.content);
   }
 }
