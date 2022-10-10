@@ -67,7 +67,7 @@ headerTemplate.innerHTML = `
         </li>
         <li><a href="/tracker.html">追蹤鯨豚</a></li>
         <li><a href="/species.html">認識鯨豚</a></li>
-        <li><a href="/console_login.html">進入後台</a></li>
+        <li><a href="/console_login.html">紀錄鯨豚</a></li>
       </ul>
     </nav>
   </header>
